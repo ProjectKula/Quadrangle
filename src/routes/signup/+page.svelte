@@ -1,41 +1,121 @@
 <script lang="ts">
-	let usn = "";
-	let email = "";
-	let usnError = "";
-	let emailError = "";
+  import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
 
-	function validate(): boolean {
+  let id = "";
+	let email = "";
+	let idError = "";
+	let emailError = "";
+  let emailCode = "";
+  let password = "";
+  let confirmPassword = "";
+  let passwordError = "";
+  let emailCodeError = "";
+  let token = "";
+  let signupStage: "initial" | "code" | "password" | "error" | "finished" = "initial";
+  let loading = false;
+
+	function validateInitial(): boolean {
 		const rvceDomainRegex = /@rvce\.edu\.in$/;
 
-		let usnValid = true;
+		let idValid = true;
 		let emailValid = true;
 
-		if (usn === "") {
-			usnError = "Please enter your USN"
-			usnValid = false;
-		} else if (usn.length < 8) {
-			usnError = "USN must be at least 8 characters"
-			usnValid = false;
+		if (id === "") {
+			idError = "Please enter your RVCE ID";
+			idValid = false;
+		} else if (id.length < 8) {
+			idError = "ID must be at least 8 characters";
+			idValid = false;
 		} else {
-			usnError = ""
+			idError = ""
 		}
 
 		if (email === "") {
-			usnError = "Please enter your RVCE email"
-			usnValid = false;
+			idError = "Please enter your RVCE email";
+			idValid = false;
 		} else if (!rvceDomainRegex.test(email)) {
-			emailError = "Please use an RVCE email address.";
+			emailError = "Please enter an RVCE email address.";
 			emailValid = false;
 		} else {
-			emailError = ""
+			emailError = "";
 		}
 
-		return emailValid && usnValid;
+		return emailValid && idValid;
 	}
 
-	function handleSubmit() {
-		if (validate()) {
-			console.log("Signup successful:", usn, email);
+  function validateCode(): boolean {
+    if (emailCode === "") {
+			emailCodeError = "Please enter the 6 digit code sent to your email";
+			return false;
+    } else if (emailCode.length != 6) {
+			emailCodeError = "Code must be 6 characters";
+			return false;
+    }
+    return true;
+	}
+
+  function validatePassword(): boolean {
+		if (password === "") {
+			passwordError = "Please enter a password";
+      return false;
+		} else if (password.length < 8) {
+			passwordError = "Password must be at least 8 characters";
+			return false;
+		} else if (password !== confirmPassword) {
+			passwordError = "Passwords do not match";
+			return false;
+		}
+    return true;
+	}
+
+	function handleInitialSubmit() {
+		if (validateInitial()) {
+      loading = true
+      requestEmailCode(id, email)
+				.then(resp => {
+          token = resp.state
+					signupStage = "code"
+				})
+				.catch(() => {
+          signupStage = "error"
+				})
+        .finally(() => {
+          loading = false
+        })
+		}
+	}
+
+  function handleCodeSubmit() {
+    if (validateCode()) {
+      loading = true;
+      sendEmailCode(token, emailCode)
+        .then(resp => {
+          token = resp.state
+          signupStage = "password"
+        })
+        .catch(() => {
+          signupStage = "error"
+        })
+				.finally(() => {
+          loading = false
+				})
+    }
+  }
+
+  function handlePasswordSubmit() {
+    if (validatePassword()) {
+			loading = true;
+      setInitialCredentials(token, password)
+        .then(resp => {
+          console.log(resp);
+          signupStage = "finished";
+        })
+        .catch(() => {
+          signupStage = "error";
+        })
+        .finally(() => {
+          loading = false;
+        })
 		}
 	}
 </script>
@@ -44,26 +124,64 @@
 	<div class="w-96 p-8 bg-white shadow-md rounded-md">
 		<h2 class="text-2xl font-semibold mb-4">Sign Up</h2>
 
-		<form on:submit|preventDefault={handleSubmit}>
-			<div class="mb-4">
-				<label for="usn" class="block text-sm font-medium text-gray-600">USN</label>
-				<input type="text" id="usn" bind:value={usn} class="mt-1 p-2 w-full border rounded-md">
-				{#if usnError}
-					<p class="text-red-500 text-xs mt-1">{usnError}</p>
-				{/if}
-			</div>
+		{#if signupStage === "initial"}
+			<form on:submit|preventDefault={handleInitialSubmit}>
+				<div class="mb-4">
+					<label for="rvceId" class="block text-sm font-medium text-gray-600">RVCE ID</label>
+					<input type="text" id="rvceId" bind:value={id} class="mt-1 p-2 w-full border rounded-md">
+					{#if idError}
+						<p class="text-red-500 text-xs mt-1">{idError}</p>
+					{/if}
+				</div>
 
-			<div class="mb-4">
-				<label for="email" class="block text-sm font-medium text-gray-600">RVCE Email</label>
-				<input type="email" id="email" bind:value={email} class="mt-1 p-2 w-full border rounded-md">
-				{#if emailError}
-					<p class="text-red-500 text-xs mt-1">{emailError}</p>
-				{/if}
-			</div>
+				<div class="mb-4">
+					<label for="rvceEmail" class="block text-sm font-medium text-gray-600">RVCE Email</label>
+					<input type="email" id="rvceEmail" bind:value={email} class="mt-1 p-2 w-full border rounded-md">
+					{#if emailError}
+						<p class="text-red-500 text-xs mt-1">{emailError}</p>
+					{/if}
+				</div>
 
-			<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
-				Sign Up
-			</button>
-		</form>
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+					Sign Up
+				</button>
+			</form>
+		{:else if signupStage === "code"}
+			<form on:submit|preventDefault={handleCodeSubmit}>
+				<div class="mb-4">
+					<label for="emailCode" class="block text-sm font-medium text-gray-600">Enter the 6 digit code sent to {email}</label>
+					<input type="text" id="emailCode" bind:value={emailCode} class="mt-1 p-2 w-full border rounded-md">
+					{#if emailCodeError}
+						<p class="text-red-500 text-xs mt-1">{emailCodeError}</p>
+					{/if}
+				</div>
+
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+					Submit
+				</button>
+			</form>
+		{:else if signupStage === "password"}
+			<form on:submit|preventDefault={handlePasswordSubmit}>
+				<div class="mb-4">
+					<label for="password" class="block text-sm font-medium text-gray-600">Password</label>
+					<input type="text" id="password" bind:value={password} class="mt-1 p-2 w-full border rounded-md">
+				</div>
+				<div class="mb-4">
+					<label for="confirmPassword" class="block text-sm font-medium text-gray-600">Confirm Password</label>
+					<input type="text" id="confirmPassword" bind:value={confirmPassword} class="mt-1 p-2 w-full border rounded-md">
+					{#if passwordError}
+						<p class="text-red-500 text-xs mt-1">{passwordError}</p>
+					{/if}
+				</div>
+
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+					Finish Sign Up
+				</button>
+			</form>
+		{:else if signupStage === "finished"}
+			<p>Sign Up Successful!</p>
+		{:else if signupStage === "error"}
+			<p>some error happened help me</p>
+		{/if}
 	</div>
 </div>

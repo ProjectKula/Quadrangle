@@ -18,8 +18,11 @@ export async function requestEmailCode(id: string, email: string) {
 			"email": email
 		})
 	});
-	// Return a SignupStateResponse
-	return response.json().then((data) => data as SignupStateResponse);
+	const body = await response.json()
+	if (response.status != 200) {
+		throw new Error(`Could not request email code ${body}`);
+	}
+	return body as SignupStateResponse;
 }
 
 export async function sendEmailCode(token: string, code: string) {
@@ -33,7 +36,11 @@ export async function sendEmailCode(token: string, code: string) {
 			"code": code
 		})
 	});
-	return response.json().then((data) => data as SignupStateResponse);
+	const body = await response.json()
+	if (response.status != 200) {
+		throw new Error(`Could not send email code ${body}`);
+	}
+	return body as SignupStateResponse;
 }
 
 export async function setInitialCredentials(token: string, password: string) {
@@ -47,5 +54,9 @@ export async function setInitialCredentials(token: string, password: string) {
 			"password": password
 		})
 	});
-	return response.json().then((data) => data as AuthResponse);
+	const body = await response.json()
+	if (response.status != 200) {
+		throw new Error(`Could not set initial credentials ${body}`);
+	}
+	return body as AuthResponse;
 }
