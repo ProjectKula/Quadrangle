@@ -74,7 +74,6 @@
       requestEmailCode(id, email)
 				.then(resp => {
           token = resp.state
-					signupStage = "code"
 				})
 				.catch(() => {
           signupStage = "error"
@@ -82,6 +81,7 @@
         .finally(() => {
           loading = false
         })
+      signupStage = "code"
 		}
 	}
 
