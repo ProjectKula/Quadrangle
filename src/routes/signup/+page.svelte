@@ -1,6 +1,9 @@
 <script lang="ts">
+	// TODO: MASSIVE VIEW CONTROLLER! SPLIT THIS!!
+
   import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
-  import { browser } from '$app/env';
+  import { browser } from '$app/environment';
+  import cookie from 'cookie';
 
   let id = "";
 	let email = "";
@@ -112,6 +115,11 @@
           if (browser) {
             const accessToken = resp.accessToken;
             const refreshToken = resp.refreshToken;
+            const expiresAt = resp.expiresAt;
+
+            document.cookie = cookie.serialize('accessToken', accessToken, { path: '/' });
+            document.cookie = cookie.serialize('refreshToken', refreshToken, { path: '/' });
+            document.cookie = cookie.serialize('expiresAt', String(expiresAt), { path: '/' });
           }
           signupStage = "finished";
         })
