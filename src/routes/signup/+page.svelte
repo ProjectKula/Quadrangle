@@ -1,5 +1,6 @@
 <script lang="ts">
   import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
+  import { browser } from '$app/env';
 
   let id = "";
 	let email = "";
@@ -108,6 +109,10 @@
       setInitialCredentials(token, password)
         .then(resp => {
           console.log(resp);
+          if (browser) {
+            const accessToken = resp.accessToken;
+            const refreshToken = resp.refreshToken;
+          }
           signupStage = "finished";
         })
         .catch(() => {
@@ -164,24 +169,33 @@
 			<form on:submit|preventDefault={handlePasswordSubmit}>
 				<div class="mb-4">
 					<label for="password" class="block text-sm font-medium text-gray-600">Password</label>
-					<input type="text" id="password" bind:value={password} class="mt-1 p-2 w-full border rounded-md">
+					<input type="password" id="password" bind:value={password} class="mt-1 p-2 w-full border rounded-md">
 				</div>
 				<div class="mb-4">
 					<label for="confirmPassword" class="block text-sm font-medium text-gray-600">Confirm Password</label>
-					<input type="text" id="confirmPassword" bind:value={confirmPassword} class="mt-1 p-2 w-full border rounded-md">
+					<input type="password" id="confirmPassword" bind:value={confirmPassword} class="mt-1 p-2 w-full border rounded-md">
 					{#if passwordError}
 						<p class="text-red-500 text-xs mt-1">{passwordError}</p>
 					{/if}
 				</div>
 
 				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
-					Finish Sign Up
+					Sign Up
 				</button>
 			</form>
 		{:else if signupStage === "finished"}
-			<p>Sign Up Successful!</p>
+			<p>All Done!</p>
+			<p>Click the button below to get started</p>
+
+			<a href="/">
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+					Get Started
+				</button>
+			</a>
 		{:else if signupStage === "error"}
-			<p>some error happened help me</p>
+			<p>An error occured. Please report this issue</p>
 		{/if}
+
+		<p>Having errors? Contact <a href="mailto:shrishvd.cy23@rvce.edu.in">Tech Support</a></p>
 	</div>
 </div>
