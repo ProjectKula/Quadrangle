@@ -1,5 +1,10 @@
 <script lang="ts">
-	let id = "";
+	import { loginWithCredentials } from '$lib/auth/login';
+  import { browser } from '$app/environment';
+  import cookie from 'cookie';
+  import { setAuthCookies } from '$lib/auth/authresponse';
+
+  let id = "";
 	let password = "";
 	let idError: string | null = null;
 	let passwordError: string | null = null;
@@ -8,13 +13,13 @@
 		let valid: boolean = true;
 
 		if (!password) {
-			valid = false
-			passwordError = "Please enter a password"
+			valid = false;
+			passwordError = "Please enter a password";
 		}
 
 		if (!id) {
-			valid = false
-			idError = "Please enter USN / Email ID"
+			valid = false;
+			idError = "Please enter RVCE ID / Email ID";
 		}
 
 		return valid;
@@ -22,7 +27,13 @@
 
 	function handleSubmit() {
 		if (validate()) {
-			console.log(`Login successful lol ${id} ${password}`)
+      loginWithCredentials(id, password)
+				.then(resp => {
+          if (browser) {
+            setAuthCookies(resp);
+          }
+        });
+			console.log(`Login successful lol ${id} ${password}`);
 		}
 	}
 </script>

@@ -3,7 +3,7 @@
 
   import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
   import { browser } from '$app/environment';
-  import cookie from 'cookie';
+  import { setAuthCookies } from '$lib/auth/authresponse';
 
   let id = "";
 	let email = "";
@@ -111,15 +111,8 @@
 			loading = true;
       setInitialCredentials(token, password)
         .then(resp => {
-          console.log(resp);
           if (browser) {
-            const accessToken = resp.accessToken;
-            const refreshToken = resp.refreshToken;
-            const expiresAt = resp.expiresAt;
-
-            document.cookie = cookie.serialize('accessToken', accessToken, { path: '/' });
-            document.cookie = cookie.serialize('refreshToken', refreshToken, { path: '/' });
-            document.cookie = cookie.serialize('expiresAt', String(expiresAt), { path: '/' });
+            setAuthCookies(resp);
           }
           signupStage = "finished";
         })
