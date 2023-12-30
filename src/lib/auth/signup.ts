@@ -1,4 +1,3 @@
-// @ts-expect-error it does exist
 import { PUBLIC_ROOT_URL } from '$env/static/public';
 import type { AuthResponse } from '$lib/auth/authresponse';
 
