@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { loginWithCredentials } from '$lib/auth/login';
-  import { browser } from '$app/environment';
-  import { setAuthCookies } from '$lib/auth/authresponse';
+	import { browser } from '$app/environment';
+  import { loginWithCredentials, setAuthCookies } from '$lib/auth/auth';
 
   let id = "";
 	let password = "";

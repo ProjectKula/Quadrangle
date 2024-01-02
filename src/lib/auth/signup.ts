@@ -1,5 +1,5 @@
 import { PUBLIC_ROOT_URL } from '$env/static/public';
-import type { AuthResponse } from '$lib/auth/authresponse';
+import type { AuthResponse } from '$lib/auth/auth';
 
 export interface SignupStateResponse {
 	success: boolean;

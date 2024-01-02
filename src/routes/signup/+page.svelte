@@ -3,7 +3,7 @@
 
   import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
   import { browser } from '$app/environment';
-  import { setAuthCookies } from '$lib/auth/authresponse';
+  import { setAuthCookies } from '$lib/auth/auth';
 
   let id = "";
 	let email = "";
