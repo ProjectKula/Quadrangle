@@ -85,7 +85,7 @@
         .finally(() => {
           loading = false
         })
-      signupStage = "code"
+			signupStage = "code"
 		}
 	}
 

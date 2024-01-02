@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import { PUBLIC_ROOT_URL } from '$env/static/public';
+import { error } from '@sveltejs/kit';
 
 export interface AuthResponse {
   accessToken: string;
