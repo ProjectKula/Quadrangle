@@ -17,7 +17,7 @@ export async function handle({ event, resolve }) {
 
 	const expiresAtNum = parseInt(expiresAt, 10);
 
-	if (Date.now() < (expiresAtNum - 12000)) {
+	if (Date.now() >= (expiresAtNum - 12000)) {
 		let newAuth: AuthResponse
 		try {
 			newAuth = await refreshIdentityToken(accessToken, refreshToken)

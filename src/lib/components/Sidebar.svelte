@@ -11,10 +11,7 @@
 		{ text: 'Profile', icon: faUser, link: '/user/me' }
 	];
 
-	$: currentPath = '';
-	if (browser) {
-		currentPath = getContext('router').url;
-	}
+	let currentPath = '';
 </script>
 
 <div class="flex flex-col items-center p-4 bg-gray-800 text-white">

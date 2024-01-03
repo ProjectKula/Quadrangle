@@ -9,13 +9,19 @@ export interface AuthResponse {
 }
 
 export function setAuthCookies(resp: AuthResponse) {
+  console.log(resp);
   const accessToken = resp.accessToken;
+  console.log(cookie.serialize('accessToken', accessToken, { path: '/', maxAge: 5184000 }));
   const refreshToken = resp.refreshToken;
+  console.log(cookie.serialize('refreshToken', refreshToken, { path: '/', maxAge: 5184000  }));
   const expiresAt = resp.expiresAt;
+  console.log(expiresAt);
 
   document.cookie = cookie.serialize('accessToken', accessToken, { path: '/', maxAge: 5184000 });
   document.cookie = cookie.serialize('refreshToken', refreshToken, { path: '/', maxAge: 5184000  });
   document.cookie = cookie.serialize('expiresAt', String(expiresAt), { path: '/', maxAge: 5184000  });
+
+  console.log(document.cookie);
 }
 
 export function isTokenExpired(): boolean {
@@ -42,7 +48,8 @@ export async function refreshIdentityToken(accessToken: string, refreshToken: st
   const response = await fetch(`${PUBLIC_ROOT_URL}/auth/refresh`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + accessToken
     },
     body: JSON.stringify({
       'refreshToken': refreshToken
