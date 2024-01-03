@@ -39,6 +39,7 @@
 	"dependencies": {
 		"cookie": "^0.6.0",
 		"graphql": "^16.8.1",
+		"graphql-request": "^6.1.0",
 		"svelte-fa": "^3.0.4"
 	}
 }

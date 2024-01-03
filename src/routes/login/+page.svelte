@@ -29,7 +29,7 @@
 				.then(resp => {
           if (browser) {
             setAuthCookies(resp);
-						document.location.href = "/";
+			window.location.href = "/";
           }
         });
 			console.log(`Login successful lol ${id} ${password}`);

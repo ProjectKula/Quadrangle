@@ -3,5 +3,8 @@
 </script>
 
 <div class="flex items-center justify-center h-screen">
-	<p>This is the page of {data.slug}!</p>
+	<p>{data.name}</p>
+	<p>{data.branch}</p>
+	<p>{data.id}</p>
+	<p>Registration number: {data.slug}</p>
 </div>
