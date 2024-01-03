@@ -1,10 +1,8 @@
 <script lang="ts">
-  export let data;
+	import RegularUser from '$lib/components/user/RegularUser.svelte';
+
+	export let data;
 </script>
 
-<div class="flex items-center justify-center h-screen">
-	<p>{data.name}</p>
-	<p>{data.branch}</p>
-	<p>{data.id}</p>
-	<p>Registration number: {data.slug}</p>
-</div>
+<!--TODO: if its the current user, display different component-->
+<RegularUser data={data} />
