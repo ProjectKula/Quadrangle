@@ -20,24 +20,39 @@ export async function handle({ event, resolve }) {
 	if (Date.now() >= (expiresAtNum - 12000)) {
 		let newAuth: AuthResponse
 		try {
-			newAuth = await refreshIdentityToken(accessToken, refreshToken)
+			newAuth = await refreshIdentityToken(accessToken, refreshToken);
+			console.log(newAuth);
 		} catch (e) {
 			// TODO: handle this error
 			return new Response('Redirect', {status: 303, headers: { Location: '/login' }});
 		}
 
+		const accessTokenCookie = cookie.serialize("accessToken", newAuth.accessToken, {
+			httpOnly: false,
+			maxAge: 5184000,
+			path: '/'
+		});
+		const refreshTokenCookie = cookie.serialize("refreshToken", newAuth.refreshToken, {
+			httpOnly: false,
+			maxAge: 5184000,
+			path: '/'
+		});
+		const expiresAtCookie = cookie.serialize("expiresAt", String(newAuth.expiresAt), {
+			httpOnly: false,
+			maxAge: 5184000,
+			path: '/'
+		});
+
 		event.request.headers.set('cookie', [
-			`accessToken=${newAuth.accessToken}; Path=/; Max-Age=5184000`,
-			`refreshToken=${newAuth.refreshToken}; Path=/; Max-Age=5184000`,
-			`expiresAt=${newAuth.expiresAt}; Path=/; Max-Age=5184000`,
+			accessTokenCookie,
+			refreshTokenCookie,
+			expiresAtCookie
 		].join('; '));
 
 		const response = await resolve(event);
-		response.headers.append('Set-Cookie', [
-			`accessToken=${newAuth.accessToken}; Path=/; Max-Age=5184000`,
-			`refreshToken=${newAuth.refreshToken}; Path=/; Max-Age=5184000`,
-			`expiresAt=${newAuth.expiresAt}; Path=/; Max-Age=5184000`,
-		].join('; '))
+		response.headers.append('Set-Cookie', accessTokenCookie);
+		response.headers.append('Set-Cookie', refreshTokenCookie);
+		response.headers.append('Set-Cookie', expiresAtCookie);
 		return response
 	}
 

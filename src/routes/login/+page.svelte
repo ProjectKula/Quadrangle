@@ -32,7 +32,6 @@
 						window.location.href = "/";
           }
         });
-			console.log(`Login successful lol ${id} ${password}`);
 		}
 	}
 </script>
