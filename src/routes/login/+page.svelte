@@ -28,15 +28,18 @@
       loginWithCredentials(id, password)
 				.then(resp => {
           if (browser) {
-            setAuthCookies(resp);
-						window.location.href = "/";
+            if (setAuthCookies(resp)) {
+							window.location.href = "/";
+						} else {
+							passwordError = "Invalid username / password";
+						}
           }
         });
 		}
 	}
 </script>
 
-<div class="flex items-center justify-center h-screen">
+<div class="flex items-center justify-center h-screen text-black">
 	<div class="w-96 p-8 bg-white shadow-md rounded-md">
 		<h2 class="text-2xl font-semibold mb-4">Log In</h2>
 

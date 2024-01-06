@@ -9,7 +9,6 @@ const query = gql`
       dateRegistered
       email
       gender
-      id
       name
       phone
       pronouns
@@ -22,7 +21,6 @@ export interface User {
   dateRegistered: number
   email: string
   gender: string
-  id: string
   name: string
   phone: string
   pronouns: string
@@ -33,7 +31,8 @@ interface Data {
 }
 
 export const load = async ({ params, cookies }) => {
-  const numberSlug = parseInt(params.slug);
+  // const numberSlug = parseInt(params.slug);
+  const numberSlug = 1;
 
   if (!numberSlug) {
     error(404, "Not found")
@@ -47,7 +46,7 @@ export const load = async ({ params, cookies }) => {
   )
 
   return {
-    slug: params.slug,
+    slug: "1",
     ...out.user
   }
 }

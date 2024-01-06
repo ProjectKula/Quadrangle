@@ -10,7 +10,7 @@
 	};
 </script>
 
-<div class="flex flex-col items-center justify-center h-screen">
+<div class="flex flex-col items-center justify-center">
 	<h1 class="text-3xl font-bold mb-4">{data.name}</h1>
 
 	<div class="mb-4">

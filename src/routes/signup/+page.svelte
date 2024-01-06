@@ -18,7 +18,7 @@
   let signupStage: "initial" | "code" | "password" | "error" | "finished" = "initial";
   let loading = false;
 
-	function validateInitial(): boolean {
+  function validateInitial(): boolean {
 		const rvceDomainRegex = /@rvce\.edu\.in$/;
 
 		let idValid = true;
@@ -112,7 +112,7 @@
       setInitialCredentials(token, password)
         .then(resp => {
           if (browser) {
-            setAuthCookies(resp);
+              setAuthCookies(resp);
           }
           signupStage = "finished";
         })

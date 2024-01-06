@@ -5,18 +5,23 @@
 	import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 </script>
 
-<div class="min-h-screen flex flex-col">
+<div class="flex flex-col bg-black h-screen">
 	<div class="flex flex-1">
 		<Sidebar />
 		<div class="flex-1 p-4">
 			<div class="mb-4 flex items-center">
-				<input type="text" placeholder="Search..." class="p-2 border rounded-md flex-1 mr-2">
-				<button class="p-2 bg-gray-800 text-white rounded-md"><Fa icon={faMagnifyingGlass} /></button>
+				<input type="text"
+							 placeholder="Search..."
+							 class="bg-[#2a2a2a] text-white text-lg p-2 border-gray-[#2a2a2a] rounded-md flex-1 mr-2"
+				>
+				<button class="p-2 bg-gray-800 text-white rounded-md"><Fa icon={faMagnifyingGlass} size="lg"/></button>
 			</div>
 			<div class="flex-1">
 				<slot />
 			</div>
 		</div>
+		<div class="flex flex-none">
+			<Footer />
+		</div>
 	</div>
-	<Footer />
 </div>

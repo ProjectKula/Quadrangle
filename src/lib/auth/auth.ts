@@ -8,14 +8,19 @@ export interface AuthResponse {
   expiresAt: number; // Unix timestamp
 }
 
-export function setAuthCookies(resp: AuthResponse) {
+export function setAuthCookies(resp: AuthResponse): boolean {
   const accessToken = resp.accessToken;
   const refreshToken = resp.refreshToken;
   const expiresAt = resp.expiresAt;
 
+  if (!accessToken || !refreshToken || !expiresAt) {
+    return false;
+  }
+
   document.cookie = cookie.serialize('accessToken', accessToken, { path: '/', maxAge: 5184000 });
   document.cookie = cookie.serialize('refreshToken', refreshToken, { path: '/', maxAge: 5184000  });
   document.cookie = cookie.serialize('expiresAt', String(expiresAt), { path: '/', maxAge: 5184000  });
+  return true;
 }
 
 export function isTokenExpired(): boolean {
