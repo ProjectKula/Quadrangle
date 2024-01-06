@@ -39,28 +39,41 @@
 	}
 </script>
 
-<div class="flex items-center justify-center h-screen text-black">
-	<div class="w-96 p-8 bg-white shadow-md rounded-md">
+<div class="flex items-center justify-center h-screen text-white">
+	<div class="w-96 p-8 bg-good-dark-grey shadow-md rounded-md">
 		<h2 class="text-2xl font-semibold mb-4">Log In</h2>
 
 		<form on:submit|preventDefault={handleSubmit}>
 			<div class="mb-4">
-				<label for="usn" class="block text-sm font-medium text-gray-600">USN / Email ID</label>
-				<input type="text" id="usn" bind:value={id} on:input={() => idError = null} class="mt-1 p-2 w-full border rounded-md">
+<!--				<label for="usn" class="block text-sm font-medium text-gray-300">USN / Email ID</label>-->
+				<input
+					type="text"
+					id="usn"
+					bind:value={id}
+					placeholder="RVCE ID / Email ID"
+					on:input={() => idError = null} class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100">
 				{#if idError}
 					<p class="text-red-500 text-xs mt-1">{idError}</p>
 				{/if}
 			</div>
 
-			<div class="mb-4">
-				<label for="password" class="block text-sm font-medium text-gray-600">Password</label>
-				<input type="password" id="password" bind:value={password} on:input={() => passwordError = null} class="mt-1 p-2 w-full border rounded-md">
+			<div class="mb-2">
+				<input
+					type="password"
+					id="password"
+					bind:value={password}
+					placeholder="Password"
+					on:input={() => passwordError = null} class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100">
 				{#if passwordError}
 					<p class="text-red-500 text-xs mt-1">{passwordError}</p>
 				{/if}
 			</div>
 
-			<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">
+			<span class="mb-2 text-blue-400 hover:text-blue-500 transition">
+				<a href="/login/forgot">Forgot Password</a>
+			</span>
+
+			<button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition">
 				Log In
 			</button>
 		</form>

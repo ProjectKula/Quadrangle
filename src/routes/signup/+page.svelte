@@ -127,22 +127,24 @@
 </script>
 
 <div class="flex items-center justify-center h-screen">
-	<div class="w-96 p-8 bg-white shadow-md rounded-md">
+	<div class="w-96 p-8 bg-good-dark-grey shadow-md rounded-md">
 		<h2 class="text-2xl font-semibold mb-4">Sign Up</h2>
 
 		{#if signupStage === "initial"}
 			<form on:submit|preventDefault={handleInitialSubmit}>
 				<div class="mb-4">
-					<label for="rvceId" class="block text-sm font-medium text-gray-600">RVCE ID</label>
-					<input type="text" id="rvceId" bind:value={id} class="mt-1 p-2 w-full border rounded-md">
+					<input type="text" id="rvceId" bind:value={id}
+								 placeholder="RVCE ID"
+								 class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100">
 					{#if idError}
 						<p class="text-red-500 text-xs mt-1">{idError}</p>
 					{/if}
 				</div>
 
 				<div class="mb-4">
-					<label for="rvceEmail" class="block text-sm font-medium text-gray-600">RVCE Email</label>
-					<input type="email" id="rvceEmail" bind:value={email} class="mt-1 p-2 w-full border rounded-md">
+					<input type="email" id="rvceEmail" bind:value={email}
+								 placeholder="RVCE Email"
+								 class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100">
 					{#if emailError}
 						<p class="text-red-500 text-xs mt-1">{emailError}</p>
 					{/if}
@@ -155,32 +157,35 @@
 		{:else if signupStage === "code"}
 			<form on:submit|preventDefault={handleCodeSubmit}>
 				<div class="mb-4">
-					<label for="emailCode" class="block text-sm font-medium text-gray-600">Enter the 6 digit code sent to {email}</label>
-					<input type="text" id="emailCode" bind:value={emailCode} class="mt-1 p-2 w-full border rounded-md">
+					<label for="emailCode" class="block text-sm font-medium text-white">Enter the 6 digit code sent to {email}</label>
+					<input type="text" id="emailCode" bind:value={emailCode}
+								 class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100"/>
 					{#if emailCodeError}
 						<p class="text-red-500 text-xs mt-1">{emailCodeError}</p>
 					{/if}
 				</div>
 
-				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}>
 					Submit
 				</button>
 			</form>
 		{:else if signupStage === "password"}
 			<form on:submit|preventDefault={handlePasswordSubmit}>
 				<div class="mb-4">
-					<label for="password" class="block text-sm font-medium text-gray-600">Password</label>
-					<input type="password" id="password" bind:value={password} class="mt-1 p-2 w-full border rounded-md">
+					<input type="password" id="password" bind:value={password}
+								 placeholder="Password"
+								 class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100">
 				</div>
 				<div class="mb-4">
-					<label for="confirmPassword" class="block text-sm font-medium text-gray-600">Confirm Password</label>
-					<input type="password" id="confirmPassword" bind:value={confirmPassword} class="mt-1 p-2 w-full border rounded-md">
+					<input type="password" id="confirmPassword" bind:value={confirmPassword}
+								 placeholder="Confirm password"
+								 class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100">
 					{#if passwordError}
 						<p class="text-red-500 text-xs mt-1">{passwordError}</p>
 					{/if}
 				</div>
 
-				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}>
 					Sign Up
 				</button>
 			</form>
@@ -189,14 +194,14 @@
 			<p>Click the button below to get started</p>
 
 			<a href="/">
-				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600" disabled={loading}>
+				<button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}>
 					Get Started
 				</button>
 			</a>
 		{:else if signupStage === "error"}
 			<p>An error occured. Please report this issue</p>
 		{/if}
-
-		<p>Having errors? Contact <a href="mailto:shrishvd.cy23@rvce.edu.in">Tech Support</a></p>
+		<br>
+		<span>Having errors? Contact <a class="text-blue-400 hover:text-blue-500 transition" href="mailto:shrishvd.cy23@rvce.edu.in">Tech Support</a></span>
 	</div>
 </div>
