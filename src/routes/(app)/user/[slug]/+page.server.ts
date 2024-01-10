@@ -9,7 +9,6 @@ const query = gql`
       dateRegistered
       email
       gender
-      id
       name
       phone
       pronouns

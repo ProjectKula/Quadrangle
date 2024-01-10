@@ -23,6 +23,10 @@ export function setAuthCookies(resp: AuthResponse): boolean {
   return true;
 }
 
+export function getAuthTokenClient(): string {
+	return cookie.parse(document.cookie).accessToken;
+}
+
 export function isTokenExpired(): boolean {
   const expiresAtCookie = cookie.parse(document.cookie).expiresAt;
   const expiresAt = expiresAtCookie ? parseInt(expiresAtCookie, 10) : 0;

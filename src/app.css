@@ -6,3 +6,11 @@ body {
     background-color: #2f2f2f;
     color: white;
 }
+
+.btn-success {
+    @apply rounded cursor-pointer bg-green-500 hover:bg-green-600 transition disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed
+}
+
+.btn-cancel {
+    @apply rounded cursor-pointer bg-red-500 hover:bg-red-600 transition disabled:bg-red-400 disabled:hover:bg-red-400 disabled:cursor-not-allowed
+}

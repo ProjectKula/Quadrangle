@@ -1,8 +1,7 @@
 <script>
 	import { faHome, faList, faUser, faSignOut } from '@fortawesome/free-solid-svg-icons';
 	import Fa from 'svelte-fa';
-	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
 
 	let menuItems = [
 		{ text: 'Home', icon: faHome, link: '/' },
@@ -12,26 +11,26 @@
 		{ text: 'Log out', icon: faSignOut, link: '/logout' }
 	];
 
-	$:currentPath = browser ? window.location.pathname : '';
+	$:currentPath = $page.url.pathname;
 
-	if (browser) {
-		onMount(() => {
-			currentPath = window.location.pathname;
-		});
-	}
+	// if (browser) {
+	// 	onMount(() => {
+	// 		currentPath = window.location.pathname;
+	// 	});
+	// }
 </script>
 
-<p class="font-bold bg-[#2a2a2a]" style="display: none">bruh</p>
-<div class="flex-initial flex-col items-start justify-start p-4 bg-black text-white">
+<div class="flex-none flex-col items-start justify-start p-4 bg-black text-white">
 	{#each menuItems as { text, icon, link } (text)}
 		<div>
 			<a href={link} class:active={currentPath === link}
-				 class="flex mx-1 my-4 p-2 text-xl items-center border-2 border-white hover:bg-[#2a2a2a] {currentPath === link ? 'bg-[#2a2a2a]' : ''} transition rounded {currentPath === link ? 'font-bold' : ''}"
-				 on:click={() => currentPath = link}
+				 class="flex mx-1 my-4 p-2 text-xl items-center border-2 border-white hover:bg-good-grey {currentPath === link ? 'bg-[#2a2a2a]' : ''} transition rounded {currentPath === link ? 'font-bold' : ''}"
 			>
 				<div class="flex flex-row">
-					<i class="mr-2"><Fa size={"lg"} icon={icon} /></i>
-					<span>{text}</span>
+					<div class="sm:mr-2">
+						<Fa size={"lg"} icon={icon} />
+					</div>
+					<span class="max-sm:hidden">{text}</span>
 				</div>
 			</a>
 		</div>

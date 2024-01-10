@@ -16,9 +16,7 @@
 				>
 				<button class="p-2 bg-gray-800 text-white rounded-md"><Fa icon={faMagnifyingGlass} size="lg"/></button>
 			</div>
-			<div class="flex-1">
-				<slot />
-			</div>
+			<slot />
 		</div>
 		<div class="flex flex-none">
 			<Footer />
