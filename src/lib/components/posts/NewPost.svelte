@@ -22,7 +22,9 @@
 			.then(newPost => {
 				if (newPost.id) {
 					console.log('Created a new post:', newPost.id);
-					window.location.replace(window.location.href);
+					setTimeout(() => {
+						window.location.reload();
+					}, 500)
 				} else {
 					alert('Failed to create a new post');
 				}
