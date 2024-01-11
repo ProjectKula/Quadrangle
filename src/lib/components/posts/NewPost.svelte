@@ -3,7 +3,6 @@
 	import { createNewPost } from '$lib/graphql/newPost';
 	import { getAuthTokenClient } from '$lib/auth/auth';
 
-
 	let postText = '';
 	let isSubmitVisible = false;
 	let submitting = false;

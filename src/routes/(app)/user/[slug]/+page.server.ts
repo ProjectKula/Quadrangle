@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { PUBLIC_ROOT_URL } from '$env/static/public';
+import { getRootUrl } from '$lib/index';
 import { error } from '@sveltejs/kit';
 
 const query = gql`
@@ -39,7 +39,7 @@ export const load = async ({ params, cookies }) => {
   }
 
   const out = await request<Data>(
-    `${PUBLIC_ROOT_URL}/graphql`,
+    `${getRootUrl()}/graphql`,
     query,
     { id: numberSlug },
     { Authorization: `Bearer ${cookies.get('accessToken')}`, }

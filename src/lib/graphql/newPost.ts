@@ -1,5 +1,5 @@
 import { gql, request } from 'graphql-request';
-import { PUBLIC_ROOT_URL } from '$env/static/public';
+import { getRootUrl } from '$lib/index';
 
 export interface NewPost {
 	id: string
@@ -21,7 +21,7 @@ export async function createNewPost(accessToken: string, content: string) {
 	`
 
 	const out = await request<Data>(
-		`${PUBLIC_ROOT_URL}/graphql`,
+		`${getRootUrl()}/graphql`,
 		query,
 		{ content: content },
 		{ Authorization: `Bearer ${accessToken}`, }

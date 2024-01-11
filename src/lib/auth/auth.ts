@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { PUBLIC_ROOT_URL } from '$env/static/public';
+import { getRootUrl } from '$lib/index';
 import { error } from '@sveltejs/kit';
 
 export interface AuthResponse {
@@ -34,7 +34,7 @@ export function isTokenExpired(): boolean {
 }
 
 export async function loginWithCredentials(id: string, password: string) {
-  const response = await fetch(`${PUBLIC_ROOT_URL}/auth/login`, {
+  const response = await fetch(`${getRootUrl()}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -48,7 +48,7 @@ export async function loginWithCredentials(id: string, password: string) {
 }
 
 export async function refreshIdentityToken(accessToken: string, refreshToken: string) {
-  const response = await fetch(`${PUBLIC_ROOT_URL}/auth/refresh`, {
+  const response = await fetch(`${getRootUrl()}/auth/refresh`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

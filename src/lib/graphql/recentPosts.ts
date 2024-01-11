@@ -1,15 +1,18 @@
 import { gql, request } from 'graphql-request';
-import { PUBLIC_ROOT_URL } from '$env/static/public';
+import { getRootUrl } from '$lib/index';
 
 export interface RecentPost {
 	id: string
 	content: string
-	creator: string
 	createdAt: number
 }
 
 interface Data {
 	recentPosts: RecentPost[]
+}
+
+export async function getRecentPostsNow(accessToken: string, count: number) {
+	return await getRecentPosts(accessToken, Date.now() / 1000, count);
 }
 
 export async function getRecentPosts(accessToken: string, before: number, count: number) {
@@ -18,14 +21,13 @@ export async function getRecentPosts(accessToken: string, before: number, count:
           recentPosts(count: $count, before: $before) {
               id
               content
-              creator
               createdAt
           }
       }
 	`
 
 	const out = await request<Data>(
-		`${PUBLIC_ROOT_URL}/graphql`,
+		`${getRootUrl()}/graphql`,
 		query,
 		{ count: count, before: before },
 		{ Authorization: `Bearer ${accessToken}`, }
