@@ -5,6 +5,7 @@ export interface RecentPost {
 	id: string
 	content: string
 	createdAt: number
+	likesCount: number
 }
 
 interface Data {
@@ -18,10 +19,11 @@ export async function getRecentPostsNow(accessToken: string, count: number) {
 export async function getRecentPosts(accessToken: string, before: number, count: number) {
 	const query = gql`
       query RecentPosts($count: Int!, $before: Int) {
-          recentPosts(count: $count, before: $before) {
+          recentPosts(count: $count, before: $before, getLikes: true, getCreator: true) {
               id
               content
               createdAt
+							likesCount
           }
       }
 	`

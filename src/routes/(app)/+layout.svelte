@@ -5,7 +5,7 @@
 	import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 </script>
 
-<div class="flex flex-col bg-black h-screen">
+<div class="flex flex-col bg-black min-h-screen">
 	<div class="flex flex-1">
 		<Sidebar />
 		<div class="flex-1 p-4">

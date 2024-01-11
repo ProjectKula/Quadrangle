@@ -25,4 +25,8 @@
     <p>
         {post.content}
     </p>
+
+    <p>
+        {post.likesCount} Like{post.likesCount === 1 ? '' : 's'}
+    </p>
 </div>
