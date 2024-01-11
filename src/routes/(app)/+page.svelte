@@ -6,8 +6,6 @@
 	export let data: {data: RecentPost[]}
 </script>
 
-<!--<h1>Welcome to Quadrangle</h1>-->
-<!--<h2>Under Construction ™</h2>-->
 <div class="contents">
 	<div class="flex flex-row">
 		<NewPost />

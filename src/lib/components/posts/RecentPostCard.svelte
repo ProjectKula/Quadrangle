@@ -6,7 +6,7 @@
     let date = new Date(post.createdAt * 1000);
     let dateStr = date.toLocaleDateString("en-US", {
         year: "numeric",
-        month: "long",
+        month: "short",
         day: "numeric",
     });
     let timeStr = date.toLocaleTimeString("en-US", {
@@ -15,11 +15,11 @@
     });
 </script>
 
-<div class="flex flex-col">
+<div class="flex flex-col my-4 rounded bg-neutral-900">
 
     <div class="flex flex-row">
         <!-- <a href="/user/{post.creator}">{post.creator}</a> -->
-        <span>{timeStr}, {dateStr}</span>
+        <span>{dateStr}, {timeStr}</span>
     </div>
 
     <p>
