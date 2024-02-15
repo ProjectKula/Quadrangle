@@ -1,5 +1,5 @@
 import { request, gql } from 'graphql-request';
-import { getRootUrl } from '$lib/index';
+import { getRootUrl } from '$lib';
 import { error } from '@sveltejs/kit';
 
 const query = gql`

@@ -1,0 +1,53 @@
+type Mutation {
+    createPost(content: String!): Post!
+    deletePost(id: String!): Post!
+    editProfile(gender: String, bio: String, pronouns: String, personalEmail: String): RegisteredUser!
+    likePost(post: String!): Boolean!
+    restorePost(id: String!): Post!
+    unlikePost(post: String!): Boolean!
+}
+
+type Post {
+    content: String!
+    createdAt: Float
+    creator: RegisteredUser!
+    creatorId: Int!
+    deleted: Boolean!
+    id: String
+    likes: [RegisteredUser!]!
+    likesCount: Int!
+}
+
+type Query {
+    post(id: String!): Post!
+    posts(creator: Int!): [Post!]!
+    recentPosts(count: Int!, before: Int): [Post!]!
+    self: RegisteredUser!
+    user(id: Int!): RegisteredUser!
+}
+
+type RegisteredUser {
+    bio: String
+    branch: String!
+    collegeId: String!
+    dateRegistered: Float
+    email: String!
+    gender: String!
+    id: Int
+    name: String!
+    personalEmail: String
+    phone: String!
+    posts: [Post!]!
+    pronouns: String
+}
+
+type UnregisteredUser {
+    branch: String!
+    collegeId: String
+    email: String!
+    gender: String!
+    name: String!
+    phone: String!
+}
+
+scalar UUID

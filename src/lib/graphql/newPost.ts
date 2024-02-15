@@ -1,5 +1,6 @@
-import { gql, request } from 'graphql-request';
+import { request } from 'graphql-request';
 import { getRootUrl } from '$lib/index';
+import query from './newPost.graphql?raw';
 
 export interface NewPost {
 	id: string
@@ -11,15 +12,6 @@ interface Data {
 }
 
 export async function createNewPost(accessToken: string, content: string) {
-	const query = gql`
-      mutation NewPost($content: String!) {
-          createPost(creator: null, content: $content) {
-              id
-              createdAt
-          }
-      }
-	`
-
 	const out = await request<Data>(
 		`${getRootUrl()}/graphql`,
 		query,

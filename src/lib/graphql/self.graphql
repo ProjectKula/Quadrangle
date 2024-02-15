@@ -1,0 +1,11 @@
+query Self {
+    self {
+        id
+        name
+        dateRegistered
+        gender
+        pronouns
+        bio
+        branch
+    }
+}

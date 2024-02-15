@@ -1,0 +1,8 @@
+query RecentPosts($count: Int!, $before: Int) {
+    recentPosts(count: $count, before: $before) {
+        id
+        content
+        createdAt
+        likesCount
+    }
+}
