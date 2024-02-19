@@ -1,10 +1,33 @@
+type Confession {
+    content: String!
+    createdAt: Float
+    id: Int
+}
+
+type ConfessionPage {
+    items: [Confession!]!
+    metadata: PageMetadata!
+}
+
+scalar Date
+
 type Mutation {
+    confess(content: String!): Confession!
     createPost(content: String!): Post!
     deletePost(id: String!): Post!
     editProfile(gender: String, bio: String, pronouns: String, personalEmail: String): RegisteredUser!
+    followUser(id: Int!): Boolean!
     likePost(post: String!): Boolean!
     restorePost(id: String!): Post!
+    unfollowUser(id: Int!): Boolean!
     unlikePost(post: String!): Boolean!
+}
+
+type PageMetadata {
+    page: Int!
+    pageCount: Int!
+    per: Int!
+    total: Int!
 }
 
 type Post {
@@ -19,6 +42,7 @@ type Post {
 }
 
 type Query {
+    confessions(page: Int!, per: Int!): ConfessionPage!
     post(id: String!): Post!
     posts(creator: Int!): [Post!]!
     recentPosts(count: Int!, before: Int): [Post!]!
@@ -32,6 +56,10 @@ type RegisteredUser {
     collegeId: String!
     dateRegistered: Float
     email: String!
+    followerCount: Int!
+    followers: [RegisteredUser!]!
+    following: [RegisteredUser!]!
+    followingCount: Int!
     gender: String!
     id: Int
     name: String!

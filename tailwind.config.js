@@ -8,6 +8,9 @@ export default {
         'good-dark-grey': '#1a1a1a',
       }
     },
+    fontFamily: {
+      'sans': ['SF Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+    }
   },
   plugins: [],
 }
