@@ -1,35 +1,5 @@
-import { request, gql } from 'graphql-request';
-import { getRootUrl } from '$lib';
 import { error } from '@sveltejs/kit';
-
-const query = gql`
-  query User($id: Int!) {
-    user(id: $id) {
-      branch
-      dateRegistered
-      email
-      gender
-      name
-      phone
-      pronouns
-    }
-  }
-`
-
-export interface User {
-  branch: string
-  dateRegistered: number
-  email: string
-  gender: string
-  id: string
-  name: string
-  phone: string
-  pronouns: string
-}
-
-interface Data {
-  user: User
-}
+import { getUser } from '$lib/graphql/user/user';
 
 export const load = async ({ params, cookies }) => {
   const numberSlug = parseInt(params.slug);
@@ -38,15 +8,5 @@ export const load = async ({ params, cookies }) => {
     error(404, "Not found")
   }
 
-  const out = await request<Data>(
-    `${getRootUrl()}/graphql`,
-    query,
-    { id: numberSlug },
-    { Authorization: `Bearer ${cookies.get('accessToken')}`, }
-  )
-
-  return {
-    slug: params.slug,
-    ...out.user
-  }
+  return await getUser(numberSlug, cookies.get('accessToken')!)
 }

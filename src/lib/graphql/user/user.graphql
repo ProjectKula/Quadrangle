@@ -1,0 +1,15 @@
+query User($id: Int!) {
+    user(id: $id) {
+        id
+        name
+        dateRegistered
+        gender
+        pronouns
+        bio
+        branch
+        isSelf
+        followerCount
+        followingCount
+        followedBySelf
+    }
+}

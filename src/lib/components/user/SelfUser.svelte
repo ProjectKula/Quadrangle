@@ -1,7 +1,5 @@
 <script lang="ts">
 	import type { User } from '$lib/graphql/user/user';
-	import { getAuthTokenClient } from '$lib/auth/auth';
-	import { follow, unfollow } from '$lib/graphql/user/following';
 
 	export let data: User
 
@@ -12,38 +10,6 @@
 		const year = date.getFullYear();
 		return `${day}/${month}/${year}`;
 	};
-
-	$: isFollowing = data.followedBySelf;
-	$: followerCount = data.followerCount;
-	$: disableFollow = false;
-
-	function followClick() {
-		if (isFollowing) {
-			unfollowUser();
-		} else {
-			followUser();
-		}
-	}
-
-	function followUser() {
-		disableFollow = true;
-		follow(data.id, getAuthTokenClient())
-			.then(() => {
-				isFollowing = true;
-				followerCount += isFollowing ? 1 : -1;
-				disableFollow = false;
-			})
-	}
-
-	function unfollowUser() {
-		disableFollow = true;
-		unfollow(data.id, getAuthTokenClient())
-			.then(() => {
-				isFollowing = false;
-				followerCount += isFollowing ? 1 : -1;
-				disableFollow = false;
-			})
-	}
 </script>
 
 <div class="flex flex-col">
@@ -54,11 +20,9 @@
 			{#if data.pronouns}
 				<p class="text-neutral-500">{data.pronouns}</p>
 			{/if}
-			<p>{followerCount} follower{followerCount === 1 ? "" : "s"} </p>
+			<p>{data.followerCount} follower{data.followerCount === 1 ? "" : "s"} </p>
 			<p>{data.followingCount} following</p>
-			<button class="btn-success" on:click={followClick} disabled={disableFollow}>
-				{isFollowing ? "Unfollow" : "Follow"}
-			</button>
+			<button class="btn-success">Edit Profile</button>
 		</div>
 	</div>
 

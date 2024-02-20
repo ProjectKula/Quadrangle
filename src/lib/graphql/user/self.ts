@@ -1,16 +1,7 @@
 import query from './self.graphql?raw'
 import { request } from 'graphql-request';
 import { getRootUrl } from '$lib';
-
-export interface User {
-	id: number
-	name: string
-	dateRegistered: number
-	gender: string
-	pronouns: string
-	bio: string // one-liner
-	branch: string // e.g. CS, EC, EE, ME, CE, CH, AS
-}
+import type { User } from '$lib/graphql/user/user';
 
 interface Data {
 	self: User

@@ -56,12 +56,15 @@ type RegisteredUser {
     collegeId: String!
     dateRegistered: Float
     email: String!
+    followedBySelf: Boolean!
     followerCount: Int!
     followers: [RegisteredUser!]!
     following: [RegisteredUser!]!
     followingCount: Int!
+    followsSelf: Boolean!
     gender: String!
     id: Int
+    isSelf: Boolean!
     name: String!
     personalEmail: String
     phone: String!
