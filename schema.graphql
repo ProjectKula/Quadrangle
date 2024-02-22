@@ -16,10 +16,10 @@ type Mutation {
     createPost(content: String!): Post!
     deletePost(id: String!): Post!
     editProfile(gender: String, bio: String, pronouns: String, personalEmail: String): RegisteredUser!
-    followUser(id: Int!): Boolean!
+    followUser(id: Int!): Int!
     likePost(post: String!): Boolean!
     restorePost(id: String!): Post!
-    unfollowUser(id: Int!): Boolean!
+    unfollowUser(id: Int!): Int!
     unlikePost(post: String!): Boolean!
 }
 
@@ -37,14 +37,19 @@ type Post {
     creatorId: Int!
     deleted: Boolean!
     id: String
-    likes: [RegisteredUser!]!
+    likes(page: Int!, per: Int!): RegisteredUserPage!
     likesCount: Int!
+}
+
+type PostPage {
+    items: [Post!]!
+    metadata: PageMetadata!
 }
 
 type Query {
     confessions(page: Int!, per: Int!): ConfessionPage!
     post(id: String!): Post!
-    posts(creator: Int!): [Post!]!
+    posts(creator: Int!, page: Int!, per: Int!): PostPage!
     recentPosts(count: Int!, before: Int): [Post!]!
     self: RegisteredUser!
     user(id: Int!): RegisteredUser!
@@ -58,8 +63,8 @@ type RegisteredUser {
     email: String!
     followedBySelf: Boolean!
     followerCount: Int!
-    followers: [RegisteredUser!]!
-    following: [RegisteredUser!]!
+    followers(page: Int!, per: Int!): RegisteredUserPage!
+    following(page: Int!, per: Int!): RegisteredUserPage!
     followingCount: Int!
     followsSelf: Boolean!
     gender: String!
@@ -68,8 +73,13 @@ type RegisteredUser {
     name: String!
     personalEmail: String
     phone: String!
-    posts: [Post!]!
+    posts(page: Int!, per: Int!): PostPage!
     pronouns: String
+}
+
+type RegisteredUserPage {
+    items: [RegisteredUser!]!
+    metadata: PageMetadata!
 }
 
 type UnregisteredUser {

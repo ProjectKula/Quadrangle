@@ -1,7 +1,8 @@
 <script lang="ts">
-	import type { User } from '$lib/graphql/user/user';
 	import { getAuthTokenClient } from '$lib/auth/auth';
 	import { follow, unfollow } from '$lib/graphql/user/following';
+
+	import type { User } from '$lib/graphql/user/user';
 
 	export let data: User
 

@@ -3,8 +3,23 @@
 @tailwind utilities;
 
 body {
-    background-color: #2f2f2f;
-    color: white;
+    @apply text-black bg-white;
+}
+
+.hoverBlue {
+    @apply hover:text-blue-600 text-blue-500 transition;
+}
+
+@media(prefers-color-scheme: dark) {
+    .hoverBlue {
+        @apply hover:text-blue-500 text-blue-400 transition;
+    }
+}
+
+@media(prefers-color-scheme: dark) {
+    body {
+        @apply text-white bg-black;
+    }
 }
 
 .btn-success {

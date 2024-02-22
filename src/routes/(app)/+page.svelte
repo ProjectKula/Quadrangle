@@ -6,6 +6,10 @@
 	export let data: {data: RecentPost[]}
 </script>
 
+<svelte:head>
+	<title>Home</title>
+</svelte:head>
+
 <div class="contents">
 	<div class="flex flex-row">
 		<NewPost />

@@ -20,11 +20,11 @@
 	// }
 </script>
 
-<div class="flex-none flex-col items-start justify-start p-4 bg-black text-white">
+<div class="flex-none flex-col items-start justify-start p-4">
 	{#each menuItems as { text, icon, link } (text)}
 		<div>
 			<a href={link} class:active={currentPath === link}
-				 class="flex mx-1 my-4 p-2 text-xl items-center border-2 border-white hover:bg-good-grey {currentPath === link ? 'bg-[#2a2a2a]' : ''} transition rounded {currentPath === link ? 'font-bold' : ''}"
+				 class="flex mx-1 my-4 p-2 text-xl items-center border-2 dark:border-white border-black dark:hover:bg-good-grey hover:bg-neutral-200 {currentPath === link ? 'dark:bg-[#2a2a2a] bg-neutral-200' : ''} transition rounded {currentPath === link ? 'font-bold' : ''}"
 			>
 				<div class="flex flex-row">
 					<div class="sm:mr-2">

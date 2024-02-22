@@ -15,7 +15,7 @@
     });
 </script>
 
-<div class="flex flex-col my-4 rounded bg-neutral-900">
+<div class="flex flex-col my-4 rounded bg-neutral-100 dark:bg-neutral-900">
 
     <div class="flex flex-row">
         <!-- <a href="/user/{post.creator}">{post.creator}</a> -->
