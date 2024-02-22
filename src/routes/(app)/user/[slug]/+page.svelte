@@ -5,6 +5,10 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>User {data.id}</title>
+</svelte:head>
+
 {#if data.isSelf}
 	<SelfUser {data} />
 {:else}

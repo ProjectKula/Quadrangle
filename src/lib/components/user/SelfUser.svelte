@@ -1,4 +1,6 @@
 <script lang="ts">
+
+
 	import type { User } from '$lib/graphql/user/user';
 
 	export let data: User

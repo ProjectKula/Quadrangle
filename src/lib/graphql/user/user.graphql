@@ -11,5 +11,18 @@ query User($id: Int!) {
         followerCount
         followingCount
         followedBySelf
+        posts(page: 1, per: 10) {
+            items {
+                id
+                content
+                createdAt
+                likesCount
+            }
+            metadata {
+                page
+                per
+                pageCount
+            }
+        }
     }
 }

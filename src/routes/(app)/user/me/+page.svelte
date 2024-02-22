@@ -4,5 +4,8 @@
 	export let data;
 </script>
 
-<!--TODO: if its the current user, display different component-->
+<svelte:head>
+	<title>User {data.id}</title>
+</svelte:head>
+
 <SelfUser data={data} />

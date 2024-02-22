@@ -1,19 +1,19 @@
-import query from './user.graphql?raw'
+import query from './user.graphql?raw';
 import { request } from 'graphql-request';
 import { getRootUrl } from '$lib';
 
 export interface User {
-	id: number
-	name: string
-	dateRegistered: number
-	gender: string
-	pronouns: string
-	bio: string // one-liner
-	branch: string // e.g. CS, EC, EE, ME, CE, CH, AS
-	isSelf: boolean
-	followerCount: number
-	followingCount: number
-	followedBySelf: boolean
+	id: number;
+	name: string;
+	dateRegistered: number;
+	gender: string;
+	pronouns: string;
+	bio: string; // one-liner
+	branch: string; // e.g. CS, EC, EE, ME, CE, CH, AS
+	isSelf: boolean;
+	followerCount: number;
+	followingCount: number;
+	followedBySelf: boolean;
 }
 
 interface Data {
