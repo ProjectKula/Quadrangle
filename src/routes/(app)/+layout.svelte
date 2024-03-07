@@ -8,15 +8,17 @@
 <div class="flex flex-col min-h-screen">
 	<div class="flex flex-1">
 		<Sidebar />
-		<div class="flex-1 p-4">
-			<div class="mb-4 flex items-center">
+		<div class="flex-1">
+			<div class="mb-4 flex items-center border-b bg-neutral-200 border-neutral-300 dark:border-b-black dark:bg-neutral-800 p-2">
 				<input type="text"
 							 placeholder="Search..."
-							 class="bg-neutral-100 dark:bg-neutral-800 text-lg p-2 border-good-grey rounded-md flex-1 mr-2"
+							 class="bg-neutral-100 dark:bg-black text-lg p-2 border-good-grey rounded-md flex-1 mr-2"
 				>
 				<button class="p-2 bg-gray-200 dark:bg-gray-800 rounded-md"><Fa icon={faMagnifyingGlass} size="lg"/></button>
 			</div>
-			<slot />
+			<div class="p-4">
+				<slot />
+			</div>
 		</div>
 		<div class="flex flex-none">
 			<Footer />

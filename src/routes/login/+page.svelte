@@ -49,7 +49,7 @@
 
     <form on:submit|preventDefault={handleSubmit}>
       <div class="mb-4">
-        <input type="text" id="usn" bind:value={id} placeholder="RVCE ID" on:input={() => (idError = null)} class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
+        <input type="text" id="usn" bind:value={id} placeholder="RVCE ID / Email" on:input={() => (idError = null)} class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
         {#if idError}
           <p class="text-red-500 text-xs mt-1">{idError}</p>
         {/if}

@@ -7,7 +7,7 @@ export interface SignupStateResponse {
 }
 
 export async function requestEmailCode(id: string, email: string) {
-	const response = await fetch(`${getRootUrl()}/auth/signup`, {
+	const response = await fetch(`${getRootUrl()}/v0/auth/signup`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export async function requestEmailCode(id: string, email: string) {
 }
 
 export async function sendEmailCode(token: string, code: string) {
-	const response = await fetch(`${getRootUrl()}/auth/signup/code`, {
+	const response = await fetch(`${getRootUrl()}/v0/auth/signup/code`, {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${token}`,
@@ -43,7 +43,7 @@ export async function sendEmailCode(token: string, code: string) {
 }
 
 export async function setInitialCredentials(token: string, password: string) {
-	const response = await fetch(`${getRootUrl()}/auth/signup/cred`, {
+	const response = await fetch(`${getRootUrl()}/v0/auth/signup/cred`, {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${token}`,
