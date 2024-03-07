@@ -2,7 +2,7 @@ import cookie from 'cookie';
 import { type AuthResponse, refreshIdentityToken } from '$lib/auth/auth';
 
 export async function handle({ event, resolve }) {
-	if (event.url.pathname.startsWith('/login') || event.url.pathname.startsWith('/signup')) {
+	if (event.url.pathname.startsWith('/login') || event.url.pathname.startsWith('/signup') || event.url.pathname.startsWith('/googleCallback')) {
 		return await resolve(event);
 	}
 
@@ -11,7 +11,7 @@ export async function handle({ event, resolve }) {
 	const refreshToken = cookies.refreshToken;
 	const expiresAt = cookies.expiresAt;
 
-	if (!accessToken || !refreshToken || !expiresAt) {
+	if (!accessToken || !refreshToken || !expiresAt || accessToken === 'undefined' || refreshToken === 'undefined' || expiresAt === 'undefined') {
 		return new Response('Redirect', {status: 303, headers: { Location: '/login' }});
 	}
 
