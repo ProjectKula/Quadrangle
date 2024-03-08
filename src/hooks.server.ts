@@ -21,7 +21,6 @@ export async function handle({ event, resolve }) {
 		let newAuth: AuthResponse
 		try {
 			newAuth = await refreshIdentityToken(accessToken, refreshToken);
-			console.log(newAuth);
 		} catch (e) {
 			// TODO: handle this error
 			return new Response('Redirect', {status: 303, headers: { Location: '/login' }});

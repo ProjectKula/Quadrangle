@@ -1,4 +1,4 @@
-import { json, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { getRootUrl } from '$lib';
 import type { AuthResponse } from '$lib/auth/auth';
 
@@ -17,11 +17,6 @@ export async function POST({ request, cookies }) {
 			console.log(re);
 			return re
 		})
-	console.log(resp);
-
-	if (1==1) {
-		return json(resp);
-	}
 
 	const newAuth: AuthResponse = {
 		accessToken: resp.accessToken,

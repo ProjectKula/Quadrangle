@@ -12,5 +12,6 @@ export default {
       'sans': ['SF Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
     }
   },
+  darkMode: 'class',
   plugins: [],
 }
