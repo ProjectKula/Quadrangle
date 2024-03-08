@@ -4,6 +4,7 @@
   import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
   import { browser } from '$app/environment';
   import { setAuthCookies } from '$lib/auth/auth';
+  import SignInWithGoogle from '$lib/components/SignInWithGoogle.svelte';
 
   let id = '';
   let email = '';
@@ -86,6 +87,7 @@
           loading = false;
         });
       signupStage = 'code';
+      incrementProgress();
     }
   }
 
@@ -96,6 +98,7 @@
         .then((resp) => {
           token = resp.state;
           signupStage = 'password';
+          incrementProgress();
         })
         .catch(() => {
           signupStage = 'error';
@@ -115,6 +118,7 @@
             setAuthCookies(resp);
           }
           signupStage = 'finished';
+          incrementProgress();
         })
         .catch(() => {
           signupStage = 'error';
@@ -124,6 +128,32 @@
         });
     }
   }
+
+  import { tweened } from 'svelte/motion';
+  import { cubicOut } from 'svelte/easing';
+
+  let progress = tweened(0, { duration: 400, easing: cubicOut });
+  let value = 0;
+
+  progress.subscribe((e) => {
+    value = e;
+  });
+
+  let bubbles = [
+    { filled: true },
+    { filled: false },
+    { filled: false },
+    { filled: false }
+  ];
+
+  function incrementProgress() {
+    if (value < 4) {
+      progress.set(value + 1);
+      setTimeout(() => {
+        bubbles[value].filled = true;
+      }, 800);
+    }
+  }
 </script>
 
 <svelte:head>
@@ -131,13 +161,30 @@
 	  <meta name="description" content="Sign up for an account" />
 </svelte:head>
 
+<style>
+  .progressBar {
+    background: white;
+    background: linear-gradient(to left, white 50%, rgb(59, 130, 246) 50%) right;
+    background-size: 200%;
+    transition: 1s ease-out;
+  }
+
+  .completedProgress {
+    background-position: left;
+  }
+</style>
+
 <div class="flex items-center justify-center h-screen">
   <div class="w-96 p-8 dark:bg-good-dark-grey bg-neutral-100 shadow-md rounded-md">
     <h2 class="text-2xl font-semibold mb-4">Sign Up</h2>
 
     {#if signupStage === 'initial'}
+      <SignInWithGoogle />
+
+      <h2 class="text-xl font-semibold m-4 text-center">Or</h2>
+
       <form on:submit|preventDefault={handleInitialSubmit}>
-        <div class="mb-4">
+        <div class="mb-2">
           <input type="text" id="rvceId" bind:value={id} placeholder="RVCE ID" class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
           {#if idError}
             <p class="text-red-500 text-xs mt-1">{idError}</p>
@@ -151,9 +198,15 @@
           {/if}
         </div>
 
-        <a class="mb-2 hoverBlue" href="/login">Log In</a>
-        •
-        <a class="mb-2 hoverBlue" href="mailto:shrishvd.cy23@rvce.edu.in">Tech Support</a>
+        <div class="flex justify-between flex-row">
+          <span class="mb-2 hoverBlue">
+            <a href="/login">Log In</a>
+          </span>
+
+          <span class="mb-2 hoverBlue">
+            <a href="mailto:shrishvd.cy23@rvce.edu.in">Tech Support</a>
+          </span>
+        </div>
 
         <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Sign Up </button>
       </form>
@@ -161,7 +214,7 @@
       <form on:submit|preventDefault={handleCodeSubmit}>
         <div class="mb-4">
           <label for="emailCode" class="block text-sm font-medium">Enter the 6 digit code sent to {email}</label>
-          <input type="text" id="emailCode" bind:value={emailCode} class="mt-1 p-2 w-full rounded-md bg-good-grey text-gray-100" />
+          <input type="text" id="emailCode" bind:value={emailCode} class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
           {#if emailCodeError}
             <p class="text-red-500 text-xs mt-1">{emailCodeError}</p>
           {/if}
@@ -193,5 +246,25 @@
     {:else if signupStage === 'error'}
       <p>An error occured. Please report this issue</p>
     {/if}
+
+    <div class="flex items-center p-2 mt-4">
+      {#each bubbles as bubble, index}
+        <div class="relative">
+          <div
+            class="w-4 h-4 rounded-full border border-blue-500 transition scale-[200%] duration-500 text-white text-center text-xs"
+            class:bg-blue-500={bubble.filled}
+            class:bg-white={!bubble.filled}
+          >
+          </div>
+        </div>
+        {#if index !== bubbles.length - 1}
+          <div class="flex-1 h-3 border-2 border-blue-500">
+            <div class="h-2 progressBar"
+                 class:completedProgress={index < value}
+            ></div>
+          </div>
+        {/if}
+      {/each}
+    </div>
   </div>
 </div>
