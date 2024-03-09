@@ -2,6 +2,7 @@
 
 
 	import type { User } from '$lib/graphql/user/user';
+	import { getBranchName } from '$lib/misc/branches';
 
 	export let data: User
 
@@ -18,18 +19,28 @@
 	<div class="flex flex-col md:flex-row mb-4">
 		<img src="/default_pfp.svg" alt="Avatar" class="w-48 h-48 rounded-full" />
 		<div class="flex flex-col md:ml-4">
-			<h2 class="text-2xl">{data.name}</h2>
-			{#if data.pronouns}
-				<p class="text-neutral-500">{data.pronouns}</p>
-			{/if}
-			<p>{data.followerCount} follower{data.followerCount === 1 ? "" : "s"} </p>
-			<p>{data.followingCount} following</p>
-			<button class="btn-success">Edit Profile</button>
+			<div class="flex flex-row">
+				<h2 class="text-2xl">{data.name}</h2>
+				{#if data.pronouns}
+					<p class="text-neutral-500">{data.pronouns}</p>
+				{/if}
+			</div>
+
+			<p class="text-neutral-500">{getBranchName(data.branch)}</p>
+
+			<div class="grid grid-cols-2 gap-x-5 gap-y-2 w-48 text-center">
+				<p>{data.followerCount} follower{data.followerCount === 1 ? "" : "s"} </p>
+				<p>{data.followingCount} following</p>
+
+				{#if data.isSelf}
+					<button class="btn-success py-1">Edit</button>
+					<button class="btn-secondary py-1">Settings</button>
+				{/if}
+			</div>
 		</div>
 	</div>
 
 	<div class="mb-4">
-		<p>Branch: {data.branch}</p>
 		{#if data.gender !== 'X'}
 			<p>Gender: {data.gender}</p>
 		{/if}

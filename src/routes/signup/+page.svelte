@@ -81,7 +81,7 @@
           token = resp.state;
         })
         .catch(() => {
-          signupStage = 'error';
+          console.log('Error requesting email code');
         })
         .finally(() => {
           loading = false;
@@ -208,7 +208,7 @@
           </span>
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Sign Up </button>
+        <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Continue </button>
       </form>
     {:else if signupStage === 'code'}
       <form on:submit|preventDefault={handleCodeSubmit}>
@@ -234,7 +234,7 @@
           {/if}
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Sign Up </button>
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Continue </button>
       </form>
     {:else if signupStage === 'finished'}
       <p>All Done!</p>

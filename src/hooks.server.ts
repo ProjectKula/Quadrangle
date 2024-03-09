@@ -1,6 +1,12 @@
 import cookie from 'cookie';
 import { type AuthResponse, refreshIdentityToken } from '$lib/auth/auth';
 
+const defaultCookieOpts = {
+	httpOnly: false,
+	maxAge: 5184000,
+	path: '/'
+};
+
 export async function handle({ event, resolve }) {
 	if (event.url.pathname.startsWith('/login') || event.url.pathname.startsWith('/signup') || event.url.pathname.startsWith('/googleCallback')) {
 		return await resolve(event);
@@ -11,7 +17,7 @@ export async function handle({ event, resolve }) {
 	const refreshToken = cookies.refreshToken;
 	const expiresAt = cookies.expiresAt;
 
-	if (!accessToken || !refreshToken || !expiresAt || accessToken === 'undefined' || refreshToken === 'undefined' || expiresAt === 'undefined') {
+	if (!accessToken || !refreshToken || !expiresAt) {
 		return new Response('Redirect', {status: 303, headers: { Location: '/login' }});
 	}
 
@@ -26,21 +32,9 @@ export async function handle({ event, resolve }) {
 			return new Response('Redirect', {status: 303, headers: { Location: '/login' }});
 		}
 
-		const accessTokenCookie = cookie.serialize("accessToken", newAuth.accessToken, {
-			httpOnly: false,
-			maxAge: 5184000,
-			path: '/'
-		});
-		const refreshTokenCookie = cookie.serialize("refreshToken", newAuth.refreshToken, {
-			httpOnly: false,
-			maxAge: 5184000,
-			path: '/'
-		});
-		const expiresAtCookie = cookie.serialize("expiresAt", String(newAuth.expiresAt), {
-			httpOnly: false,
-			maxAge: 5184000,
-			path: '/'
-		});
+		const accessTokenCookie = cookie.serialize("accessToken", newAuth.accessToken, defaultCookieOpts);
+		const refreshTokenCookie = cookie.serialize("refreshToken", newAuth.refreshToken, defaultCookieOpts);
+		const expiresAtCookie = cookie.serialize("expiresAt", String(newAuth.expiresAt), defaultCookieOpts);
 
 		event.request.headers.set('cookie', [
 			accessTokenCookie,

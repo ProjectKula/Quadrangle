@@ -1,6 +1,5 @@
 <script lang="ts">
-	import RegularUser from '$lib/components/user/RegularUser.svelte';
-	import SelfUser from '$lib/components/user/SelfUser.svelte';
+	import UserProfile from '$lib/components/user/UserProfile.svelte';
 
 	export let data;
 </script>
@@ -9,8 +8,4 @@
 	<title>User {data.id}</title>
 </svelte:head>
 
-{#if data.isSelf}
-	<SelfUser {data} />
-{:else}
-	<RegularUser {data} />
-{/if}
+<UserProfile {data} />

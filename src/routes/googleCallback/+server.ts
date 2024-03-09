@@ -2,43 +2,27 @@ import { redirect } from '@sveltejs/kit';
 import { getRootUrl } from '$lib';
 import type { AuthResponse } from '$lib/auth/auth';
 
-export async function POST({ request, cookies }) {
-	const e = await request.formData()
-	const credential = e.get('credential') as string;
+const defaultCookieOpts = {
+	httpOnly: false,
+	maxAge: 5184000,
+	path: '/'
+};
 
-	const resp = await fetch(`${getRootUrl()}/v0/auth/google`, {
+export async function POST({ request, cookies }) {
+	const credential = (await request.formData()).get('credential') as string;
+
+	const newAuth = await fetch(`${getRootUrl()}/v0/auth/google`, {
 		method: 'POST',
 		headers: {
 			'Authorization': `Bearer ${credential}`,
 		}, }
 	)
 		.then((response) => response.json())
-		.then((re) => {
-			console.log(re);
-			return re
-		})
+		.then((data) => data as AuthResponse)
 
-	const newAuth: AuthResponse = {
-		accessToken: resp.accessToken,
-		refreshToken: resp.refreshToken,
-		expiresAt: resp.expiresAt,
-	}
-
-	cookies.set('accessToken', newAuth.accessToken, {
-		httpOnly: false,
-		maxAge: 5184000,
-		path: '/'
-	})
-	cookies.set('refreshToken', newAuth.refreshToken, {
-		httpOnly: false,
-		maxAge: 5184000,
-		path: '/'
-	})
-	cookies.set('expiresAt', String(newAuth.expiresAt), {
-		httpOnly: false,
-		maxAge: 5184000,
-		path: '/'
-	})
+	cookies.set('accessToken', newAuth.accessToken, defaultCookieOpts)
+	cookies.set('refreshToken', newAuth.refreshToken, defaultCookieOpts)
+	cookies.set('expiresAt', String(newAuth.expiresAt), defaultCookieOpts)
 
 	throw redirect(302, '/')
 }

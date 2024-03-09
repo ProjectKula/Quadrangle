@@ -22,6 +22,10 @@ body {
     @apply rounded cursor-pointer bg-green-500 hover:bg-green-600 transition disabled:bg-green-400 disabled:hover:bg-green-400 disabled:cursor-not-allowed
 }
 
+.btn-secondary {
+    @apply rounded cursor-pointer bg-neutral-500 hover:bg-neutral-600 transition disabled:bg-green-400 disabled:hover:bg-neutral-400 disabled:cursor-not-allowed
+}
+
 .btn-cancel {
     @apply rounded cursor-pointer bg-red-500 hover:bg-red-600 transition disabled:bg-red-400 disabled:hover:bg-red-400 disabled:cursor-not-allowed
 }
