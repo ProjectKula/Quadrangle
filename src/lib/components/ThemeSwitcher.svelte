@@ -3,6 +3,7 @@
 
 
   let theme: 'system' | 'light' | 'dark' = 'system';
+  let themes: ['system', 'light', 'dark'] = ['system', 'light', 'dark'];
   if (browser) {
     theme = localStorage.theme ?? 'system';
   }
@@ -23,11 +24,9 @@
       document.documentElement.classList.remove('dark')
     }
   }
-
-
 </script>
 
-<select bind:value={theme} on:change={() => {setTheme(theme)}} class="dark:bg-neutral-700 appearance-none w-24 flex-none text-lg px-1 ml-0 text-center mr-4">
+<select bind:value={theme} on:change={() => {setTheme(theme)}} class="dark:bg-neutral-700 w-24 flex-none text-lg px-1 ml-0 text-center mr-4">
   <option value="system">System</option>
   <option value="light">Light</option>
   <option value="dark">Dark</option>
