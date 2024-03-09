@@ -157,8 +157,8 @@
 </script>
 
 <svelte:head>
-	  <title>Sign Up</title>
-	  <meta name="description" content="Sign up for an account" />
+  <title>Sign Up</title>
+  <meta name="description" content="Sign up for an account" />
 </svelte:head>
 
 <style>
@@ -185,14 +185,16 @@
 
       <form on:submit|preventDefault={handleInitialSubmit}>
         <div class="mb-2">
-          <input type="text" id="rvceId" bind:value={id} placeholder="RVCE ID" class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
+          <input type="text" id="rvceId" bind:value={id} placeholder="RVCE ID"
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
           {#if idError}
             <p class="text-red-500 text-xs mt-1">{idError}</p>
           {/if}
         </div>
 
         <div class="mb-2">
-          <input type="email" id="rvceEmail" bind:value={email} placeholder="RVCE Email" class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
+          <input type="email" id="rvceEmail" bind:value={email} placeholder="RVCE Email"
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
           {#if emailError}
             <p class="text-red-500 text-xs mt-1">{emailError}</p>
           {/if}
@@ -208,40 +210,51 @@
           </span>
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Continue </button>
+        <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition"
+                disabled={loading}> Continue
+        </button>
       </form>
     {:else if signupStage === 'code'}
       <form on:submit|preventDefault={handleCodeSubmit}>
         <div class="mb-4">
           <label for="emailCode" class="block text-sm font-medium">Enter the 6 digit code sent to {email}</label>
-          <input type="text" id="emailCode" bind:value={emailCode} class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
+          <input type="text" id="emailCode" bind:value={emailCode}
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
           {#if emailCodeError}
             <p class="text-red-500 text-xs mt-1">{emailCodeError}</p>
           {/if}
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Submit </button>
+        <button type="submit" class="w-full bg-blue-500 p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}>
+          Submit
+        </button>
       </form>
     {:else if signupStage === 'password'}
       <form on:submit|preventDefault={handlePasswordSubmit}>
         <div class="mb-4">
-          <input type="password" id="password" bind:value={password} placeholder="Password" class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
+          <input type="password" id="password" bind:value={password} placeholder="Password"
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
         </div>
         <div class="mb-4">
-          <input type="password" id="confirmPassword" bind:value={confirmPassword} placeholder="Confirm password" class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
+          <input type="password" id="confirmPassword" bind:value={confirmPassword} placeholder="Confirm password"
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-300 dark:text-gray-100" />
           {#if passwordError}
             <p class="text-red-500 text-xs mt-1">{passwordError}</p>
           {/if}
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Continue </button>
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition"
+                disabled={loading}> Continue
+        </button>
       </form>
     {:else if signupStage === 'finished'}
       <p>All Done!</p>
       <p>Click the button below to get started</p>
 
       <a href="/">
-        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition" disabled={loading}> Get Started </button>
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition"
+                disabled={loading}> Get Started
+        </button>
       </a>
     {:else if signupStage === 'error'}
       <p>An error occured. Please report this issue</p>

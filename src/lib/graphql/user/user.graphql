@@ -11,5 +11,20 @@ query User($id: Int!) {
         followerCount
         followingCount
         followedBySelf
+        ...UserPosts
+    }
+}
+
+fragment UserPosts on RegisteredUser {
+    posts(page: 0, per: 5) {
+        items {
+            id
+            content
+            createdAt
+            likesCount
+        }
+        metadata {
+            pageCount
+        }
     }
 }

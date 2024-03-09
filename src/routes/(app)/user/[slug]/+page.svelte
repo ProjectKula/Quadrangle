@@ -1,11 +1,11 @@
 <script lang="ts">
-	import UserProfile from '$lib/components/user/UserProfile.svelte';
+  import UserProfile from '$lib/components/user/UserProfile.svelte';
 
-	export let data;
+  export let data;
 </script>
 
 <svelte:head>
-	<title>User {data.id}</title>
+  <title>{data.isSelf ? "My Profile" : data.name}</title>
 </svelte:head>
 
-<UserProfile {data} />
+<UserProfile data={data} />

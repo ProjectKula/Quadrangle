@@ -19,14 +19,15 @@
 
   function refreshTheme() {
     if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove('dark')
+      document.documentElement.classList.remove('dark');
     }
   }
 </script>
 
-<select bind:value={theme} on:change={() => {setTheme(theme)}} class="dark:bg-neutral-700 w-24 flex-none text-lg px-1 ml-0 text-center mr-4">
+<select bind:value={theme} on:change={() => {setTheme(theme)}}
+        class="dark:bg-neutral-700 w-24 flex-none text-lg px-1 ml-0 text-center mr-4">
   <option value="system">System</option>
   <option value="light">Light</option>
   <option value="dark">Dark</option>

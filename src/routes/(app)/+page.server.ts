@@ -1,4 +1,4 @@
-import { getRecentPostsNow } from "$lib/graphql/recentPosts";
+import { getRecentPostsNow } from '$lib/graphql/recentPosts';
 
 export const load = async ({ cookies }) => {
     const accessToken = cookies.get('accessToken')!;

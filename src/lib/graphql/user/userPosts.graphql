@@ -1,7 +1,0 @@
-query User($id: Int!) {
-  posts {
-    metadata {
-      pageCount
-    }
-  }
-}

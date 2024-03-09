@@ -10,5 +10,20 @@ query Self {
         isSelf
         followerCount
         followingCount
+        ...UserPosts
+    }
+}
+
+fragment UserPosts on RegisteredUser {
+    posts(page: 0, per: 5) {
+        items {
+            id
+            content
+            createdAt
+            likesCount
+        }
+        metadata {
+            pageCount
+        }
     }
 }

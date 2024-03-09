@@ -40,10 +40,10 @@
 </script>
 
 <svelte:head>
-	  <title>Log In</title>
-	  <meta name="description" content="Log in to your account" />
+  <title>Log In</title>
+  <meta name="description" content="Log in to your account" />
 
-<!--  <script src="https://accounts.google.com/gsi/client" async></script>-->
+  <!--  <script src="https://accounts.google.com/gsi/client" async></script>-->
 </svelte:head>
 
 <div class="flex items-center justify-center max-sm:h-[80vh] sm:h-screen">
@@ -57,14 +57,17 @@
 
       <form on:submit|preventDefault={handleSubmit}>
         <div class="mb-2">
-          <input type="text" id="usn" bind:value={id} placeholder="RVCE ID / Email" on:input={() => (idError = null)} class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
+          <input type="text" id="usn" bind:value={id} placeholder="RVCE ID / Email" on:input={() => (idError = null)}
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
           {#if idError}
             <p class="text-red-500 text-xs mt-1">{idError}</p>
           {/if}
         </div>
 
         <div class="mb-2">
-          <input type="password" id="password" bind:value={password} placeholder="Password" on:input={() => (passwordError = null)} class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
+          <input type="password" id="password" bind:value={password} placeholder="Password"
+                 on:input={() => (passwordError = null)}
+                 class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
           {#if passwordError}
             <p class="text-red-500 text-xs mt-1">{passwordError}</p>
           {/if}
@@ -80,7 +83,9 @@
           </span>
         </div>
 
-        <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition"> Log In </button>
+        <button type="submit" class="w-full bg-blue-500 text-white mt-2 p-2 rounded-md hover:bg-blue-600 transition">
+          Log In
+        </button>
       </form>
     </div>
   </div>
