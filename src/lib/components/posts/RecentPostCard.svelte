@@ -15,14 +15,14 @@
   });
 </script>
 
-<div class="flex flex-col rounded bg-neutral-100 dark:bg-neutral-900">
+<div class="flex flex-col flex-1 rounded bg-neutral-100 dark:bg-neutral-800 p-2">
 
-  <div class="flex flex-row">
+  <div class="flex flex-row flex-shrink">
     <!-- <a href="/user/{post.creator}">{post.creator}</a> -->
     <span>{dateStr}, {timeStr}</span>
   </div>
 
-  <p>
+  <p class="min-width-0">
     {post.content}
   </p>
 

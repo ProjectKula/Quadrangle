@@ -1,4 +1,5 @@
 import query from './user.graphql?raw';
+import editProfileQuery from './edit.graphql?raw';
 import { request } from 'graphql-request';
 import { getRootUrl } from '$lib';
 import type { RecentPost } from '$lib/graphql/recentPosts';
@@ -40,4 +41,24 @@ export async function getUser(id: number, accessToken: string) {
     );
 
     return out.user;
+}
+
+export function editProfile(bio: string, pronouns: string, accessToken: string) {
+    return request<{id: string}>(
+        `${getRootUrl()}/graphql`,
+        editProfileQuery,
+        { bio: checkEmptyString(bio), pronouns: checkEmptyString(pronouns) },
+        { Authorization: `Bearer ${accessToken}` }
+    )
+}
+
+function checkEmptyString(input: string | null): string | null {
+    if (!input) {
+        return null;
+    }
+    if (input.trim() === '') {
+    return null;
+    } else {
+        return input;
+    }
 }

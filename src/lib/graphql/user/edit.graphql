@@ -1,0 +1,5 @@
+mutation Edit($bio: String, $pronouns: String) {
+    editProfile(bio: $bio, pronouns: $pronouns) {
+        id
+    }
+}

@@ -2,7 +2,7 @@
   import NewPost from '$lib/components/posts/NewPost.svelte';
   import RecentPostCard from '$lib/components/posts/RecentPostCard.svelte';
   import type { RecentPost } from '$lib/graphql/recentPosts';
-
+  
   export let data: { data: RecentPost[] };
 </script>
 
@@ -11,7 +11,7 @@
 </svelte:head>
 
 <div class="contents">
-  <div class="flex flex-row">
+  <div class="flex flex-row mb-2">
     <NewPost />
   </div>
 

@@ -15,7 +15,7 @@ type Mutation {
     confess(content: String!): Confession!
     createPost(content: String!): Post!
     deletePost(id: String!): Post!
-    editProfile(gender: String, bio: String, pronouns: String, personalEmail: String): RegisteredUser!
+    editProfile(bio: String, pronouns: String): RegisteredUser!
     followUser(id: Int!): Int!
     likePost(post: String!): Boolean!
     restorePost(id: String!): Post!

@@ -61,4 +61,5 @@
       <button on:click={handleCancel} disabled={submitting} class="btn-cancel px-2 py-1 text-white">Cancel</button>
     </div>
   {/if}
+  <span class="py-4" class:hidden={isSubmitVisible}></span>
 </div>

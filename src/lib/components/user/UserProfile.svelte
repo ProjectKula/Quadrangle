@@ -1,9 +1,8 @@
 <script lang="ts">
-
-
   import type { User } from '$lib/graphql/user/user';
   import { getBranchName } from '$lib/misc/branches';
   import RecentPostCard from '$lib/components/posts/RecentPostCard.svelte';
+  import EditProfileModal from './EditProfileModal.svelte';
 
   export let data: User;
   let posts = data.posts.items.sort((a, b) => b.createdAt - a.createdAt);
@@ -17,13 +16,15 @@
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
+
+  let showEditModal = false;
 </script>
 
 <div class="flex flex-col">
   <div class="flex flex-col md:flex-row mb-4">
     <img src="/default_pfp.svg" alt="Avatar" class="w-32 h-32 rounded-full" />
     <div class="flex flex-col md:ml-4">
-      <div class="flex flex-row">
+      <div class="flex flex-row items-center flex-wrap gap-2">
         <h2 class="text-2xl">{data.name}</h2>
         {#if data.pronouns}
           <p class="text-neutral-500">{data.pronouns}</p>
@@ -37,12 +38,16 @@
         <p>{data.followingCount} following</p>
 
         {#if data.isSelf}
-          <button class="btn-success py-1">Edit Profile</button>
-          <button class="btn-secondary py-1">Settings</button>
+          <button class="btn-success py-1 text-black" on:click={() => showEditModal = true}>Edit Profile</button>
+          <button class="btn-secondary py-1 invertColors">Settings</button>
         {/if}
       </div>
 
-      <p class="mt-4">Reg. #{data.id} • User since {formatDate(data.dateRegistered)}</p>
+      {#if data.bio}
+        <p class="">{data.bio}</p>
+      {/if}
+      
+      <p class="">Reg. #{data.id} • User since {formatDate(data.dateRegistered)}</p>
     </div>
   </div>
 
@@ -59,3 +64,7 @@
     {/each}
   </div>
 </div>
+
+{#if data.isSelf}
+  <EditProfileModal bind:pronouns={data.pronouns} bind:bio={data.bio} bind:show={showEditModal} />
+{/if}

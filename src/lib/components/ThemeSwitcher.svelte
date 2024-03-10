@@ -27,7 +27,7 @@
 </script>
 
 <select bind:value={theme} on:change={() => {setTheme(theme)}}
-        class="dark:bg-neutral-700 w-24 flex-none text-lg px-1 ml-0 text-center mr-4">
+        class="dark:bg-neutral-700 bg-neutral-300 w-24 flex-none text-lg px-1 ml-0 text-center mr-4">
   <option value="system">System</option>
   <option value="light">Light</option>
   <option value="dark">Dark</option>
