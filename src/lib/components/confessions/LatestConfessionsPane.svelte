@@ -3,6 +3,7 @@
   import { getAuthTokenClient } from "$lib/auth/auth";
   import { latestConfession, type Confession } from "$lib/graphql/confessions";
   import { onMount } from "svelte";
+  import ConfessionPane from "./ConfessionPane.svelte";
 
   let confession: Confession | undefined = undefined;
   let loaded = false;
@@ -19,7 +20,7 @@
         date = new Date(confession.createdAt * 1000);
         dateStr = date.toLocaleDateString('en-US', {
           year: 'numeric',
-          month: 'short',
+          month: 'long',
           day: 'numeric'
         });
         timeStr = date.toLocaleTimeString('en-US', {
@@ -34,9 +35,7 @@
 <a href="/confess" title="Go to the confessions page">
   <div class="h-60 flex flex-col items-center justify-center">
     {#if confession}
-      <h1 class="text-2xl font-bold">Confession {confession.id}</h1>
-      <p class="text-sm">{dateStr} at {timeStr}</p>
-      <p class="text-sm">{confession.content}</p>
+      <ConfessionPane confession={confession} />
     {:else if loaded}
       <p>No confessions yet!</p>
     {:else if !loaded}
