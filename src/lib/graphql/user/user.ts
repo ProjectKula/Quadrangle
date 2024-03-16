@@ -1,7 +1,7 @@
 import query from './user.graphql?raw';
 import editProfileQuery from './edit.graphql?raw';
 import { request } from 'graphql-request';
-import { getRootUrl } from '$lib';
+import { getRoot } from '$lib';
 import type { RecentPost } from '$lib/graphql/recentPosts';
 
 export interface User {
@@ -34,7 +34,7 @@ interface Data {
 
 export async function getUser(id: number, accessToken: string) {
     const out = await request<Data>(
-        `${getRootUrl()}/graphql`,
+        `${getRoot()}/graphql`,
         query,
         { id: id },
         { Authorization: `Bearer ${accessToken}` }
@@ -45,7 +45,7 @@ export async function getUser(id: number, accessToken: string) {
 
 export function editProfile(bio: string, pronouns: string, accessToken: string) {
     return request<{id: string}>(
-        `${getRootUrl()}/graphql`,
+        `${getRoot()}/graphql`,
         editProfileQuery,
         { bio: checkEmptyString(bio), pronouns: checkEmptyString(pronouns) },
         { Authorization: `Bearer ${accessToken}` }

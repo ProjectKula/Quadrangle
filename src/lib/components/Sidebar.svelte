@@ -1,13 +1,13 @@
 <script>
-  import { faHome, faList, faUser, faSignOut, faTimeline, faRankingStar, faStar } from '@fortawesome/free-solid-svg-icons';
+  import { faHome, faList, faUser, faSignOut, faTimeline, faRankingStar, faStar, faEnvelope, faSmileWink } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';
   import { page } from '$app/stores';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 
   let menuItems = [
     { text: 'Home', icon: faHome, link: '/' },
-    { text: 'Explore', icon: faStar, link: '/temp/1' },
-    { text: 'Item 2', icon: faList, link: '/temp/2' },
+    { text: 'Explore', icon: faStar, link: '/explore' },
+    { text: 'Confess', icon: faSmileWink, link: '/confess' },
     { text: 'Profile', icon: faUser, link: '/user/me' },
     { text: 'Log out', icon: faSignOut, link: '/logout' }
   ];

@@ -1,0 +1,7 @@
+query LatestConfession {
+    latestConfession {
+        id
+        content
+        createdAt
+    }
+}

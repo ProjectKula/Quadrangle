@@ -1,6 +1,6 @@
 import query from './self.graphql?raw';
 import { request } from 'graphql-request';
-import { getRootUrl } from '$lib';
+import { getRoot } from '$lib';
 import type { User } from '$lib/graphql/user/user';
 
 interface Data {
@@ -9,7 +9,7 @@ interface Data {
 
 export async function getSelf(accessToken: string) {
   const out = await request<Data>(
-    `${getRootUrl()}/graphql`,
+    `${getRoot()}/graphql`,
     query,
     {},
     { Authorization: `Bearer ${accessToken}` }

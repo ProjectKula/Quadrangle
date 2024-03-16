@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import { getRootUrl } from '$lib';
+import { getRoot } from '$lib';
 import type { AuthResponse } from '$lib/auth/auth';
 
 const defaultCookieOpts = {
@@ -11,7 +11,7 @@ const defaultCookieOpts = {
 export async function POST({ request, cookies }) {
     const credential = (await request.formData()).get('credential') as string;
 
-    const newAuth = await fetch(`${getRootUrl()}/v0/auth/google`, {
+    const newAuth = await fetch(`${getRoot()}/v0/auth/google`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${credential}`

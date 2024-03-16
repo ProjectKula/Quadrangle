@@ -1,4 +1,6 @@
 <script>
+  import LatestConfessionsPane from "./confessions/LatestConfessionsPane.svelte";
+
   let copyrightText = '© 2023 Project Kula and contributors';
 </script>
 
@@ -12,4 +14,6 @@
     •
     <a href="https://github.com/projectkula/docs">Docs</a>
   </div>
+
+  <LatestConfessionsPane />
 </div>

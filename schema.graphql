@@ -1,94 +1,96 @@
 type Confession {
-    content: String!
-    createdAt: Float
-    id: Int
+  content: String!
+  createdAt: Float
+  id: Int
 }
 
 type ConfessionPage {
-    items: [Confession!]!
-    metadata: PageMetadata!
+  items: [Confession!]!
+  metadata: PageMetadata!
 }
 
 scalar Date
 
 type Mutation {
-    confess(content: String!): Confession!
-    createPost(content: String!): Post!
-    deletePost(id: String!): Post!
-    editProfile(bio: String, pronouns: String): RegisteredUser!
-    followUser(id: Int!): Int!
-    likePost(post: String!): Boolean!
-    restorePost(id: String!): Post!
-    unfollowUser(id: Int!): Int!
-    unlikePost(post: String!): Boolean!
+  confess(content: String!): Confession!
+  createPost(content: String!): Post!
+  deletePost(id: String!): Post!
+  editProfile(bio: String, pronouns: String): RegisteredUser!
+  followUser(id: Int!): Int!
+  likePost(post: String!): Boolean!
+  restorePost(id: String!): Post!
+  unfollowUser(id: Int!): Int!
+  unlikePost(post: String!): Boolean!
 }
 
 type PageMetadata {
-    page: Int!
-    pageCount: Int!
-    per: Int!
-    total: Int!
+  page: Int!
+  pageCount: Int!
+  per: Int!
+  total: Int!
 }
 
 type Post {
-    content: String!
-    createdAt: Float
-    creator: RegisteredUser!
-    creatorId: Int!
-    deleted: Boolean!
-    id: String
-    likes(page: Int!, per: Int!): RegisteredUserPage!
-    likesCount: Int!
+  content: String!
+  createdAt: Float
+  creator: RegisteredUser!
+  creatorId: Int!
+  deleted: Boolean!
+  id: String
+  likes(page: Int!, per: Int!): RegisteredUserPage!
+  likesCount: Int!
 }
 
 type PostPage {
-    items: [Post!]!
-    metadata: PageMetadata!
+  items: [Post!]!
+  metadata: PageMetadata!
 }
 
 type Query {
-    confessions(page: Int!, per: Int!): ConfessionPage!
-    post(id: String!): Post!
-    posts(creator: Int!, page: Int!, per: Int!): PostPage!
-    recentPosts(count: Int!, before: Int): [Post!]!
-    self: RegisteredUser!
-    user(id: Int!): RegisteredUser!
+  confessions(page: Int!, per: Int!): ConfessionPage!
+  latestConfession: Confession
+  post(id: String!): Post!
+  posts(creator: Int!, page: Int!, per: Int!): PostPage!
+  recentPosts(count: Int!, before: Int): [Post!]!
+  self: RegisteredUser!
+  user(id: Int!): RegisteredUser!
 }
 
 type RegisteredUser {
-    bio: String
-    branch: String!
-    collegeId: String!
-    dateRegistered: Float
-    email: String!
-    followedBySelf: Boolean!
-    followerCount: Int!
-    followers(page: Int!, per: Int!): RegisteredUserPage!
-    following(page: Int!, per: Int!): RegisteredUserPage!
-    followingCount: Int!
-    followsSelf: Boolean!
-    gender: String!
-    id: Int
-    isSelf: Boolean!
-    name: String!
-    personalEmail: String
-    phone: String!
-    posts(page: Int!, per: Int!): PostPage!
-    pronouns: String
+  bio: String
+  branch: String!
+  collegeId: String!
+  dateRegistered: Float
+  email: String!
+  followedBySelf: Boolean!
+  followerCount: Int!
+  followers(page: Int!, per: Int!): RegisteredUserPage!
+  following(page: Int!, per: Int!): RegisteredUserPage!
+  followingCount: Int!
+  followsSelf: Boolean!
+  gender: String!
+  id: Int
+  isSelf: Boolean!
+  name: String!
+  personalEmail: String
+  phone: String!
+  posts(page: Int!, per: Int!): PostPage!
+  pronouns: String
 }
 
 type RegisteredUserPage {
-    items: [RegisteredUser!]!
-    metadata: PageMetadata!
+  items: [RegisteredUser!]!
+  metadata: PageMetadata!
 }
 
 type UnregisteredUser {
-    branch: String!
-    collegeId: String
-    email: String!
-    gender: String!
-    name: String!
-    phone: String!
+  branch: String!
+  collegeId: String
+  email: String!
+  gender: String!
+  name: String!
+  phone: String!
 }
 
 scalar UUID
+

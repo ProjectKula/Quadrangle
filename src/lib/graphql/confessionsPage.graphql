@@ -1,0 +1,13 @@
+query Confessions($page: Int!) {
+  confessions(page: $page, per: 5) {
+    items {
+      content
+      createdAt
+      id
+    }
+    metadata {
+      page
+      pageCount
+    }
+  }
+}

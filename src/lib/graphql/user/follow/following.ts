@@ -1,7 +1,7 @@
 import followQuery from './follow.graphql?raw';
 import unfollowQuery from './unfollow.graphql?raw';
 import { request } from 'graphql-request';
-import { getRootUrl } from '$lib';
+import { getRoot } from '$lib';
 
 interface FollowData {
   followUser: boolean;
@@ -13,7 +13,7 @@ interface UnfollowData {
 
 export async function follow(id: number, accessToken: string) {
   const out = await request<FollowData>(
-    `${getRootUrl()}/graphql`,
+    `${getRoot()}/graphql`,
     followQuery,
     { id: id },
     { Authorization: `Bearer ${accessToken}` }
@@ -24,7 +24,7 @@ export async function follow(id: number, accessToken: string) {
 
 export async function unfollow(id: number, accessToken: string) {
   const out = await request<UnfollowData>(
-    `${getRootUrl()}/graphql`,
+    `${getRoot()}/graphql`,
     unfollowQuery,
     { id: id },
     { Authorization: `Bearer ${accessToken}` }

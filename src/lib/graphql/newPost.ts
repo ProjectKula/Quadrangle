@@ -1,5 +1,5 @@
 import { request } from 'graphql-request';
-import { getRootUrl } from '$lib/index';
+import { getRoot } from '$lib/index';
 import query from './newPost.graphql?raw';
 
 export interface NewPost {
@@ -13,7 +13,7 @@ interface Data {
 
 export async function createNewPost(accessToken: string, content: string) {
     const out = await request<Data>(
-        `${getRootUrl()}/graphql`,
+        `${getRoot()}/graphql`,
         query,
         { content: content },
         { Authorization: `Bearer ${accessToken}` }

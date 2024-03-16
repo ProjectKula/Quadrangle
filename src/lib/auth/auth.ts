@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { getRootUrl } from '$lib/index';
+import { getRoot } from '$lib/index';
 
 export interface AuthResponse {
     accessToken: string;
@@ -37,7 +37,7 @@ export async function loginWithCredentials(id: string, password: string) {
     // if the id is a username, we should use the username login endpoint
     // this is a simple check for now
     const email = id.includes('@');
-    const endpoint = `${getRootUrl()}/v0/auth/login/${email ? 'email' : 'id'}`;
+    const endpoint = `${getRoot()}/v0/auth/login/${email ? 'email' : 'id'}`;
     const body = email ? { email: id, password: password } : { collegeId: id, password: password };
 
     const response = await fetch(endpoint, {
@@ -51,7 +51,7 @@ export async function loginWithCredentials(id: string, password: string) {
 }
 
 export async function refreshIdentityToken(accessToken: string, refreshToken: string) {
-    const response = await fetch(`${getRootUrl()}/v0/auth/refresh`, {
+    const response = await fetch(`${getRoot()}/v0/auth/refresh`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
