@@ -1,4 +1,5 @@
 <script>
+  import { PUBLIC_BUCKET_URL } from "$env/static/public";
   import { browser } from "$app/environment";
   import { getAuthTokenClient } from "$lib/auth/auth";
   import { editProfile } from "$lib/graphql/user/user";
@@ -9,6 +10,7 @@
   export let bio = '';
   export let pronouns = '';
   export let show = false;
+  export let avatarUrl = '';
 
   $: editingBio = bio;
   $: editingPronouns = pronouns;
@@ -48,17 +50,23 @@
         <Fa size={"lg"} icon={faMultiply} />
       </button>
       <h2 class="text-xl mb-4 font-semibold">Edit Profile</h2>
-      <div class="mb-4">
-        <label for="bio" class="block mb-1">Bio:</label>
-        <input type="text" id="bio" bind:value={editingBio} class="bg-neutral-100 dark:bg-black w-full px-3 py-2 rounded" disabled={disabled}/>
-      </div>
-      <div class="mb-4">
-        <label for="pronouns" class="block mb-1">Pronouns:</label>
-        <input type="text" id="pronouns" bind:value={editingPronouns} class="bg-neutral-100 dark:bg-black w-full px-3 py-2 rounded" disabled={disabled}/>
-      </div>
-      <div class="flex justify-end invertColors gap-5">
-        <button class="btn-secondary py-1 px-2" on:click={closeModal} disabled={disabled}>Cancel</button>
-        <button class="btn-success py-1 px-2" on:click={handleSubmit} disabled={disabled}>Submit</button>
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-row">
+          <img src={avatarUrl} alt="Avatar" class="w-12 h-12 rounded-full"/>
+          <button class="btn-secondary py-1 px-2 ml-2">Change Avatar</button>
+        </div>
+        <div>
+          <label for="bio" class="block mb-1">Bio:</label>
+          <input type="text" id="bio" bind:value={editingBio} class="bg-neutral-100 dark:bg-black w-full px-3 py-2 rounded" disabled={disabled}/>
+        </div>
+        <div>
+          <label for="pronouns" class="block mb-1">Pronouns:</label>
+          <input type="text" id="pronouns" bind:value={editingPronouns} class="bg-neutral-100 dark:bg-black w-full px-3 py-2 rounded" disabled={disabled}/>
+        </div>
+        <div class="flex justify-end invertColors gap-5">
+          <button class="btn-secondary py-1 px-2" on:click={closeModal} disabled={disabled}>Cancel</button>
+          <button class="btn-success py-1 px-2" on:click={handleSubmit} disabled={disabled}>Submit</button>
+        </div>
       </div>
     </div>
   </div>

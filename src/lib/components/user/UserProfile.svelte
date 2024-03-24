@@ -69,5 +69,5 @@
 </div>
 
 {#if data.isSelf}
-  <EditProfileModal bind:pronouns={data.pronouns} bind:bio={data.bio} bind:show={showEditModal} />
+  <EditProfileModal bind:pronouns={data.pronouns} bind:bio={data.bio} bind:show={showEditModal} bind:avatarUrl={avatarUrl} />
 {/if}
