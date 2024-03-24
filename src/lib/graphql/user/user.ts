@@ -16,6 +16,7 @@ export interface User {
     followerCount: number;
     followingCount: number;
     followedBySelf: boolean;
+    avatarHash: string | null;
     posts: PostPage;
 }
 

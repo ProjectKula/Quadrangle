@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { PUBLIC_BUCKET_URL } from '$env/static/public';
   import type { User } from '$lib/graphql/user/user';
   import { getBranchName } from '$lib/misc/branches';
   import RecentPostCard from '$lib/components/posts/RecentPostCard.svelte';
@@ -17,12 +18,14 @@
     return `${day}/${month}/${year}`;
   };
 
+  let avatarUrl = data.avatarHash ? `${PUBLIC_BUCKET_URL}/${data.avatarHash}` : '/default_pfp.svg';
+
   let showEditModal = false;
 </script>
 
 <div class="flex flex-col">
   <div class="flex flex-col md:flex-row mb-4">
-    <img src="/default_pfp.svg" alt="Avatar" class="w-32 h-32 rounded-full" />
+    <img src={avatarUrl} alt="Avatar" class="w-32 h-32 rounded-full" />
     <div class="flex flex-col md:ml-4">
       <div class="flex flex-row items-center flex-wrap gap-2">
         <h2 class="text-2xl">{data.name}</h2>

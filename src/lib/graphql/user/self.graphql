@@ -10,6 +10,7 @@ query Self {
         isSelf
         followerCount
         followingCount
+        avatarHash
         ...UserPosts
     }
 }
