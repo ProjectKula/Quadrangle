@@ -2,7 +2,7 @@
   import { PUBLIC_BUCKET_URL } from "$env/static/public";
   import { browser } from "$app/environment";
   import { getAuthTokenClient } from "$lib/auth/auth";
-  import { editProfile } from "$lib/graphql/user/user";
+  import { editProfile, uploadAvatar } from "$lib/graphql/user/user";
   import { faMultiply } from "@fortawesome/free-solid-svg-icons";
   import { onMount } from "svelte";
   import Fa from "svelte-fa";
@@ -30,10 +30,27 @@
 
   function handleSubmit() {
     disabled = true;
+    
     editProfile(editingBio, editingPronouns, getAuthTokenClient())
       .then(() => {
         bio = editingBio;
         pronouns = editingPronouns;
+      })
+      .then(() => {
+        if (files && files.length > 0) {
+          uploadAvatar(files[0], getAuthTokenClient())
+            .then((resp) => {
+              return resp.json()
+            })
+            .then((data) => {
+              console.log("Avatar uploaded");
+              avatarUrl = `${PUBLIC_BUCKET_URL}/${data.hash}`;
+              console.log(data);
+            })
+            .finally(() => {
+              disabled = false;
+            });
+        }
       })
       .finally(() => {
         disabled = false;

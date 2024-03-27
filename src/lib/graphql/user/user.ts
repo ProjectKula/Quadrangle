@@ -54,17 +54,15 @@ export function editProfile(bio: string, pronouns: string, accessToken: string) 
 }
 
 export async function uploadAvatar(avatar: File, accessToken: string) {
-
-    let file = await avatar.arrayBuffer().then((buffer) => {
-        return new Uint8Array(buffer);
-    });
+    let formData = new FormData();
+    formData.append('avatar', avatar);
 
     return fetch(`${getRoot()}/v0/avatar`, {
         method: 'POST',
         headers: {
-            Authorization: `Bearer ${accessToken}`
+            Authorization: `Bearer ${accessToken}`,
         },
-        body: file
+        body: await avatar.arrayBuffer()
     });
 }
 
