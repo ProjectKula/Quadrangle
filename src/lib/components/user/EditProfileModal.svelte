@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import { PUBLIC_BUCKET_URL } from "$env/static/public";
   import { browser } from "$app/environment";
   import { getAuthTokenClient } from "$lib/auth/auth";
@@ -12,6 +12,8 @@
   export let show = false;
   export let avatarUrl = '';
 
+  let files: FileList;
+  
   $: editingBio = bio;
   $: editingPronouns = pronouns;
 
@@ -54,6 +56,7 @@
         <div class="flex flex-row">
           <img src={avatarUrl} alt="Avatar" class="w-12 h-12 rounded-full"/>
           <button class="btn-secondary py-1 px-2 ml-2">Change Avatar</button>
+          <input accept="image/png, image/jpeg" bind:files id="avatar" name="avatar" type="file" />
         </div>
         <div>
           <label for="bio" class="block mb-1">Bio:</label>
