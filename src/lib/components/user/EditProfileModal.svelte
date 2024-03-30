@@ -70,9 +70,8 @@
       </button>
       <h2 class="text-xl mb-4 font-semibold">Edit Profile</h2>
       <div class="flex flex-col gap-4">
-        <div class="flex flex-row">
+        <div class="flex flex-row items-center gap-4">
           <img src={avatarUrl} alt="Avatar" class="w-12 h-12 rounded-full"/>
-          <button class="btn-secondary py-1 px-2 ml-2">Change Avatar</button>
           <input accept="image/png, image/jpeg" bind:files id="avatar" name="avatar" type="file" />
         </div>
         <div>
