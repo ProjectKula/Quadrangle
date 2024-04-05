@@ -1,5 +1,5 @@
 <script>
-  import { faHome, faList, faUser, faSignOut, faTimeline, faRankingStar, faStar, faEnvelope, faSmileWink, faMultiply } from '@fortawesome/free-solid-svg-icons';
+  import { faHome, faList, faUser, faSignOut, faTimeline, faRankingStar, faStar, faEnvelope, faSmileWink, faMultiply, faGear } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';
   import { page } from '$app/stores';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
@@ -9,6 +9,7 @@
     { text: '🌏 Explore', icon: faStar, link: '/explore' },
     { text: '📜 Confess', icon: faSmileWink, link: '/confess' },
     { text: '👤 Profile', icon: faUser, link: '/user/me' },
+    { text: '⚙️ Settings', icon: faGear, link: '/settings'},
     { text: '↪️ Log out', icon: faSignOut, link: '/logout' }
   ];
 
