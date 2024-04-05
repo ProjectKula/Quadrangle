@@ -46,12 +46,14 @@
   <!--  <script src="https://accounts.google.com/gsi/client" async></script>-->
 </svelte:head>
 
-<div class="flex items-center justify-center max-sm:h-[80vh] sm:h-screen">
-  <div class="flex flex-col sm:w-96 p-8 max-sm:w-full dark:bg-good-dark-grey bg-neutral-100 shadow-md rounded-md">
+<div class="flex items-center justify-center h-screen">
+  <div class="flex flex-col w-96 p-8 dark:bg-good-dark-grey bg-neutral-100 shadow-md rounded-md">
     <div class="flex flex-col">
       <h2 class="text-2xl font-semibold mb-4">Log In</h2>
 
-      <SignInWithGoogle />
+      <div class="flex flex-row justify-center">
+        <SignInWithGoogle />
+      </div>
 
       <h2 class="text-xl font-semibold m-4 text-center">Or</h2>
 
