@@ -1,5 +1,6 @@
 import cookie from 'cookie';
 import { type AuthResponse, refreshIdentityToken } from '$lib/auth/auth';
+import { jwtDecode } from "jwt-decode";
 
 const defaultCookieOpts = {
     httpOnly: false,
@@ -16,6 +17,12 @@ export async function handle({ event, resolve }) {
     const accessToken = cookies.accessToken;
     const refreshToken = cookies.refreshToken;
     const expiresAt = cookies.expiresAt;
+
+    try {
+        jwtDecode(accessToken);
+    } catch (e) {
+        return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
+    }
 
     if (!accessToken || !refreshToken || !expiresAt) {
         return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
