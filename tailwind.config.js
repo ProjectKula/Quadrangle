@@ -5,7 +5,9 @@ export default {
     extend: {
       colors: {
         'good-grey': '#2a2a2a',
-        'good-dark-grey': '#1a1a1a',
+          'good-dark-grey': '#1a1a1a',
+          'blurple': '#7e57c2',
+          'light-blurple': '#b39ddb'
       }
     },
     fontFamily: {

@@ -10,9 +10,9 @@
   <div class="flex flex-row gap-4 flex-wrap">
     <a href="/legal">Legal</a> 
     •
-    <a href="https://github.com/projectkula">Source</a>
+    <a href="https://github.com/projectkula" target="_blank">Source</a>
     •
-    <a href="https://github.com/projectkula/docs">Docs</a>
+    <a href="https://github.com/projectkula/docs" target="_blank">Docs</a>
   </div>
 
   <h2 class="normalColors text-xl mt-10">Recent</h2>
