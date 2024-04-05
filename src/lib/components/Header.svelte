@@ -36,9 +36,9 @@
 
 <div class="contents sm-hidden">
   <div class="z-10 fixed inset-0 flex flex-row" class:hidden={!showSidebar}>
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="relative">
-      <Sidebar closeButton={true} />
+    <div class="absolute inset-0 bg-black transition delay-75" class:opacity-50={showSidebar} class:opacity-100={!showSidebar}></div>
+    <div class="relative" class:sidebarVisible={showSidebar} class:sidebarHidden={!showSidebar}>
+      <Sidebar closeButton={true} bind:sidebarOpen={showSidebar} />
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 <script>
-  import { faHome, faList, faUser, faSignOut, faTimeline, faRankingStar, faStar, faEnvelope, faSmileWink } from '@fortawesome/free-solid-svg-icons';
+  import { faHome, faList, faUser, faSignOut, faTimeline, faRankingStar, faStar, faEnvelope, faSmileWink, faMultiply } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';
   import { page } from '$app/stores';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
@@ -15,6 +15,7 @@
   $:currentPath = $page.url.pathname;
 
   export let closeButton = false;
+  export let sidebarOpen = true;
 
   // if (browser) {
   // 	onMount(() => {
@@ -27,6 +28,14 @@
 <div
   class="gap-0 flex flex-shrink flex-col items-start justify-between p-4 dark:bg-neutral-800 bg-neutral-200 border-r dark:border-black border-neutral-300 min-h-screen">
   <div class="contents">
+    {#if closeButton}
+      <button
+        class="flex items-center justify-center p-2 text-2xl rounded-full"
+        on:click={() => sidebarOpen = !sidebarOpen}>
+        <Fa icon={faMultiply} />
+      </button>
+    {/if}
+    
     <h1 class="text-sm">Under Construction</h1>
 
     {#each menuItems as { text, icon, link } (text)}
