@@ -42,7 +42,7 @@
 
         {#if data.isSelf}
           <button class="btn-success py-1 text-black" on:click={() => showEditModal = true}>Edit Profile</button>
-          <button class="btn-secondary py-1 invertColors">Settings</button>
+          <a href="/settings" class="contents"><button class="btn-secondary py-1 invertColors">Settings</button></a>
         {/if}
       </div>
 

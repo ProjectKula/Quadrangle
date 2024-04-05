@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <h2 class="text-xl mt-10">Recent</h2>
+  <h2 class="text-xl text-neutral-600 dark:text-neutral-400 mt-10">Recent Activity</h2>
   
   <LatestConfessionsPane />
 </div>
