@@ -57,6 +57,7 @@ type Query {
 }
 
 type RegisteredUser {
+  avatarHash: String
   bio: String
   branch: String!
   collegeId: String!
