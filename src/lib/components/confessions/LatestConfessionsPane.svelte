@@ -33,7 +33,7 @@
 </script>
 
 <a href="/confess" title="Go to the confessions page">
-  <div class="h-60 flex flex-col items-center justify-center">
+  <div class="flex flex-col items-center justify-center">
     {#if confession}
       <ConfessionPane confession={confession} />
     {:else if loaded}

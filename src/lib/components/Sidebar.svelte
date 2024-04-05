@@ -5,11 +5,11 @@
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 
   let menuItems = [
-    { text: 'Home', icon: faHome, link: '/' },
-    { text: 'Explore', icon: faStar, link: '/explore' },
-    { text: 'Confess', icon: faSmileWink, link: '/confess' },
-    { text: 'Profile', icon: faUser, link: '/user/me' },
-    { text: 'Log out', icon: faSignOut, link: '/logout' }
+    { text: '🏠 Home', icon: faHome, link: '/' },
+    { text: '🌎 Explore', icon: faStar, link: '/explore' },
+    { text: '😉 Confess', icon: faSmileWink, link: '/confess' },
+    { text: '👤 Profile', icon: faUser, link: '/user/me' },
+    { text: '↪️ Log out', icon: faSignOut, link: '/logout' }
   ];
 
   $:currentPath = $page.url.pathname;

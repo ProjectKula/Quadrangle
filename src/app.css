@@ -18,6 +18,10 @@ body {
     @apply dark:text-black text-white;
 }
 
+.normalColors {
+    @apply text-black dark:text-white;
+}
+
 body {
     @apply dark:text-white dark:bg-neutral-900;
 }
