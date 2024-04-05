@@ -21,21 +21,26 @@ export async function handle({ event, resolve }) {
     try {
         jwtDecode(accessToken);
     } catch (e) {
+        console.log("Not a valid jwt (server)");
         return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
     }
 
     if (!accessToken || !refreshToken || !expiresAt) {
+        console.log("Missing cookies (server)");
         return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
     }
 
     const expiresAtNum = parseInt(expiresAt, 10);
 
     if (Date.now() >= (expiresAtNum - 12000)) {
+        console.log("Refreshing token (server)");
         let newAuth: AuthResponse;
         try {
             newAuth = await refreshIdentityToken(accessToken, refreshToken);
         } catch (e) {
             // TODO: handle this error
+            console.log("Failed to refresh token");
+            console.log(e);
             return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
         }
 

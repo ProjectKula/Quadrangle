@@ -44,6 +44,21 @@
   }
 </script>
 
+<style>
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .fade-in-buttons {
+    animation: fadeIn 0.2s;
+  }
+</style>
+
 <div class="flex flex-col items-stretch w-full mx-auto">
   <textarea
     bind:value={postText}
@@ -56,7 +71,7 @@
   ></textarea>
 
   {#if isSubmitVisible}
-    <div class="flex flex-row justify-end gap-2">
+    <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
       <button on:click={handleSubmit} disabled={submitting} class="btn-success px-2 py-1 text-white">Submit</button>
       <button on:click={handleCancel} disabled={submitting} class="btn-cancel px-2 py-1 text-white">Cancel</button>
     </div>
