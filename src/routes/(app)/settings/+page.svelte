@@ -12,7 +12,7 @@
 <div class="flex flex-col">
   <h1 class="text-3xl font-semibold">Settings</h1>
   
-  <div class="flex flex-col gap-2 w-96 m-4 p-4 rounded-md dark:bg-neutral-700 bg-neutral-100 w-80">
+  <div class="flex flex-col gap-2 w-96 mt-4 p-4 rounded-md dark:bg-neutral-700 bg-neutral-100 w-80">
     <h2 class="text-2xl font-light">Reset password</h2>
     <div class="grid grid-cols-2 text-lg gap-y-2">
       <label for="old-password">Current password</label>
