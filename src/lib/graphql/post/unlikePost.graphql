@@ -1,0 +1,3 @@
+mutation LikePost($id: String!) {
+  unlikePost(post: $id)
+}

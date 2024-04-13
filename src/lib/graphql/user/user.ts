@@ -2,7 +2,7 @@ import query from './user.graphql?raw';
 import editProfileQuery from './edit.graphql?raw';
 import { request } from 'graphql-request';
 import { getRoot } from '$lib';
-import type { RecentPost } from '$lib/graphql/recentPosts';
+import type { RecentPost } from '$lib/graphql/post/recentPosts';
 
 export interface User {
     id: number;

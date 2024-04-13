@@ -1,5 +1,5 @@
 import { request } from 'graphql-request';
-import { getRoot } from '$lib/index';
+import { getRoot } from '$lib';
 import query from './newPost.graphql?raw';
 
 export interface NewPost {

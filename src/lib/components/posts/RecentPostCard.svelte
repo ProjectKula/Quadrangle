@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { RecentPost } from '$lib/graphql/recentPosts';
+  import type { RecentPost } from '$lib/graphql/post/recentPosts';
 
   export let post: RecentPost;
 

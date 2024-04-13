@@ -1,7 +1,7 @@
 <script lang="ts">
   import NewPost from '$lib/components/posts/NewPost.svelte';
   import RecentPostCard from '$lib/components/posts/RecentPostCard.svelte';
-  import type { RecentPost } from '$lib/graphql/recentPosts';
+  import type { RecentPost } from '$lib/graphql/post/recentPosts';
   
   export let data: { data: RecentPost[] };
 </script>
