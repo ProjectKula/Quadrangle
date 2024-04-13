@@ -52,27 +52,26 @@
 
 <div class="flex flex-col flex-1 rounded bg-neutral-100 dark:bg-neutral-800 p-2">
 
-  <div class="flex flex-row flex-shrink gap-2">
+  <div class="flex flex-row flex-shrink font-light gap-2 text-sm">
     <a href="/user/{post.creator.id}">{post.creator.name}</a>
     <span>{dateStr}, {timeStr}</span>
   </div>
 
-  <p class="min-width-0">
+  <p class="min-width-0 text-lg">
     {post.content}
   </p>
 
   <p class="flex flex-row gap-4">
-    {post.likesCount} Like{likesCount === 1 ? '' : 's'}
-    {#if loading}
-      <Spinner />
-    {:else if selfLiked}
+
+    {#if selfLiked}
       <button class="text-red" on:click={onUnlike}>
-        <Fa icon={faHeartSolid} />
+        <Fa icon={faHeartSolid} color="red" />
       </button>
     {:else}
       <button class="hover:text-red transition duration-100" on:click={onLike}>
         <Fa icon={faHeart} />
       </button>
     {/if}
+    {likesCount} Like{likesCount === 1 ? '' : 's'}
   </p>
 </div>
