@@ -1,9 +1,10 @@
 <script lang="ts">
   import autosize from 'svelte-autosize';
   import ConfessionsGallery from "$lib/components/confessions/ConfessionsGallery.svelte";
-  import type { ConfessionsPage } from "$lib/graphql/confessions/confessions";
+  import { confess, type ConfessionsPage } from '$lib/graphql/confessions/confessions';
   import { faMultiply } from "@fortawesome/free-solid-svg-icons";
   import Fa from "svelte-fa";
+  import { getAuthTokenClient } from '$lib/auth';
 
   export let data: ConfessionsPage;
 
@@ -14,7 +15,28 @@
   function handleInputChange() {
 
   }
+  
+  function onConfess() {
+    submitting = true;
+    let text = confessionText.trim();
+    if (text.length <= 0) {
+      return;
+    }
+    confess(getAuthTokenClient(), text)
+      .then(() => {
+        isConfessing = false;
+        confessionText = "";
+        submitting = false;
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+  }
 </script>
+
+<svelte:head>
+  <title>Confessions</title>
+</svelte:head>
 
 <div class="flex flex-col">
   <div class="flex flex-row gap-5 items-center mb-4">
@@ -48,7 +70,7 @@
         class="max-h-24 border-4 border-neutral-200 dark:border-good-dark-grey mb-4 p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
       ></textarea>
       <div class="flex flex-row-reverse">
-        <button class="btn-success px-2 py-1" on:click={() => isConfessing = true}>Post Confession</button>
+        <button class="btn-success px-2 py-1" on:click={onConfess}>Post Confession</button>
       </div>
     </div>
   </div>

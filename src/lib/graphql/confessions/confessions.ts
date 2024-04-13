@@ -25,7 +25,7 @@ export interface Data {
 }
 
 export interface Data0 {
-  confessionsPage: ConfessionsPage;
+    confessions: ConfessionsPage;
 }
 
 export interface Data1 {
@@ -51,7 +51,7 @@ export async function confessionsPage(accessToken: string, page: number) {
         { Authorization: `Bearer ${accessToken}` }
     );
 
-    return data.confessionsPage;
+    return data.confessions;
 }
 
 export async function confess(accessToken: string, content: string): Promise<Confession> {
