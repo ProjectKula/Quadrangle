@@ -1,0 +1,7 @@
+mutation PostConfession($content: String!) {
+    confess(content: $content) {
+        id
+        content
+        createdAt
+    }
+}

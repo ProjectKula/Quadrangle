@@ -1,7 +1,8 @@
 import { request } from 'graphql-request';
-import { getRoot } from '$lib/index';
-import latestConfesssionQuery from './confessionLatest.graphql?raw';
+import { getRoot } from '$lib';
+import latestConfessionQuery from './confessionLatest.graphql?raw';
 import confessionsPageQuery from './confessionsPage.graphql?raw';
+import confessQuery from './confess.graphql?raw';
 
 export interface Confession {
   id: number;
@@ -23,28 +24,43 @@ export interface Data {
   latestConfession: Confession;
 }
 
-export interface Data2 {
+export interface Data0 {
   confessionsPage: ConfessionsPage;
 }
 
+export interface Data1 {
+    confess: Confession
+}
+
 export async function latestConfession(accessToken: string) {
-    const out = await request<Data>(
+    const data = await request<Data>(
         `${getRoot()}/graphql`,
-        latestConfesssionQuery,
+        latestConfessionQuery,
         { },
         { Authorization: `Bearer ${accessToken}` }
     );
 
-    return out.latestConfession;
+    return data.latestConfession;
 }
 
 export async function confessionsPage(accessToken: string, page: number) {
-    const out = await request<Data2>(
+    const data = await request<Data0>(
         `${getRoot()}/graphql`,
         confessionsPageQuery,
         { page: page },
         { Authorization: `Bearer ${accessToken}` }
     );
 
-    return out.confessions;
+    return data.confessionsPage;
+}
+
+export async function confess(accessToken: string, content: string): Promise<Confession> {
+    const data = await request<Data1>(
+        `${getRoot()}/graphql`,
+        confessQuery,
+        { content: content },
+        { Authorization: `Bearer ${accessToken}` }
+    );
+    
+    return data.confess;
 }

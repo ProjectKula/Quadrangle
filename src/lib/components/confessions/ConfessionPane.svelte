@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Confession } from "$lib/graphql/confessions";
+  import type { Confession } from "$lib/graphql/confessions/confessions";
 
   export let confession: Confession
 

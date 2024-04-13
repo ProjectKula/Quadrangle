@@ -1,7 +1,7 @@
 <script lang="ts">
   import autosize from 'svelte-autosize';
   import ConfessionsGallery from "$lib/components/confessions/ConfessionsGallery.svelte";
-  import type { ConfessionsPage } from "$lib/graphql/confessions";
+  import type { ConfessionsPage } from "$lib/graphql/confessions/confessions";
   import { faMultiply } from "@fortawesome/free-solid-svg-icons";
   import Fa from "svelte-fa";
 

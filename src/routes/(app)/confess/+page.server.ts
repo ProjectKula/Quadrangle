@@ -1,4 +1,4 @@
-import { confessionsPage } from "$lib/graphql/confessions";
+import { confessionsPage } from "$lib/graphql/confessions/confessions";
 
 export const load = async ({ cookies }) => {
   const token = cookies.get('accessToken');

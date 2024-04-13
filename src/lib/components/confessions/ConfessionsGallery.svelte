@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { ConfessionsPage } from "$lib/graphql/confessions";
+  import type { ConfessionsPage } from "$lib/graphql/confessions/confessions";
   import ConfessionPane from "./ConfessionPane.svelte";
   
   export let confessions: ConfessionsPage
