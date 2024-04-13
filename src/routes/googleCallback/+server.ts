@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import { getRoot } from '$lib';
-import type { AuthResponse } from '$lib/auth/auth';
+import type { AuthResponse } from '$lib/auth';
 
 const defaultCookieOpts = {
     httpOnly: false,

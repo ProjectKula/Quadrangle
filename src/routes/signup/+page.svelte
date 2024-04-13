@@ -3,7 +3,7 @@
 
   import { requestEmailCode, sendEmailCode, setInitialCredentials } from '$lib/auth/signup';
   import { browser } from '$app/environment';
-  import { setAuthCookies } from '$lib/auth/auth';
+  import { setAuthCookies } from '$lib/auth';
   import SignInWithGoogle from '$lib/components/SignInWithGoogle.svelte';
 
   let id = '';

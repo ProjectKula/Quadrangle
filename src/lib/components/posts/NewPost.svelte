@@ -1,7 +1,7 @@
 <script lang="ts">
   import autosize from 'svelte-autosize';
   import { createNewPost } from '$lib/graphql/post/newPost';
-  import { getAuthTokenClient } from '$lib/auth/auth';
+  import { getAuthTokenClient } from '$lib/auth';
 
   let postText = '';
   let isSubmitVisible = false;

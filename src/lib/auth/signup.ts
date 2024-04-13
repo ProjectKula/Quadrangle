@@ -1,5 +1,5 @@
-import { getRoot } from '$lib/index';
-import type { AuthResponse } from '$lib/auth/auth';
+import { getRoot } from '$lib';
+import type { AuthResponse } from '$lib/auth/index';
 
 export interface SignupStateResponse {
     success: boolean;

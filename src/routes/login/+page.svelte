@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { loginWithCredentials, setAuthCookies } from '$lib/auth/auth';
+  import { loginWithCredentials, setAuthCookies } from '$lib/auth';
   import SignInWithGoogle from '$lib/components/SignInWithGoogle.svelte';
 
   let id = '';

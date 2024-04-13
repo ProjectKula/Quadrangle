@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { type AuthResponse, refreshIdentityToken } from '$lib/auth/auth';
+import { type AuthResponse, refreshIdentityToken } from '$lib/auth';
 import { jwtDecode } from "jwt-decode";
 
 const defaultCookieOpts = {

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { PUBLIC_BUCKET_URL } from "$env/static/public";
   import { browser } from "$app/environment";
-  import { getAuthTokenClient } from "$lib/auth/auth";
+  import { getAuthTokenClient } from "$lib/auth";
   import { editProfile, uploadAvatar } from "$lib/graphql/user/user";
   import { faMultiply } from "@fortawesome/free-solid-svg-icons";
   import { onMount } from "svelte";

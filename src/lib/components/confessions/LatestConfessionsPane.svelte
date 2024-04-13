@@ -1,6 +1,6 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { getAuthTokenClient } from "$lib/auth/auth";
+  import { getAuthTokenClient } from "$lib/auth";
   import { latestConfession, type Confession } from "$lib/graphql/confessions";
   import { onMount } from "svelte";
   import ConfessionPane from "./ConfessionPane.svelte";
