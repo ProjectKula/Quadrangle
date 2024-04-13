@@ -23,6 +23,11 @@ fragment UserPosts on RegisteredUser {
             content
             createdAt
             likesCount
+            creator {
+                name
+                id
+            }
+            selfLiked
         }
         metadata {
             pageCount

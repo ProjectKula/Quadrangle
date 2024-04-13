@@ -7,6 +7,11 @@ export interface RecentPost {
     content: string;
     createdAt: number;
     likesCount: number;
+    creator: {
+        id: number;
+        name: number;
+    };
+    selfLiked: boolean;
 }
 
 interface Data {

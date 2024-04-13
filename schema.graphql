@@ -17,10 +17,10 @@ type Mutation {
   deletePost(id: String!): Post!
   editProfile(bio: String, pronouns: String): RegisteredUser!
   followUser(id: Int!): Int!
-  likePost(post: String!): Boolean!
+  likePost(id: String!): Int!
   restorePost(id: String!): Post!
   unfollowUser(id: Int!): Int!
-  unlikePost(post: String!): Boolean!
+  unlikePost(id: String!): Int!
 }
 
 type PageMetadata {
@@ -39,6 +39,7 @@ type Post {
   id: String
   likes(page: Int!, per: Int!): RegisteredUserPage!
   likesCount: Int!
+  selfLiked: Boolean!
 }
 
 type PostPage {

@@ -4,5 +4,10 @@ query RecentPosts($count: Int!, $before: Int) {
         content
         createdAt
         likesCount
+        creator {
+            id
+            name
+        }
+        selfLiked
     }
 }

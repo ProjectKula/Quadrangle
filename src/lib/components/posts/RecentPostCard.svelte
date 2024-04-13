@@ -1,7 +1,18 @@
 <script lang="ts">
   import type { RecentPost } from '$lib/graphql/post/recentPosts';
+  import Spinner from '$lib/components/util/Spinner.svelte';
+  import Fa from 'svelte-fa';
+  import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
+  import { faHeart } from '@fortawesome/free-regular-svg-icons';
+  import { likePost, unlikePost } from '$lib/graphql/post/like';
+  import { getAuthTokenClient } from '$lib/auth';
 
   export let post: RecentPost;
+  
+  let likesCount = post.likesCount;
+  
+  let selfLiked = post.selfLiked;
+  let loading = false;
 
   let date = new Date(post.createdAt * 1000);
   let dateStr = date.toLocaleDateString('en-US', {
@@ -13,12 +24,36 @@
     hour: '2-digit',
     minute: '2-digit'
   });
+  
+  function onLike() {
+    loading = true;
+    likePost(post.id, getAuthTokenClient())
+      .then((res) => {
+        likesCount = res;
+        selfLiked = true;
+      })
+      .finally(() => {
+        loading = false;
+      });
+  }
+  
+  function onUnlike() {
+    loading = true;
+    unlikePost(post.id, getAuthTokenClient())
+      .then((res) => {
+        likesCount = res;
+        selfLiked = false;
+      })
+      .finally(() => {
+        loading = false;
+      });
+  }
 </script>
 
 <div class="flex flex-col flex-1 rounded bg-neutral-100 dark:bg-neutral-800 p-2">
 
-  <div class="flex flex-row flex-shrink">
-    <!-- <a href="/user/{post.creator}">{post.creator}</a> -->
+  <div class="flex flex-row flex-shrink gap-2">
+    <a href="/user/{post.creator.id}">{post.creator.name}</a>
     <span>{dateStr}, {timeStr}</span>
   </div>
 
@@ -26,7 +61,18 @@
     {post.content}
   </p>
 
-  <p>
-    {post.likesCount} Like{post.likesCount === 1 ? '' : 's'}
+  <p class="flex flex-row gap-4">
+    {post.likesCount} Like{likesCount === 1 ? '' : 's'}
+    {#if loading}
+      <Spinner />
+    {:else if selfLiked}
+      <button class="text-red" on:click={onUnlike}>
+        <Fa icon={faHeartSolid} />
+      </button>
+    {:else}
+      <button class="hover:text-red transition duration-100" on:click={onLike}>
+        <Fa icon={faHeart} />
+      </button>
+    {/if}
   </p>
 </div>
