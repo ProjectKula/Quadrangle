@@ -1,6 +1,7 @@
 type Confession {
   content: String!
   createdAt: Float
+  deletedAt: Float
   id: Int
 }
 
@@ -12,14 +13,18 @@ type ConfessionPage {
 scalar Date
 
 type Mutation {
+  archivePost(id: String!): Post!
   confess(content: String!): Confession!
   createPost(content: String!): Post!
   deletePost(id: String!): Post!
   editProfile(bio: String, pronouns: String): RegisteredUser!
   followUser(id: Int!): Int!
+  likeConfession(id: Int!): Int!
   likePost(id: String!): Int!
+  replyToPost(to: String!, content: String!): Post!
   restorePost(id: String!): Post!
   unfollowUser(id: Int!): Int!
+  unlikeConfession(id: Int!): Int!
   unlikePost(id: String!): Int!
 }
 
@@ -35,10 +40,11 @@ type Post {
   createdAt: Float
   creator: RegisteredUser!
   creatorId: Int!
-  deleted: Boolean!
+  deletedAt: Float
   id: String
   likes(page: Int!, per: Int!): RegisteredUserPage!
   likesCount: Int!
+  replies(page: Int!, per: Int!): PostPage!
   selfLiked: Boolean!
 }
 
