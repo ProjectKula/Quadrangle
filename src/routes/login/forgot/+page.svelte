@@ -1,6 +1,5 @@
 <script lang="ts">
   import { getRoot } from '$lib';
-  import Spinner from '$lib/components/util/Spinner.svelte';
 
   let emailId = '';
   let success = false;
@@ -32,10 +31,8 @@
 </script>
 
 <svelte:head>
-  <title>Log In</title>
-  <meta name="description" content="Log in to your account" />
-
-  <!--  <script src="https://accounts.google.com/gsi/client" async></script>-->
+  <title>Forgot Password</title>
+  <meta name="description" content="Reset your password" />
 </svelte:head>
 
 <div class="flex items-center justify-center h-screen">
@@ -47,16 +44,6 @@
         <div class="mb-2">
           <input type="email" id="email" bind:value={emailId} placeholder="RVCE Email"
                  class="mt-1 p-2 w-full rounded-md dark:bg-good-grey bg-neutral-200 dark:text-gray-100" />
-        </div>
-
-        <div class="flex justify-between flex-row">
-          <span class="mb-2 hoverBlue">
-            <a href="/signup">Sign Up</a>
-          </span>
-
-          <span class="mb-2 hoverBlue">
-            <a href="/login">Log In</a>
-          </span>
         </div>
 
         <button type="submit" class="w-full mt-2 p-2 btn-action" disabled={processing}>

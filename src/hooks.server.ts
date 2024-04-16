@@ -9,7 +9,7 @@ const defaultCookieOpts = {
 };
 
 export async function handle({ event, resolve }) {
-    if (event.url.pathname.startsWith('/login') || event.url.pathname.startsWith('/signup') || event.url.pathname.startsWith('/googleCallback')) {
+    if (event.url.pathname.startsWith('/login') || event.url.pathname.startsWith('/signup') || event.url.pathname.startsWith('/googleCallback')  || event.url.pathname.startsWith('/reset')) {
         return await resolve(event);
     }
 
