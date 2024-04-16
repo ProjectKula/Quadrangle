@@ -1,7 +1,12 @@
 <script lang="ts">
   import { getRoot } from '$lib';
 
-  export let nonce: string;
+  export let data;
+  
+  console.log("data:")
+  console.log(data);
+  
+  let nonce = data.nonce;
   
   let password: string = '';
   let confirmPassword: string = '';
@@ -24,7 +29,7 @@
       })
       .then(() => {
         alert('Password reset successfully');
-        window.location.href = `${getRoot()}/auth/login`;
+        window.location.href = `/login`;
       })
       .catch(err => {
         alert('Failed to reset password');
