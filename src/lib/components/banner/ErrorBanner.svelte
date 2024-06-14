@@ -29,7 +29,7 @@
   on:mouseleave={onHoverEnd}
   role="banner"
   transition:fade 
-  class="fade-banner fixed top-0 left-0 right-0 bg-red-500 text-white rounded-lg m-2 p-2 flex items-center justify-between">
+  class="drop-shadow-md fade-banner fixed top-0 left-0 right-0 bg-red-500 text-white rounded-lg m-2 p-2 flex items-center justify-between">
   <span class="px-4"></span>
   <span>{errorMessage}</span>
   <button on:click={closeCallback} class="text-white">
