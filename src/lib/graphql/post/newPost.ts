@@ -11,11 +11,11 @@ interface Data {
     createPost: NewPost;
 }
 
-export async function createNewPost(accessToken: string, content: string) {
+export async function createNewPost(accessToken: string, content: string, attachments: string[]) {
     const out = await request<Data>(
         `${getRoot()}/graphql`,
         query,
-        { content: content },
+        { content: content, attachments: attachments },
         { Authorization: `Bearer ${accessToken}` }
     );
 
