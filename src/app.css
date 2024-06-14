@@ -41,3 +41,7 @@ body {
 .btn-cancel {
     @apply rounded cursor-pointer bg-red-500 hover:bg-red-600 transition disabled:bg-red-400 disabled:hover:bg-red-400 disabled:cursor-not-allowed
 }
+
+.draggedTextArea {
+    @apply bg-neutral-200 dark:bg-neutral-700
+}

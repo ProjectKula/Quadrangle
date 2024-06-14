@@ -2,13 +2,40 @@
   import autosize from 'svelte-autosize';
   import { createNewPost } from '$lib/graphql/post/newPost';
   import { getAuthTokenClient } from '$lib/auth';
-  import { faHeart } from '@fortawesome/free-regular-svg-icons';
-  import Fa from 'svelte-fa';
   import PaperclipIcon from '$lib/components/icon/PaperclipIcon.svelte';
 
   let postText = '';
   let isSubmitVisible = false;
   let submitting = false;
+  $:isDragging = false;
+  
+  function handleDragEnter(e) {
+    e.preventDefault()
+    if (isDragging) {
+      return;
+    }
+    console.log("start")
+    isDragging = true;
+    document.getElementById('new-post-textarea')?.classList.add('draggedTextArea')
+  }
+  
+  function handleDragLeave(e) {
+    console.log("end")
+    isDragging = false;
+    document.getElementById('new-post-textarea')?.classList.remove('draggedTextArea')
+  }
+  
+  function handleDrop(e) {
+    if (e.dataTransfer.items[0]?.kind === 'file') {
+      let item: DataTransferItem = e.dataTransfer.items[0];
+      let file: File = item.getAsFile()!;
+      postText = file.name;
+      e.preventDefault();
+    }
+    
+    console.log("drop")
+    isDragging = false;
+  }
 
   function handleInputChange() {
     isSubmitVisible = postText.length > 0;
@@ -66,11 +93,17 @@
   <textarea
     bind:value={postText}
     on:input={handleInputChange}
-    placeholder="Write something here..."
+    on:dragover={handleDragEnter}
+    on:drop={handleDrop}
+    on:dragleave={handleDragLeave}
+    placeholder={isDragging ? 'Drop your files here' : "Write something here..."}
     disabled={submitting}
     use:autosize
     rows="4"
+    id="new-post-textarea"
     class="w-full max-h-128 border-4 border-neutral-200 dark:border-good-dark-grey mb-2 p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
+    class:bg-neutral-200={isDragging}
+    class:dark:bg-neutral-700={isDragging}
   ></textarea>
 
   <div class="flex flex-row justify-between py-1">
