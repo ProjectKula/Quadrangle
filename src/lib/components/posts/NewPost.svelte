@@ -53,7 +53,7 @@
         postText = file.type + ' AND ' + file.name;
         e.preventDefault();
       } else {
-        errorMessage = "Only images are allowed";
+        errorMessage = "Please upload an image";
         if (timeout) {
           clearTimeout(timeout);
         }
