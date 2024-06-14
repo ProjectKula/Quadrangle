@@ -3,11 +3,13 @@
   import { createNewPost } from '$lib/graphql/post/newPost';
   import { getAuthTokenClient } from '$lib/auth';
   import PaperclipIcon from '$lib/components/icon/PaperclipIcon.svelte';
+  import ErrorBanner from '$lib/components/banner/ErrorBanner.svelte';
 
   let postText = '';
   let isSubmitVisible = false;
   let submitting = false;
   $:isDragging = false;
+  let textarea: HTMLTextAreaElement;
   
   function handleDragEnter(e) {
     e.preventDefault()
@@ -16,14 +18,18 @@
     }
     console.log("start")
     isDragging = true;
-    document.getElementById('new-post-textarea')?.classList.add('draggedTextArea')
+    textarea.classList.add('draggedTextArea');
+    textarea.focus({ preventScroll: false });
   }
   
   function handleDragLeave(e) {
     console.log("end")
     isDragging = false;
-    document.getElementById('new-post-textarea')?.classList.remove('draggedTextArea')
+    textarea.classList.remove('draggedTextArea')
   }
+  
+  let timeout: any;
+  let errorMessage: string = "";
   
   function handleDrop(e) {
     console.log("drop")
@@ -32,13 +38,28 @@
     if (e.dataTransfer.items[0]?.kind === 'file') {
       let item: DataTransferItem = e.dataTransfer.items[0];
       let file: File = item.getAsFile()!;
-      if (file.type) {
+      let acceptedImageTypes: string[] = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+      if (acceptedImageTypes.includes(file.type)) {
         if (file.size > 1024 * 1024 * 8) {
-          alert('File size is too large. Maximum file size is 8MB');
+          errorMessage = "Maximum file size is 8MB";
+          if (timeout) {
+            clearTimeout(timeout);
+          }
+          timeout = setTimeout(() => {
+            errorMessage = "";
+          }, 2000);
           return;
         }
         postText = file.type + ' AND ' + file.name;
         e.preventDefault();
+      } else {
+        errorMessage = "Only images are allowed";
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+          errorMessage = "";
+        }, 2000);
       }
     }
   }
@@ -73,6 +94,22 @@
         submitting = true;
       });
   }
+  
+  function closeErrorBanner() {
+    errorMessage = "";
+  }
+  
+  function holdErrorBanner() {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+  }
+  
+  function restartErrorBanner() {
+    timeout = setTimeout(() => {
+      errorMessage = "";
+    }, 2000);
+  }
 
   function handleCancel() {
     postText = '';
@@ -93,11 +130,27 @@
   .fade-in-buttons {
     animation: fadeIn 0.2s;
   }
+  
+  .hidden-banner {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 1s ease-out;
+  }
+  
+  .visible-banner {
+    visibility: visible;
+    opacity: 1;
+  }
 </style>
+
+<div class:hidden-banner={errorMessage === ""} class:visible-banner={errorMessage !== ""} class="transition">
+  <ErrorBanner errorMessage={errorMessage} closeCallback={closeErrorBanner} holdCallback={holdErrorBanner} restartCallback={restartErrorBanner} />
+</div>
 
 <div class="flex flex-col items-stretch w-full mx-auto mb-2">
   <textarea
     bind:value={postText}
+    bind:this={textarea}
     on:input={handleInputChange}
     on:dragover={handleDragEnter}
     on:drop={handleDrop}
