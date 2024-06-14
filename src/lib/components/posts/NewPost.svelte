@@ -18,13 +18,13 @@
     }
     console.log('Submitting post:', newPostText);
     submitting = true;
-    createNewPost(getAuthTokenClient(), newPostText)
+    createNewPost(getAuthTokenClient(), newPostText, [])
       .then(newPost => {
         if (newPost.id) {
           console.log('Created a new post:', newPost.id);
           setTimeout(() => {
             window.location.reload();
-          }, 500);
+          }, 1000);
         } else {
           alert('Failed to create a new post');
         }

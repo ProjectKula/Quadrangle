@@ -61,7 +61,7 @@
     {post.content}
   </p>
 
-  <p class="flex flex-row gap-4">
+  <p class="flex flex-row gap-4 pl-1">
 
     {#if selfLiked}
       <button class="text-red" on:click={onUnlike}>

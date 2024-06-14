@@ -1,5 +1,5 @@
-mutation NewPost($content: String!) {
-    createPost(content: $content) {
+mutation NewPost($content: String!, $attachments: [String!]!) {
+    createPost(content: $content, attachments: $attachments) {
         id
         createdAt
     }
