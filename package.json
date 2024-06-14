@@ -46,6 +46,7 @@
 		"graphql-request": "^6.1.0",
 		"jwt-decode": "^4.0.0",
 		"svelte-autosize": "^1.1.0",
-		"svelte-fa": "^3.0.4"
+		"svelte-fa": "^3.0.4",
+		"typescript-language-server": "^4.3.3"
 	}
 }

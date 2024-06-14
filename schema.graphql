@@ -15,13 +15,13 @@ scalar Date
 type Mutation {
   archivePost(id: String!): Post!
   confess(content: String!): Confession!
-  createPost(content: String!): Post!
+  createPost(content: String!, attachments: [String!]): Post!
   deletePost(id: String!): Post!
   editProfile(bio: String, pronouns: String): RegisteredUser!
   followUser(id: Int!): Int!
   likeConfession(id: Int!): Int!
   likePost(id: String!): Int!
-  replyToPost(to: String!, content: String!): Post!
+  replyToPost(to: String!, content: String!, attachments: [String!]): Post!
   restorePost(id: String!): Post!
   unfollowUser(id: Int!): Int!
   unlikeConfession(id: Int!): Int!
@@ -36,6 +36,7 @@ type PageMetadata {
 }
 
 type Post {
+  attachments: [String!]!
   content: String!
   createdAt: Float
   creator: RegisteredUser!
