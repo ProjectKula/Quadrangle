@@ -2,6 +2,9 @@
   import autosize from 'svelte-autosize';
   import { createNewPost } from '$lib/graphql/post/newPost';
   import { getAuthTokenClient } from '$lib/auth';
+  import { faHeart } from '@fortawesome/free-regular-svg-icons';
+  import Fa from 'svelte-fa';
+  import PaperclipIcon from '$lib/components/icon/PaperclipIcon.svelte';
 
   let postText = '';
   let isSubmitVisible = false;
@@ -59,7 +62,7 @@
   }
 </style>
 
-<div class="flex flex-col items-stretch w-full mx-auto">
+<div class="flex flex-col items-stretch w-full mx-auto mb-2">
   <textarea
     bind:value={postText}
     on:input={handleInputChange}
@@ -67,14 +70,19 @@
     disabled={submitting}
     use:autosize
     rows="4"
-    class="w-full max-h-128 border-4 border-neutral-200 dark:border-good-dark-grey mb-4 p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
+    class="w-full max-h-128 border-4 border-neutral-200 dark:border-good-dark-grey mb-2 p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
   ></textarea>
 
-  {#if isSubmitVisible}
-    <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
-      <button on:click={handleSubmit} disabled={submitting} class="btn-success px-2 py-1 text-white">Submit</button>
-      <button on:click={handleCancel} disabled={submitting} class="btn-cancel px-2 py-1 text-white">Cancel</button>
-    </div>
-  {/if}
-  <span class="py-4" class:hidden={isSubmitVisible}></span>
+  <div class="flex flex-row justify-between py-1">
+    <button class="p-1 rounded-md transition dark:bg-neutral-700 hover:dark:bg-neutral-800 bg-neutral-200 hover:bg-neutral-300">
+      <PaperclipIcon />
+    </button>
+    
+    {#if isSubmitVisible}
+      <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
+        <button on:click={handleSubmit} disabled={submitting} class="btn-success px-2 text-white">Submit</button>
+        <button on:click={handleCancel} disabled={submitting} class="btn-cancel px-2 text-white">Cancel</button>
+      </div>
+    {/if}
+  </div>
 </div>
