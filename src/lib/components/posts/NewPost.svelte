@@ -26,15 +26,21 @@
   }
   
   function handleDrop(e) {
+    console.log("drop")
+    isDragging = false;
+    
     if (e.dataTransfer.items[0]?.kind === 'file') {
       let item: DataTransferItem = e.dataTransfer.items[0];
       let file: File = item.getAsFile()!;
-      postText = file.name;
-      e.preventDefault();
+      if (file.type) {
+        if (file.size > 1024 * 1024 * 8) {
+          alert('File size is too large. Maximum file size is 8MB');
+          return;
+        }
+        postText = file.type + ' AND ' + file.name;
+        e.preventDefault();
+      }
     }
-    
-    console.log("drop")
-    isDragging = false;
   }
 
   function handleInputChange() {
