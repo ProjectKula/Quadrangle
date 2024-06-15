@@ -61,5 +61,10 @@ export async function refreshIdentityToken(accessToken: string, refreshToken: st
             'refreshToken': refreshToken
         })
     });
+    
+    if (!response.ok) {
+        throw new Error('Failed to refresh token');
+    }
+    
     return response.json().then((data) => data as AuthResponse);
 }

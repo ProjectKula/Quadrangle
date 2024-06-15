@@ -134,7 +134,7 @@
   .hidden-banner {
     visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity 1s ease-out;
+    transition: visibility 0s, opacity 0.5s ease-out;
   }
   
   .visible-banner {
@@ -143,9 +143,11 @@
   }
 </style>
 
-<div class:hidden-banner={errorMessage === ""} class:visible-banner={errorMessage !== ""} class="transition">
-  <ErrorBanner errorMessage={errorMessage} closeCallback={closeErrorBanner} holdCallback={holdErrorBanner} restartCallback={restartErrorBanner} />
-</div>
+{#if errorMessage}
+  <div class:hidden-banner={errorMessage === ""} class:visible-banner={errorMessage !== ""} class="transition">
+    <ErrorBanner errorMessage={errorMessage} closeCallback={closeErrorBanner} holdCallback={holdErrorBanner} restartCallback={restartErrorBanner} />
+  </div>
+{/if}
 
 <div class="flex flex-col items-stretch w-full mx-auto mb-2">
   <textarea
