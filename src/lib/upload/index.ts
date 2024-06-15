@@ -22,9 +22,7 @@ export async function uploadToR2(file: File, accessToken: string) {
 }
 
 function calculateSnowflake(entropy: string) {
-    // first 44 bits are the timestamp since 1695600000
-    // next 22 bits are randomly generated from entropy
-    const timestamp = Date.now() - 1695600000;
+    const timestamp = Date.now() - 1695600000000;
     let random = 0;
     for (let i = 0; i < entropy.length; i++) {
         random += entropy.charCodeAt(i);
