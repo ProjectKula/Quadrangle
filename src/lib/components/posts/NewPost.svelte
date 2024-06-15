@@ -78,10 +78,10 @@
     submitting = true;
     createNewPost(getAuthTokenClient(), newPostText, attachments)
       .then(newPost => {
-        if (newpost && newPost.id) {
+        if (newPost && newPost.id) {
           console.log('Created a new post:', newPost.id);
           setTimeout(() => {
-            window.location.reload();
+            //window.location.reload();
           }, 1000);
         } else {
           alert('Failed to create a new post');

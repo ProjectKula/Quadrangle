@@ -27,6 +27,7 @@ fragment UserPosts on RegisteredUser {
                 id
             }
             selfLiked
+            attachments
         }
         metadata {
             pageCount

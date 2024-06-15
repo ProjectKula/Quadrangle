@@ -14,8 +14,11 @@ interface Data {
 }
 
 export async function createNewPost(accessToken: string, content: string, attachments: File[]) {
+    console.log(attachments);
     let snowflakes: string[] = [];
-    for (let attachment in attachments) {
+    for (let i = 0; i < attachments.length; i++) {
+        let attachment = attachments[i];
+        console.log(attachment);
         let snowflake = await uploadToR2(attachment, getAuthTokenClient());
         if (snowflake == null) {
             console.log("Error uploading attachment");

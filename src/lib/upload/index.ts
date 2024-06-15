@@ -34,12 +34,14 @@ function makeid(length) {
 }
 
 function calculateSnowflake(entropy: string) {
-    const timestamp = Date.now() - 1695600000000;
-    let random = 0;
+    const epoch = 1695600000000n;
+    const timestamp = BigInt(Date.now()) - epoch;    
+    let random = 0n;
     for (let i = 0; i < entropy.length; i++) {
-        random += entropy.charCodeAt(i);
-    }
-    random = random % (1 << 22);
-    const snowflake = (timestamp << 22) | random;
-    return snowflake.toFixed(0);
+        random += BigInt(entropy.charCodeAt(i));
+    }    
+    const mask = (1n << 22n) - 1n;
+    random = random & mask;    
+    const snowflake = (timestamp << 22n) | random;    
+    return snowflake.toString();
 }
