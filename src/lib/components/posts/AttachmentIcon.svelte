@@ -1,6 +1,8 @@
 <script lang="ts">
   import { faMultiply, faSpinner } from '@fortawesome/free-solid-svg-icons';
   import Fa from 'svelte-fa';
+  import { getAuthTokenClient } from '$lib/auth';
+  import { uploadToR2 } from '$lib/upload';
 
   export let file: File;
 
@@ -11,9 +13,8 @@
     if (!file) return;
 
     const reader = new FileReader();
-
-    reader.onload = () => {
-      imageUrl = reader.result as string;
+      reader.onload = () => {
+        imageUrl = reader.result as string;
     };
 
     reader.readAsDataURL(file);

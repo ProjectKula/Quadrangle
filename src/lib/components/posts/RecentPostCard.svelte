@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { RecentPost } from '$lib/graphql/post/recentPosts';
-  import Spinner from '$lib/components/util/Spinner.svelte';
   import Fa from 'svelte-fa';
   import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
   import { faHeart } from '@fortawesome/free-regular-svg-icons';
   import { likePost, unlikePost } from '$lib/graphql/post/like';
   import { getAuthTokenClient } from '$lib/auth';
+  import { PUBLIC_BUCKET_URL } from '$env/static/public';
 
   export let post: RecentPost;
   
@@ -57,6 +57,10 @@
     <span>{dateStr}, {timeStr}</span>
   </div>
 
+  {#each post.attachments as attachment}
+    <img src={`${PUBLIC_BUCKET_URL}/${attachment}`} alt="Attachment" class="max-md:w-full md:max-h-40 object-contain"/>
+  {/each}
+  
   <p class="min-width-0 text-lg">
     {post.content}
   </p>

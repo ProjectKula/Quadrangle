@@ -12,6 +12,7 @@ export interface RecentPost {
         name: number;
     };
     selfLiked: boolean;
+    attachments: string[];
 }
 
 interface Data {

@@ -1,7 +1,7 @@
 import { PUBLIC_BUCKET_URL } from '$env/static/public';
 
-export async function uploadToR2(file: File, accessToken: string) {
-    const snowflake = calculateSnowflake(file.name);
+export async function uploadToR2(file: File, accessToken: string): string {
+    const snowflake = calculateSnowflake(makeid(10));
     const url = `${PUBLIC_BUCKET_URL}/${snowflake}`;
 
     const response = await fetch(url, {
@@ -13,12 +13,24 @@ export async function uploadToR2(file: File, accessToken: string) {
     });
 
     if (response.ok) {
-        return url;
+        return snowflake;
     }
 
     console.error('Failed to upload file');
     console.log(`Response status: ${response.status}`);
     return null;
+}
+
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
 }
 
 function calculateSnowflake(entropy: string) {

@@ -76,9 +76,9 @@
     }
     console.log('Submitting post:', newPostText);
     submitting = true;
-    createNewPost(getAuthTokenClient(), newPostText, [])
+    createNewPost(getAuthTokenClient(), newPostText, attachments)
       .then(newPost => {
-        if (newPost.id) {
+        if (newpost && newPost.id) {
           console.log('Created a new post:', newPost.id);
           setTimeout(() => {
             window.location.reload();

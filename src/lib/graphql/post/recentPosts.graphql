@@ -9,5 +9,6 @@ query RecentPosts($count: Int!, $before: Int) {
             name
         }
         selfLiked
+        attachments
     }
 }
