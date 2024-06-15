@@ -151,6 +151,12 @@
 {/if}
 
 <div class="flex flex-col items-stretch w-full mx-auto mb-2">
+  <div class="flex flex-row max-md:flex-col gap-2">
+    {#each attachments as attachment}
+      <AttachmentIcon file={attachment} />
+    {/each}
+  </div>
+  
   <textarea
     bind:value={postText}
     bind:this={textarea}
@@ -172,11 +178,7 @@
     <button class="p-1 rounded-md transition dark:bg-neutral-700 hover:dark:bg-neutral-800 bg-neutral-200 hover:bg-neutral-300">
       <PaperclipIcon />
     </button>
-
-    {#each attachments as attachment}
-      <AttachmentIcon file={attachment} />
-    {/each}
-    
+  
     <span class="flex-1"></span>
     
     {#if isSubmitVisible}
