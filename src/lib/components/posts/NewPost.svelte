@@ -4,12 +4,14 @@
   import { getAuthTokenClient } from '$lib/auth';
   import PaperclipIcon from '$lib/components/icon/PaperclipIcon.svelte';
   import ErrorBanner from '$lib/components/banner/ErrorBanner.svelte';
+  import AttachmentIcon from '$lib/components/posts/AttachmentIcon.svelte';
 
   let postText = '';
   let isSubmitVisible = false;
   let submitting = false;
   $:isDragging = false;
   let textarea: HTMLTextAreaElement;
+  let attachments: File[] = [];
   
   function handleDragEnter(e) {
     e.preventDefault()
@@ -28,7 +30,7 @@
     textarea.classList.remove('draggedTextArea')
   }
   
-  let timeout: any;
+  let timeout: never;
   let errorMessage: string = "";
   
   function handleDrop(e) {
@@ -41,27 +43,26 @@
       let acceptedImageTypes: string[] = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
       if (acceptedImageTypes.includes(file.type)) {
         if (file.size > 1024 * 1024 * 8) {
-          errorMessage = "Maximum file size is 8MB";
-          if (timeout) {
-            clearTimeout(timeout);
-          }
-          timeout = setTimeout(() => {
-            errorMessage = "";
-          }, 2000);
+          errorBanner("Maximum file size is 8MB");
+          return;
+        } else if (attachments.length >= 4) {
+          errorBanner("Maximum of 4 attachments");
           return;
         }
         postText = file.type + ' AND ' + file.name;
+        attachments.push(file);
+        attachments = attachments;
         e.preventDefault();
       } else {
-        errorMessage = "Please upload an image";
-        if (timeout) {
-          clearTimeout(timeout);
-        }
-        timeout = setTimeout(() => {
-          errorMessage = "";
-        }, 2000);
+        errorBanner("Please upload an image");
       }
     }
+  }
+
+  function errorBanner(message: string) {
+    errorMessage = message;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => { errorMessage = ""; }, 2000);
   }
 
   function handleInputChange() {
@@ -167,10 +168,16 @@
     class:dark:bg-neutral-700={isDragging}
   ></textarea>
 
-  <div class="flex flex-row justify-between py-1">
+  <div class="flex flex-row py-1 gap-1">
     <button class="p-1 rounded-md transition dark:bg-neutral-700 hover:dark:bg-neutral-800 bg-neutral-200 hover:bg-neutral-300">
       <PaperclipIcon />
     </button>
+
+    {#each attachments as attachment}
+      <AttachmentIcon file={attachment} />
+    {/each}
+    
+    <span class="flex-1"></span>
     
     {#if isSubmitVisible}
       <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
