@@ -145,7 +145,7 @@
 
 {#if errorMessage}
   <div class:hidden-banner={errorMessage === ""} class:visible-banner={errorMessage !== ""} class="transition">
-    <ErrorBanner errorMessage={errorMessage} closeCallback={closeErrorBanner} holdCallback={holdErrorBanner} restartCallback={restartErrorBanner} />
+    <ErrorBanner errorMessage={errorMessage} onClose={closeErrorBanner} onHover={holdErrorBanner} onUnhover={restartErrorBanner} />
   </div>
 {/if}
 

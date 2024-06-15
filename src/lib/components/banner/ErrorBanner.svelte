@@ -1,38 +1,37 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import Fa from 'svelte-fa';
-  import { faWindowClose } from '@fortawesome/free-regular-svg-icons';
   import { faMultiply } from '@fortawesome/free-solid-svg-icons';
 
   export let errorMessage: string;
-  export let closeCallback: () => void;
-  export let holdCallback: () => void;
-  export let restartCallback: () => void;
+  export let onClose: () => void;
+  export let onHover: () => void;
+  export let onUnhover: () => void;
   
   let isHovering = false;
   
-  function onHover() {
+  function onMouseEnter() {
     if (!isHovering) {
       isHovering = true;
-      holdCallback();
+      onHover();
     }
   }
   
-  function onHoverEnd() {
+  function onMouseLeave() {
     isHovering = false;
-    restartCallback()
+    onUnhover()
   }
 </script>
 
 <div
-  on:mouseenter={onHover}
-  on:mouseleave={onHoverEnd}
+  on:mouseenter={onMouseEnter}
+  on:mouseleave={onMouseLeave}
   role="banner"
   transition:fade 
   class="drop-shadow-md fade-banner fixed top-0 left-0 right-0 bg-red-500 text-white rounded-lg m-2 p-2 flex items-center justify-between">
   <span class="px-4"></span>
   <span>{errorMessage}</span>
-  <button on:click={closeCallback} class="text-white">
+  <button on:click={onClose} class="text-white">
     <Fa size={"lg"} icon={faMultiply}  />
   </button>
 </div>
