@@ -8,7 +8,7 @@
   <div class="contents max-sm:hidden">
     <Sidebar />
   </div>
-  <div class="flex-1">
+  <div class="flex flex-col flex-1">
     <Header />
     <div class="p-4 h-full overflow-scroll">
       <slot />

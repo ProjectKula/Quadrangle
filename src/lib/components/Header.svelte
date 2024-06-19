@@ -20,7 +20,7 @@
 </script>
 
 <div
-  class="mb-4 flex-1 flex flex-nowrap items-center border-b bg-neutral-200 border-neutral-300 dark:border-b-black dark:bg-neutral-800 p-2">
+  class="flex-1 flex flex-nowrap items-center border-b bg-neutral-200 border-neutral-300 dark:border-b-black dark:bg-neutral-800 p-2">
   <button class="p-3 pr-5 transition rounded-md sm:hidden" on:click={() => showSidebar = true}>
     <Fa icon={faBars} size="lg" />
   </button>
