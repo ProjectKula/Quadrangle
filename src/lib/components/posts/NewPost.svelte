@@ -150,12 +150,7 @@
   </div>
 {/if}
 
-<div class="flex flex-col items-stretch w-full mx-auto mb-2">
-  <div class="flex flex-row max-md:flex-col gap-2">
-    {#each attachments as attachment}
-      <AttachmentIcon file={attachment} />
-    {/each}
-  </div>
+<div class="flex flex-col items-stretch w-full mx-auto mb-2 bg-neutral-100 dark:bg-neutral-800 rounded-xl border-0 p-2 border-neutral-500">
   
   <textarea
     bind:value={postText}
@@ -169,12 +164,18 @@
     use:autosize
     rows="4"
     id="new-post-textarea"
-    class="w-full max-h-128 border-4 border-neutral-200 dark:border-good-dark-grey mb-2 p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
+    class="w-full max-h-128 border-4 rounded-xl border-neutral-200 dark:border-good-dark-grey p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
     class:bg-neutral-200={isDragging}
     class:dark:bg-neutral-700={isDragging}
   ></textarea>
 
-  <div class="flex flex-row py-1 gap-1">
+  <div class="flex flex-row max-md:flex-col gap-2">
+    {#each attachments as attachment}
+      <AttachmentIcon file={attachment} />
+    {/each}
+  </div>
+
+  <div class="flex flex-row p-1 gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-800">
     <button class="p-1 rounded-md transition dark:bg-neutral-700 hover:dark:bg-neutral-800 bg-neutral-200 hover:bg-neutral-300">
       <PaperclipIcon />
     </button>

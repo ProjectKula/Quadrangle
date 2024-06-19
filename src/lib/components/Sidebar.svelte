@@ -27,7 +27,7 @@
 
 
 <div
-  class="gap-0 flex flex-shrink flex-col items-start justify-between p-4 dark:bg-neutral-800 bg-neutral-200 border-r dark:border-black border-neutral-300 min-h-screen">
+  class="gap-0 flex flex-shrink flex-col items-start justify-between p-4 dark:bg-neutral-800 bg-neutral-200 border-r dark:border-black border-neutral-300 h-screen">
   <h1 class="text-sm flex flex-row justify-center items-center">
     Under Construction
     {#if closeButton}

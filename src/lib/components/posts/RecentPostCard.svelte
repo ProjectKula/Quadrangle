@@ -50,11 +50,11 @@
   }
 </script>
 
-<div class="flex flex-col flex-1 rounded bg-neutral-100 dark:bg-neutral-800 p-2">
+<div class="flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2">
 
-  <div class="flex flex-row flex-shrink font-light gap-2 text-sm">
-    <a href="/user/{post.creator.id}">{post.creator.name}</a>
-    <span>{dateStr}, {timeStr}</span>
+  <div class="flex flex-row flex-shrink justify-between font-light gap-2 text-sm">
+    <a class="text-lg text-blue-400 hover:text-blue-500 transition" href="/user/{post.creator.id}">{post.creator.name}</a>
+    <span class="text-lg">{dateStr}, {timeStr}</span>
   </div>
 
   {#each post.attachments as attachment}

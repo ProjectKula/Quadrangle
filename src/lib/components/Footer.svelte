@@ -5,7 +5,7 @@
 </script>
 
 <div
-  class="flex flex-col flex-shrink text-sm bg-neutral-200 dark:bg-neutral-800 border-l border-neutral-300 dark:border-black px-1 max-md:hidden items-center">
+  class="flex flex-col flex-shrink text-sm bg-neutral-200 dark:bg-neutral-800 border-l border-neutral-300 dark:border-black px-1 max-md:hidden items-center h-screen">
   <div class="contents text-neutral-500">
     <h5 class="mb-4">{copyrightText}</h5>
     <div class="flex flex-row gap-4 flex-wrap">
