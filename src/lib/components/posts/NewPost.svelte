@@ -3,8 +3,11 @@
   import { createNewPost } from '$lib/graphql/post/newPost';
   import { getAuthTokenClient } from '$lib/auth';
   import PaperclipIcon from '$lib/components/icon/PaperclipIcon.svelte';
+  import ItalicIcon from '$lib/components/icon/ItalicIcon.svelte';
   import ErrorBanner from '$lib/components/banner/ErrorBanner.svelte';
   import AttachmentIcon from '$lib/components/posts/AttachmentIcon.svelte';
+  import BoldIcon from '../icon/BoldIcon.svelte';
+  import UnderlineIcon from '../icon/UnderlineIcon.svelte';
 
   let postText = '';
   let isSubmitVisible = false;
@@ -150,7 +153,16 @@
   </div>
 {/if}
 
-<div class="flex flex-col items-stretch w-full mx-auto mb-2 bg-neutral-100 dark:bg-neutral-800 rounded-xl border-0 p-2 border-neutral-500">
+<div class="flex flex-col items-stretch w-full mx-auto mb-2 bg-neutral-100 dark:bg-neutral-800 rounded-xl border-0 p-2 border-neutral-500 gap-2">
+
+  <div class="flex flex-row items-center p-1 gap-1">
+    <span class="flex-1"></span>
+    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><BoldIcon /></button>
+    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><ItalicIcon /></button>
+    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><UnderlineIcon /></button>
+    <span class="h-6 border-r mx-2"></span>
+    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><PaperclipIcon /></button>
+  </div>
   
   <textarea
     bind:value={postText}
@@ -164,29 +176,20 @@
     use:autosize
     rows="4"
     id="new-post-textarea"
-    class="w-full max-h-128 border-4 rounded-xl border-neutral-200 dark:border-good-dark-grey p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
+    class="w-full max-h-128 border-2 rounded-xl border-neutral-200 dark:border-good-dark-grey p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
     class:bg-neutral-200={isDragging}
     class:dark:bg-neutral-700={isDragging}
   ></textarea>
 
-  <div class="flex flex-row max-md:flex-col gap-2">
-    {#each attachments as attachment}
-      <AttachmentIcon file={attachment} />
-    {/each}
+  <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
+    <button on:click={handleSubmit} class="btn-success px-8 py-1 text-white" disabled={!isSubmitVisible || submitting}>Submit</button>
   </div>
 
-  <div class="flex flex-row p-1 gap-1 rounded-lg bg-neutral-200 dark:bg-neutral-800">
-    <button class="p-1 rounded-md transition dark:bg-neutral-700 hover:dark:bg-neutral-800 bg-neutral-200 hover:bg-neutral-300">
-      <PaperclipIcon />
-    </button>
-  
-    <span class="flex-1"></span>
-    
-    {#if isSubmitVisible}
-      <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
-        <button on:click={handleSubmit} disabled={submitting} class="btn-success px-2 text-white">Submit</button>
-        <button on:click={handleCancel} disabled={submitting} class="btn-cancel px-2 text-white">Cancel</button>
-      </div>
-    {/if}
-  </div>
+  {#if attachments.length > 0}
+    <div class="flex flex-row max-md:flex-col gap-2">
+      {#each attachments as attachment}
+        <AttachmentIcon file={attachment} />
+      {/each}
+    </div>
+  {/if}
 </div>
