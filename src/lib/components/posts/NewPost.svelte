@@ -94,8 +94,8 @@
         if (newPost && newPost.id) {
           console.log('Created a new post:', newPost.id);
           setTimeout(() => {
-            //window.location.reload();
-          }, 1000);
+            window.location.reload();
+          }, 2000);
         } else {
           alert('Failed to create a new post');
         }
