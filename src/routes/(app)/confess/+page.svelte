@@ -54,7 +54,7 @@
 
 {#if isConfessing}
   <div class="fixed inset-0 z-50 flex items-center justify-center transition">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
+    <button on:click={() => isConfessing = false} class="cursor-default absolute inset-0 bg-black opacity-50"></button>
     <div class="flex flex-col gap-2 relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md">
       <button class="absolute top-0 right-0 p-2 hover:text-neutral-600 transition" on:click={() => isConfessing = false}>
         <Fa size={"lg"} icon={faMultiply} />
