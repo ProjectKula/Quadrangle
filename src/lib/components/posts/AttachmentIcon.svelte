@@ -8,6 +8,7 @@
 	import { quintOut } from 'svelte/easing';
 
   export let file: File;
+  export let onDelete: () => void;
 
   let imageUrl: string | undefined;
   let showModal = false;
@@ -31,16 +32,6 @@
     animation: spin 1s linear infinite;
   }
 
-  .hidden-modal {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s ease-out;
-  }
-
-  .visible-modal {
-    visibility: visible;
-    opacity: 1;
-  }
 </style>
 
 <button on:click={() => { showModal = true; }} class="p-1 rounded-md transition dark:bg-neutral-700 hover:dark:bg-neutral-800 bg-neutral-200 hover:bg-neutral-300">
@@ -55,13 +46,13 @@
 </button>
 
 {#if showModal}
-  <div class:hidden-modal={!showModal} class:visible-modal={showModal} class="fixed inset-0 z-50 flex items-center justify-center transition">
-    <button transition:fade={{ duration: 150 }} class="cursor-default absolute inset-0 bg-black opacity-50" on:click={() => showModal = false}></button>
+  <button on:click={() => showModal = false} class="cursor-default fixed inset-0 z-50 flex items-center justify-center transition">
+    <div transition:fade={{ duration: 150 }} class="absolute inset-0 bg-black opacity-50"></div>
     <div transition:scale={{ duration: 200, start: 0, easing: quintOut }} class="relative rounded-lg p-8 max-w-md">
       <div class="flex flex-col gap-4 justify-center items-center">
-        <img src={imageUrl} alt="Attachment" class="object-contain md:max-w-screen-sm" />
-        <button class="btn-cancel px-2 py-1 ">Delete</button>
+        <img src={imageUrl} alt="Attachment" class="object-contain max-w-screen-sm" />
+        <button class="btn-cancel px-2 py-1" on:click|preventDefault={onDelete}>Delete</button>
       </div>
     </div>
-  </div>
+  </button>
 {/if}

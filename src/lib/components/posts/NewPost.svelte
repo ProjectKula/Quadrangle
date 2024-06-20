@@ -8,6 +8,7 @@
   import AttachmentIcon from '$lib/components/posts/AttachmentIcon.svelte';
   import BoldIcon from '../icon/BoldIcon.svelte';
   import UnderlineIcon from '../icon/UnderlineIcon.svelte';
+  import { fade } from 'svelte/transition';
 
   let postText = '';
   let isSubmitVisible = false;
@@ -52,7 +53,7 @@
           errorBanner("Maximum of 4 attachments");
           return;
         }
-        postText = file.type + ' AND ' + file.name;
+        // postText = file.type + ' AND ' + file.name;
         attachments.push(file);
         attachments = attachments;
         e.preventDefault();
@@ -112,43 +113,17 @@
   function restartErrorBanner() {
     timeout = setTimeout(() => {
       errorMessage = "";
-    }, 2000);
+    }, 1000);
   }
 
-  function handleCancel() {
-    postText = '';
-    isSubmitVisible = false;
+  function deleteAttachment(index: number) {
+    attachments.splice(index, 1);
+    attachments = attachments;
   }
 </script>
 
-<style>
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  .fade-in-buttons {
-    animation: fadeIn 0.2s;
-  }
-  
-  .hidden-banner {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.5s ease-out;
-  }
-  
-  .visible-banner {
-    visibility: visible;
-    opacity: 1;
-  }
-</style>
-
 {#if errorMessage}
-  <div class:hidden-banner={errorMessage === ""} class:visible-banner={errorMessage !== ""} class="transition">
+  <div transition:fade class="transition">
     <ErrorBanner errorMessage={errorMessage} onClose={closeErrorBanner} onHover={holdErrorBanner} onUnhover={restartErrorBanner} />
   </div>
 {/if}
@@ -187,8 +162,8 @@
 
   {#if attachments.length > 0}
     <div class="flex flex-row max-md:flex-col gap-2">
-      {#each attachments as attachment}
-        <AttachmentIcon file={attachment} />
+      {#each attachments as attachment, index}
+        <AttachmentIcon file={attachment} onDelete={() => deleteAttachment(index)} />
       {/each}
     </div>
   {/if}
