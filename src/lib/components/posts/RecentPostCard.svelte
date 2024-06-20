@@ -58,10 +58,6 @@
     <span class="text-lg">{dateStr}, {timeStr}</span>
   </div>
 
-  <!-- {#each post.attachments as attachment}
-    <img src={`${PUBLIC_BUCKET_URL}/${attachment}`} alt="Attachment" class="max-md:w-full md:max-h-40 object-contain"/>
-  {/each} -->
-
   <AttachmentCarousel attachments={post.attachments} />
   
   <p class="min-width-0 text-lg">

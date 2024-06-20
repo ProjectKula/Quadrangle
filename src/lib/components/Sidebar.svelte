@@ -40,7 +40,7 @@
   </h1>
 
   {#each menuItems as { text, icon, link } (text)}
-    <a href={link} class:active={currentPath === link}
+    <a href={link} on:click={() => sidebarOpen = false} class:active={currentPath === link}
       class="flex mx-1 my-1 px-2 py-1 text-xl items-center border-0 dark:border-white border-black hover:bg-light-blurple dark:hover:bg-blurple transition rounded hover:underline w-full"
       class:font-bold={currentPath === link}
       class:dark:bg-blurple={currentPath === link}

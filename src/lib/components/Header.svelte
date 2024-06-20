@@ -3,6 +3,10 @@
   import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons';
   import { browser } from '$app/environment';
   import Sidebar from './Sidebar.svelte';
+  import { slide } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+  import { fade } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
 
   let searchBar: HTMLInputElement;
 
@@ -19,26 +23,23 @@
   let showSidebar = false;
 </script>
 
-<div
-  class="flex-1 flex flex-nowrap items-center border-b bg-neutral-200 border-neutral-300 dark:border-b-black dark:bg-neutral-800 p-2">
-  <button class="p-3 pr-5 transition rounded-md sm:hidden" on:click={() => showSidebar = true}>
+<div class="flex-1 flex flex-nowrap items-center border-b bg-neutral-200 border-neutral-300 dark:border-b-black dark:bg-neutral-800 p-2">
+  <button class="p-3 pr-5 transition rounded-md sm:hidden" on:click={() => (showSidebar = true)}>
     <Fa icon={faBars} size="lg" />
   </button>
-  <input type="text"
-    bind:this={searchBar}
-    placeholder="Search..."
-    class="bg-neutral-100 flex flex-1 w-1 min-w-0 dark:bg-black text-lg p-2 border-good-grey rounded-md mr-2"
-  >
+  <input type="text" bind:this={searchBar} placeholder="Search..." class="bg-neutral-100 flex flex-1 w-1 min-w-0 dark:bg-black text-lg p-2 border-good-grey rounded-md mr-2" />
   <button class="p-3 bg-neutral-500 hover:bg-neutral-600 transition rounded-md text-white">
     <Fa icon={faMagnifyingGlass} size="lg" />
   </button>
 </div>
 
 <div class="contents sm-hidden">
-  <div class="z-10 fixed inset-0 flex flex-row" class:hidden={!showSidebar}>
-    <button on:click={() => showSidebar = false} class="cursor-default absolute inset-0 bg-black transition delay-75" class:opacity-50={showSidebar} class:opacity-100={!showSidebar}></button>
-    <div class="relative" class:sidebarVisible={showSidebar} class:sidebarHidden={!showSidebar}>
-      <Sidebar closeButton={true} bind:sidebarOpen={showSidebar} />
+  {#if showSidebar}
+    <div class="z-10 fixed inset-0 flex flex-row">
+      <button transition:fade={{ delay: 0, duration: 50 }} on:click={() => (showSidebar = false)} class="cursor-default absolute inset-0 bg-black transition delay-75" class:opacity-50={showSidebar} class:opacity-100={!showSidebar}></button>
+      <div transition:fly={{ delay: 0, duration: 300, easing: quintOut, x: -100 }} class="relative" class:sidebarVisible={showSidebar} class:sidebarHidden={!showSidebar}>
+        <Sidebar closeButton={true} bind:sidebarOpen={showSidebar} />
+      </div>
     </div>
-  </div>
+  {/if}
 </div>
