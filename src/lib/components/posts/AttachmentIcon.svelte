@@ -3,6 +3,9 @@
   import Fa from 'svelte-fa';
   import { getAuthTokenClient } from '$lib/auth';
   import { uploadToR2 } from '$lib/upload';
+  import { fade } from 'svelte/transition';
+  import { scale } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 
   export let file: File;
 
@@ -53,12 +56,8 @@
 
 {#if showModal}
   <div class:hidden-modal={!showModal} class:visible-modal={showModal} class="fixed inset-0 z-50 flex items-center justify-center transition">
-    <button class="absolute inset-0 bg-black opacity-50" on:click={() => showModal = false}></button>
-    <div class="relative rounded-lg p-8 max-w-md">
-      <button class="absolute top-0 right-0 p-2 hover:text-neutral-600 transition" on:click={() => { showModal = false; }}>
-        <Fa size={"lg"} icon={faMultiply} />
-      </button>
-
+    <button transition:fade={{ duration: 150 }} class="cursor-default absolute inset-0 bg-black opacity-50" on:click={() => showModal = false}></button>
+    <div transition:scale={{ duration: 200, start: 0, easing: quintOut }} class="relative rounded-lg p-8 max-w-md">
       <div class="flex flex-col gap-4 justify-center items-center">
         <img src={imageUrl} alt="Attachment" class="object-contain md:max-w-screen-sm" />
         <button class="btn-cancel px-2 py-1 ">Delete</button>
