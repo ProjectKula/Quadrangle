@@ -54,7 +54,7 @@
 {#if isConfessing}
   <div class="fixed inset-0 z-50 flex items-center justify-center transition">
     <button transition:fade={{ duration: 150 }} on:click={() => (isConfessing = false)} class="cursor-default absolute inset-0 bg-black opacity-50"></button>
-    <div transition:fly={{ delay: 0, duration: 150, x: 0, y: 500, opacity: 0.5, easing: quintOut }} class="flex flex-col gap-2 relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md">
+    <div transition:fly={{ delay: 0, duration: 150, x: 0, y: 500, easing: quintOut }} class="flex flex-col gap-2 relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md">
       <button class="absolute top-0 right-0 p-2 hover:text-neutral-600 transition" on:click={() => (isConfessing = false)}>
         <Fa size={'lg'} icon={faMultiply} />
       </button>

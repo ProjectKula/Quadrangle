@@ -6,6 +6,8 @@
   import { faMultiply } from "@fortawesome/free-solid-svg-icons";
   import { onMount } from "svelte";
   import Fa from "svelte-fa";
+  import { fade, fly } from "svelte/transition";
+  import { quintOut } from "svelte/easing";
 
   export let bio = '';
   export let pronouns = '';
@@ -63,8 +65,8 @@
 
 {#if show}
   <div class="fixed inset-0 z-50 flex items-center justify-center transition">
-    <div class="absolute inset-0 bg-black opacity-50"></div>
-    <div class="relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md">
+    <button transition:fade={{ duration: 150 }} on:click={() => show = false} class="cursor-default absolute inset-0 bg-black opacity-50"></button>
+    <div transition:fly={{ delay: 0, duration: 200, x: 0, y: 500, easing: quintOut }} class="relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md">
       <button class="absolute top-0 right-0 p-2 hover:text-neutral-600 transition" on:click={closeModal}>
         <Fa size={"lg"} icon={faMultiply} />
       </button>
