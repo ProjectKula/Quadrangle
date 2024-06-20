@@ -21,6 +21,9 @@ export async function handle({ event, resolve }) {
     try {
         jwtDecode(accessToken);
     } catch (e) {
+        console.log("Failed to decode access token (server)");
+        console.log("Redirecting to login page");
+        console.log(e);
         return new Response('Redirect', { status: 303, headers: { Location: '/login' } });
     }
 

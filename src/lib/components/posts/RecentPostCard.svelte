@@ -6,6 +6,7 @@
   import { likePost, unlikePost } from '$lib/graphql/post/like';
   import { getAuthTokenClient } from '$lib/auth';
   import { PUBLIC_BUCKET_URL } from '$env/static/public';
+  import AttachmentCarousel from './AttachmentCarousel.svelte';
 
   export let post: RecentPost;
   
@@ -53,13 +54,15 @@
 <div class="flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2">
 
   <div class="flex flex-row flex-shrink justify-between font-light gap-2 text-sm">
-    <a class="text-lg text-blue-400 hover:text-blue-500 transition" href="/user/{post.creator.id}">{post.creator.name}</a>
+    <a class="text-lg dark:text-blue-400 dark:hover:text-blue-500 text-blue-500 hover:text-blue-600 transition" href="/user/{post.creator.id}">{post.creator.name}</a>
     <span class="text-lg">{dateStr}, {timeStr}</span>
   </div>
 
-  {#each post.attachments as attachment}
+  <!-- {#each post.attachments as attachment}
     <img src={`${PUBLIC_BUCKET_URL}/${attachment}`} alt="Attachment" class="max-md:w-full md:max-h-40 object-contain"/>
-  {/each}
+  {/each} -->
+
+  <AttachmentCarousel attachments={post.attachments} />
   
   <p class="min-width-0 text-lg">
     {post.content}
