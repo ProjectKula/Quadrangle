@@ -44,7 +44,7 @@
     if (e.dataTransfer.items[0]?.kind === 'file') {
       let item: DataTransferItem = e.dataTransfer.items[0];
       e.preventDefault();
-      addFile(item.getAsFile()!, e);
+      addFile(item.getAsFile()!);
     }
   }
 
