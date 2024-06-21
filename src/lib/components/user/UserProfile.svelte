@@ -104,8 +104,10 @@
   <!--			<p>Gender: {data.gender}</p>-->
   <!--		{/if}-->
   <!--	</div>-->
-  <div class="flex flex-col gap-4 m-4">
-    <h1 class="text-semibold text-xl">Recent posts</h1>
+  <div class="flex flex-col gap-4 m-4 w-full max-w-screen-sm place-self-center">
+    <h1 class="text-semibold text-xl">
+      {data.isSelf? 'Your' : 'Recent'} posts
+    </h1>
 
     {#each posts as post}
       <RecentPostCard {post} />
