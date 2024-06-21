@@ -35,7 +35,7 @@
 <a href="/confess" title="Go to the confessions page">
   <div class="flex flex-col items-center justify-center">
     {#if confession}
-      <ConfessionPane confession={confession} />
+      <ConfessionPane maxLength={100} confession={confession} />
     {:else if loaded}
       <p>No confessions yet!</p>
     {:else if !loaded}
