@@ -2,7 +2,7 @@
   import { PUBLIC_BUCKET_URL } from "$env/static/public";
   import { browser } from "$app/environment";
   import { getAuthTokenClient } from "$lib/auth";
-  import { editProfile, uploadAvatar } from "$lib/graphql/user/user";
+  import { deleteAvatar, editProfile, uploadAvatar } from "$lib/graphql/user/user";
   import { faMultiply } from "@fortawesome/free-solid-svg-icons";
   import { onMount } from "svelte";
   import Fa from "svelte-fa";
@@ -15,7 +15,7 @@
   export let avatarUrl = '';
 
   let files: FileList;
-  
+
   $: editingBio = bio;
   $: editingPronouns = pronouns;
 
@@ -28,6 +28,17 @@
   
   function closeModal() {
     show = false;
+  }
+
+  function removeAvatar() {
+    disabled = true;
+    deleteAvatar(getAuthTokenClient())
+      .then(() => {
+        avatarUrl = '';
+      })
+      .finally(() => {
+        disabled = false;
+      });
   }
 
   function handleSubmit() {
@@ -73,9 +84,15 @@
       <h2 class="text-xl mb-4 font-semibold">Edit Profile</h2>
       <div class="flex flex-col gap-4">
         <div class="flex flex-row items-center gap-4">
+          {#if avatarUrl}
+            <button class="btn-secondary py-1 px-2 invertColors" on:click={removeAvatar} disabled={disabled}>Remove</button>
+          {/if}
           <img src={avatarUrl} alt="Avatar" class="w-12 h-12 rounded-full"/>
           <input accept="image/png, image/jpeg" bind:files id="avatar" name="avatar" type="file" />
         </div>
+
+        <span class="border-b border-neutral-200 dark:border-neutral-700"></span>
+
         <div>
           <label for="bio" class="block mb-1">Bio:</label>
           <input type="text" id="bio" bind:value={editingBio} class="bg-neutral-100 dark:bg-black w-full px-3 py-2 rounded" disabled={disabled}/>

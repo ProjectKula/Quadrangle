@@ -66,6 +66,15 @@ export async function uploadAvatar(avatar: File, accessToken: string) {
     });
 }
 
+export async function deleteAvatar(accessToken: string) {
+    return fetch(`${getRoot()}/v0/avatar`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        }
+    });
+}
+
 function checkEmptyString(input: string | null): string | null {
     if (!input) {
         return null;

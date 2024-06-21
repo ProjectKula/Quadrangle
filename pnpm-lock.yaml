@@ -38,6 +38,9 @@ importers:
       svelte-markdown:
         specifier: ^0.4.1
         version: 0.4.1(svelte@4.2.18)
+      svelte-textfit:
+        specifier: ^1.1.4
+        version: 1.1.4(svelte@4.2.18)
       typescript-language-server:
         specifier: ^4.3.3
         version: 4.3.3
@@ -2698,6 +2701,11 @@ packages:
   svelte-sequential-preprocessor@2.0.1:
     resolution: {integrity: sha512-N5JqlBni6BzElxmuFrOPxOJnjsxh1cFDACLEVKs8OHBcx8ZNRO1p5SxuQex1m3qbLzAC8G99EHeWcxGkjyKjLQ==}
     engines: {node: '>=16'}
+
+  svelte-textfit@1.1.4:
+    resolution: {integrity: sha512-V9M+MVtbMgVUOVL5e+aBfbu+WC9ov6gLXxHB1LRaeUXbCL6LoKEMzCPg1txG7U/1J4exG46eI8HDt3T3bwd22w==}
+    peerDependencies:
+      svelte: ^3.32.3
 
   svelte@4.2.18:
     resolution: {integrity: sha512-d0FdzYIiAePqRJEb90WlJDkjUEx42xhivxN8muUBmfZnP+tzUgz12DJ2hRJi8sIHCME7jeK1PTMgKPSfTd8JrA==}
@@ -5907,6 +5915,10 @@ snapshots:
     dependencies:
       svelte: 4.2.18
       tslib: 2.6.3
+
+  svelte-textfit@1.1.4(svelte@4.2.18):
+    dependencies:
+      svelte: 4.2.18
 
   svelte@4.2.18:
     dependencies:

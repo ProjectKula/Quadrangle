@@ -30,7 +30,7 @@
 
   let disabledFollow = false;
 
-  function followUser (id: number) {
+  function followUser(id: number) {
     followedBySelf = true;
     disabledFollow = true;
     follow(data.id, getAuthTokenClient())
@@ -42,7 +42,7 @@
       });
   }
 
-  function unfollowUser (id: number) {
+  function unfollowUser(id: number) {
     followedBySelf = false;
     disabledFollow = true;
     unfollow(data.id, getAuthTokenClient())
@@ -66,29 +66,36 @@
         {/if}
       </div>
 
-      <p class="text-neutral-500">{getBranchName(data.branch)}</p>
+      <p class="text-neutral-500">
+        {getBranchName(data.branch)}
+      </p>
 
-      <div class="grid grid-cols-2 gap-x-5 gap-y-2 w-52 text-center">
-        <p>{followers} follower{followers === 1 ? '' : 's'}</p>
-        <p>{following} following</p>
+      <div class="flex flex-col w-60">
 
-        {#if data.isSelf}
-          <button class="btn-success py-1 text-black" on:click={() => (showEditModal = true)}>Edit Profile</button>
-          <a href="/settings" class="contents"><button class="btn-secondary py-1 invertColors">Settings</button></a>
-        {:else}
-          {#if followedBySelf}
+        <div class="grid grid-cols-2 gap-x-5 gap-y-2 text-center">
+          <p>{followers} follower{followers === 1 ? '' : 's'}</p>
+          <p>{following} following</p>
+
+          {#if data.isSelf}
+            <button class="btn-success py-1 text-black" on:click={() => (showEditModal = true)}>Edit Profile</button>
+            <a href="/settings" class="contents"><button class="btn-secondary py-1 invertColors">Settings</button></a>
+          {:else if followedBySelf}
             <button disabled={disabledFollow} class="col-span-2 btn-secondary py-1 invertColors" on:click={() => unfollowUser(data.id)}>Unfollow</button>
           {:else}
             <button disabled={disabledFollow} class="col-span-2 btn-success py-1 text-black" on:click={() => followUser(data.id)}>Follow</button>
           {/if}
+        </div>
+
+        {#if data.bio}
+          <p class="">{data.bio}</p>
         {/if}
+
+        <div class="flex flex-row justify-between">
+          <span>Reg. #{data.id}</span>
+          •
+          <span>User since {formatDate(data.dateRegistered)}</span>
+        </div>
       </div>
-
-      {#if data.bio}
-        <p class="">{data.bio}</p>
-      {/if}
-
-      <p class="">Reg. #{data.id} • User since {formatDate(data.dateRegistered)}</p>
     </div>
   </div>
 

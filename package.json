@@ -50,6 +50,7 @@
 		"svelte-autosize": "^1.1.0",
 		"svelte-fa": "^3.0.4",
 		"svelte-markdown": "^0.4.1",
+		"svelte-textfit": "^1.1.4",
 		"typescript-language-server": "^4.3.3"
 	}
 }
