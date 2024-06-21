@@ -20,9 +20,9 @@
     return `${day}/${month}/${year}`;
   };
 
-  let followers = data.followerCount;
-  let following = data.followingCount;
-  let followedBySelf = data.followedBySelf;
+  $: followers = data.followerCount;
+  $: following = data.followingCount;
+  $: followedBySelf = data.followedBySelf;
 
   let avatarUrl = data.avatarHash ? `${PUBLIC_BUCKET_URL}/${data.avatarHash}` : '/default_pfp.svg';
 
