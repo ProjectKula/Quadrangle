@@ -2,7 +2,7 @@
   import type { Confession } from '$lib/graphql/confessions/confessions';
   import ConfessionPane from '$lib/components/confessions/ConfessionPane.svelte';
   import Fa from 'svelte-fa';
-  import { faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+  import { faAngleRight, faAngleLeft, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
   export let data: Confession;
 
@@ -10,10 +10,15 @@
   $: positive = data.id > 1;
 </script>
 
+
+<a href="/confess" class="flex gap-2 items-center hoverBlue">
+  <Fa icon={faArrowLeft} />
+  <span>Back to Confessions</span>
+</a>
 {#key data}
   {#if !error}
     <div class="flex flex-col gap-4">
-      <ConfessionPane confession={data} maxLength={1000} />
+      <ConfessionPane confession={data} maxLength={1000} link={false} />
 
       <div class="flex flex-row justify-between">
         {#if data.id > 1}
