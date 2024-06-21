@@ -9,6 +9,7 @@
   import BoldIcon from '../icon/BoldIcon.svelte';
   import StrikethroughIcon from '../icon/StrikethroughIcon.svelte';
   import { fade } from 'svelte/transition';
+  import SvelteMarkdown from 'svelte-markdown';
 
   let postText = '';
   let isSubmitVisible = false;
@@ -16,27 +17,40 @@
   $: isDragging = false;
   let textarea: HTMLTextAreaElement;
   let attachments: File[] = [];
+  let writeMode = true;
 
   function performBold(e) {
+    let selectionEnd = textarea.selectionEnd;
     let selection = postText.substring(textarea.selectionStart, textarea.selectionEnd);
     let bolded = `**${selection}**`;
-    postText = postText.substring(0, textarea.selectionStart) + bolded + postText.substring(textarea.selectionEnd);
+    textarea.value = postText.substring(0, textarea.selectionStart) + bolded + postText.substring(textarea.selectionEnd);
+    postText = textarea.value;
+    textarea.selectionStart = textarea.selectionEnd = selectionEnd + 2;
+    textarea.focus();
     e.preventDefault();
     e.stopPropagation();
   }
 
   function performItalic(e) {
+    let selectionEnd = textarea.selectionEnd;
     let selection = postText.substring(textarea.selectionStart, textarea.selectionEnd);
     let italicized = `*${selection}*`;
-    postText = postText.substring(0, textarea.selectionStart) + italicized + postText.substring(textarea.selectionEnd);
+    textarea.value = postText.substring(0, textarea.selectionStart) + italicized + postText.substring(textarea.selectionEnd);
+    postText = textarea.value;
+    textarea.selectionStart = textarea.selectionEnd = selectionEnd + 1;
+    textarea.focus();
     e.preventDefault();
     e.stopPropagation();
   }
 
   function performStrikethrough(e) {
+    let selectionEnd = textarea.selectionEnd;
     let selection = postText.substring(textarea.selectionStart, textarea.selectionEnd);
     let strikethrough = `~~${selection}~~`;
-    postText = postText.substring(0, textarea.selectionStart) + strikethrough + postText.substring(textarea.selectionEnd);
+    textarea.value = postText.substring(0, textarea.selectionStart) + strikethrough + postText.substring(textarea.selectionEnd);
+    postText = textarea.value;
+    textarea.selectionStart = textarea.selectionEnd = selectionEnd + 2;
+    textarea.focus();
     e.preventDefault();
     e.stopPropagation();
   }
@@ -157,33 +171,43 @@
 
 <div class="flex flex-col items-stretch w-full mx-auto mb-2 bg-neutral-100 dark:bg-neutral-800 rounded-xl border-0 p-2 border-neutral-500 gap-2">
   <div class="flex flex-row items-center p-1 gap-1">
+    <div class="flex flex-row gap-4">
+      <button on:click={() => (writeMode = true)} class="hoverBlue">Write</button>
+      <button on:click={() => (writeMode = false)} class="hoverBlue">Preview</button>
+    </div>
     <span class="flex-1"></span>
-    <button on:click={performBold} class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><BoldIcon /></button>
-    <button on:click={performItalic} class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><ItalicIcon /></button>
-    <button on:click={performStrikethrough} class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><StrikethroughIcon /></button>
-    <span class="h-6 border-r mx-2"></span>
+    {#if writeMode}
+      <button on:click={performBold} class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><BoldIcon /></button>
+      <button on:click={performItalic} class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><ItalicIcon /></button>
+      <button on:click={performStrikethrough} class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><StrikethroughIcon /></button>
+      <span class="h-6 border-r mx-2"></span>
+    {/if}
     <label for="attachment-input">
       <div role="button" class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><PaperclipIcon /></div>
     </label>
     <input bind:this={fileInput} type="file" id="attachment-input" class="hidden" on:change={handleUpload} />
   </div>
 
-  <textarea
-    bind:value={postText}
-    bind:this={textarea}
-    on:input={() => (isSubmitVisible = postText.length > 0)}
-    on:dragover={handleDragEnter}
-    on:drop={handleDrop}
-    on:dragleave={handleDragLeave}
-    placeholder={isDragging ? 'Drop your files here' : 'Write something here...'}
-    disabled={submitting}
-    use:autosize
-    rows="4"
-    id="new-post-textarea"
-    class="w-full max-h-128 border-2 rounded-xl border-neutral-200 dark:border-good-dark-grey p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
-    class:bg-neutral-200={isDragging}
-    class:dark:bg-neutral-700={isDragging}
-  ></textarea>
+  {#if writeMode}
+    <textarea
+      bind:value={postText}
+      bind:this={textarea}
+      on:input={() => (isSubmitVisible = postText.length > 0)}
+      on:dragover={handleDragEnter}
+      on:drop={handleDrop}
+      on:dragleave={handleDragLeave}
+      placeholder={isDragging ? 'Drop your files here' : 'Write something here...'}
+      disabled={submitting}
+      use:autosize
+      rows="4"
+      id="new-post-textarea"
+      class="w-full max-h-128 border-2 rounded-xl border-neutral-200 dark:border-good-dark-grey p-2 bg-neutral-100 dark:bg-neutral-800 text-base rounded resize-none"
+      class:bg-neutral-200={isDragging}
+      class:dark:bg-neutral-700={isDragging}
+    ></textarea>
+  {:else}
+    <SvelteMarkdown source={postText} />
+  {/if}
 
   <div class="flex flex-row justify-end gap-2 transition fade-in-buttons">
     <button on:click={handleSubmit} class="btn-success px-8 py-1 text-white" disabled={!isSubmitVisible || submitting}>Submit</button>

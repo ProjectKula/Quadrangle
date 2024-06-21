@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Confession } from "$lib/graphql/confessions/confessions";
+  import type { Confession } from '$lib/graphql/confessions/confessions';
 
   export let confession: Confession;
   export let maxLength: number = 200;
@@ -25,9 +25,9 @@
 
 <div class="flex flex-col p-4 dark:bg-neutral-800 bg-neutral-200 rounded shadow">
   {#if link}
-  <a href={`/confession/${confession.id}`} class="hoverBlue text-2xl font-semibold">#{confession.id}</a>
+    <a href={`/confession/${confession.id}`} class="hoverBlue text-2xl font-semibold">#{confession.id}</a>
   {:else}
-  <h1 class="text-2xl font-semibold">#{confession.id}</h1>
+    <h1 class="text-2xl font-semibold">#{confession.id}</h1>
   {/if}
 
   <p class="overflow-y-auto">

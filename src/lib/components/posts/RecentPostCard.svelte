@@ -7,6 +7,7 @@
   import { getAuthTokenClient } from '$lib/auth';
   import { PUBLIC_BUCKET_URL } from '$env/static/public';
   import AttachmentCarousel from './AttachmentCarousel.svelte';
+  import SvelteMarkdown from 'svelte-markdown';
 
   export let post: RecentPost;
   
@@ -60,9 +61,9 @@
 
   <AttachmentCarousel attachments={post.attachments} />
   
-  <p class="min-width-0 text-lg">
-    {post.content}
-  </p>
+  <div class="min-width-0 text-lg">
+    <SvelteMarkdown source={post.content} />
+  </div>
 
   <p class="flex flex-row gap-4 pl-1">
 
