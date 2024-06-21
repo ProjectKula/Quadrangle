@@ -31,11 +31,11 @@
   let disabledFollow = false;
 
   function followUser(id: number) {
-    followedBySelf = true;
+    data.followedBySelf = true;
     disabledFollow = true;
     follow(data.id, getAuthTokenClient())
       .then((num) => {
-        followers = num;
+        data.followerCount = num;
       })
       .finally(() => {
         disabledFollow = false;
@@ -43,11 +43,11 @@
   }
 
   function unfollowUser(id: number) {
-    followedBySelf = false;
+    data.followedBySelf = false;
     disabledFollow = true;
     unfollow(data.id, getAuthTokenClient())
       .then((num) => {
-        followers = num;
+        data.followerCount = num;
       })
       .finally(() => {
         disabledFollow = false;
