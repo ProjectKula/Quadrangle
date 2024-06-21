@@ -1,0 +1,16 @@
+query AllUsers {
+    users {
+        id
+        name
+        dateRegistered
+        gender
+        pronouns
+        bio
+        branch
+        isSelf
+        followerCount
+        followingCount
+        followedBySelf
+        avatarHash
+    }
+}
