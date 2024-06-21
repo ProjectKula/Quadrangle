@@ -8,7 +8,7 @@
   }
 
   export let data: Data;
-  $: users = data.users;
+  $: users = data.users.sort((a, b) => - (a.id - b.id));
 
   const formatDate = (unixSeconds: number) => {
     const date = new Date(Math.round(unixSeconds) * 1000);
