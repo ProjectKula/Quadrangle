@@ -63,6 +63,7 @@ type Query {
   recentPosts(count: Int!, before: Int): [Post!]!
   self: RegisteredUser!
   user(id: Int!): RegisteredUser!
+  users: [RegisteredUser!]!
 }
 
 type RegisteredUser {
