@@ -22,7 +22,7 @@
 <div class="flex flex-col gap-4">
   {#each users as user}
   <div class="flex flex-col bg-neutral-200 p-4 rounded-lg dark:bg-neutral-800">
-    <div class="flex flex-col md:flex-row mb-4">
+    <div class="flex flex-col md:flex-row">
       <img src={user.avatarHash ? `${PUBLIC_BUCKET_URL}/${user.avatarHash}` : '/default_pfp.svg'} alt="Avatar" class="w-32 h-32 rounded-full" />
       <div class="flex flex-col md:ml-4">
         <div class="flex flex-row items-center flex-wrap gap-2">
