@@ -19,6 +19,10 @@
   };
 </script>
 
+<svelte:head>
+  <title>Explore</title>
+</svelte:head>
+
 <div class="flex flex-col gap-4">
   {#each users as user}
   <div class="flex flex-col bg-neutral-200 p-4 rounded-lg dark:bg-neutral-800">

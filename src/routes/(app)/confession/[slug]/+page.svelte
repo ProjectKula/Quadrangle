@@ -10,6 +10,11 @@
   $: positive = data.id > 1;
 </script>
 
+<svelte:head>
+  {#key data.id}
+    <title>Confession {data.id}</title>
+  {/key}
+</svelte:head>
 
 <a href="/confess" class="flex gap-2 items-center hoverBlue">
   <Fa icon={faArrowLeft} />
