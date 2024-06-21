@@ -55,6 +55,7 @@ type PostPage {
 }
 
 type Query {
+  confession(id: Int!): Confession!
   confessions(page: Int!, per: Int!): ConfessionPage!
   latestConfession: Confession
   post(id: String!): Post!
