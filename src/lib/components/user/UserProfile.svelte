@@ -18,9 +18,23 @@
     return `${day}/${month}/${year}`;
   };
 
+  let followers = data.followerCount;
+  let following = data.followingCount;
+  let followedBySelf = data.followedBySelf;
+
   let avatarUrl = data.avatarHash ? `${PUBLIC_BUCKET_URL}/${data.avatarHash}` : '/default_pfp.svg';
 
   let showEditModal = false;
+
+  function followUser (id: number) {
+    followers++;
+    followedBySelf = true;
+  }
+
+  function unfollowUser (id: number) {
+    followers--;
+    followedBySelf = false;
+  }
 </script>
 
 <div class="flex flex-col">
@@ -37,19 +51,25 @@
       <p class="text-neutral-500">{getBranchName(data.branch)}</p>
 
       <div class="grid grid-cols-2 gap-x-5 gap-y-2 w-52 text-center">
-        <p>{data.followerCount} follower{data.followerCount === 1 ? "" : "s"} </p>
-        <p>{data.followingCount} following</p>
+        <p>{followers} follower{followers === 1 ? '' : 's'}</p>
+        <p>{following} following</p>
 
         {#if data.isSelf}
-          <button class="btn-success py-1 text-black" on:click={() => showEditModal = true}>Edit Profile</button>
+          <button class="btn-success py-1 text-black" on:click={() => (showEditModal = true)}>Edit Profile</button>
           <a href="/settings" class="contents"><button class="btn-secondary py-1 invertColors">Settings</button></a>
+        {:else}
+          {#if followedBySelf}
+            <button class="col-span-2 btn-secondary py-1 invertColors" on:click={() => unfollowUser(data.id)}>Unfollow</button>
+          {:else}
+            <button class="col-span-2 btn-success py-1 text-black" on:click={() => followUser(data.id)}>Follow</button>
+          {/if}
         {/if}
       </div>
 
       {#if data.bio}
         <p class="">{data.bio}</p>
       {/if}
-      
+
       <p class="">Reg. #{data.id} • User since {formatDate(data.dateRegistered)}</p>
     </div>
   </div>
@@ -63,11 +83,11 @@
     <h1 class="text-semibold text-xl">Recent posts</h1>
 
     {#each posts as post}
-      <RecentPostCard post={post} />
+      <RecentPostCard {post} />
     {/each}
   </div>
 </div>
 
 {#if data.isSelf}
-  <EditProfileModal bind:pronouns={data.pronouns} bind:bio={data.bio} bind:show={showEditModal} bind:avatarUrl={avatarUrl} />
+  <EditProfileModal bind:pronouns={data.pronouns} bind:bio={data.bio} bind:show={showEditModal} bind:avatarUrl />
 {/if}
