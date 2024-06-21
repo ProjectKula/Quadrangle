@@ -4,6 +4,8 @@
   import { getBranchName } from '$lib/misc/branches';
   import RecentPostCard from '$lib/components/posts/RecentPostCard.svelte';
   import EditProfileModal from './EditProfileModal.svelte';
+  import { follow, unfollow } from '$lib/graphql/user/follow/following';
+  import { getAuthTokenClient } from '$lib/auth';
 
   export let data: User;
   let posts = data.posts.items.sort((a, b) => b.createdAt - a.createdAt);
@@ -26,14 +28,30 @@
 
   let showEditModal = false;
 
+  let disabledFollow = false;
+
   function followUser (id: number) {
-    followers++;
     followedBySelf = true;
+    disabledFollow = true;
+    follow(data.id, getAuthTokenClient())
+      .then((num) => {
+        followers = num;
+      })
+      .finally(() => {
+        disabledFollow = false;
+      });
   }
 
   function unfollowUser (id: number) {
-    followers--;
     followedBySelf = false;
+    disabledFollow = true;
+    unfollow(data.id, getAuthTokenClient())
+      .then((num) => {
+        followers = num;
+      })
+      .finally(() => {
+        disabledFollow = false;
+      });
   }
 </script>
 
@@ -59,9 +77,9 @@
           <a href="/settings" class="contents"><button class="btn-secondary py-1 invertColors">Settings</button></a>
         {:else}
           {#if followedBySelf}
-            <button class="col-span-2 btn-secondary py-1 invertColors" on:click={() => unfollowUser(data.id)}>Unfollow</button>
+            <button disabled={disabledFollow} class="col-span-2 btn-secondary py-1 invertColors" on:click={() => unfollowUser(data.id)}>Unfollow</button>
           {:else}
-            <button class="col-span-2 btn-success py-1 text-black" on:click={() => followUser(data.id)}>Follow</button>
+            <button disabled={disabledFollow} class="col-span-2 btn-success py-1 text-black" on:click={() => followUser(data.id)}>Follow</button>
           {/if}
         {/if}
       </div>
