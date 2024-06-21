@@ -1,0 +1,7 @@
+query LatestConfession($id: Int!) {
+    confession(id: $id) {
+        id
+        content
+        createdAt
+    }
+}

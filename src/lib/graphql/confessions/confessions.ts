@@ -3,6 +3,7 @@ import { getRoot } from '$lib';
 import latestConfessionQuery from './confessionLatest.graphql?raw';
 import confessionsPageQuery from './confessionsPage.graphql?raw';
 import confessQuery from './confess.graphql?raw';
+import getConfessionQuery from './confession.graphql?raw';
 
 export interface Confession {
   id: number;
@@ -30,6 +31,10 @@ export interface Data0 {
 
 export interface Data1 {
     confess: Confession
+}
+
+export interface Data2 {
+    confession: Confession
 }
 
 export async function latestConfession(accessToken: string) {
@@ -63,4 +68,15 @@ export async function confess(accessToken: string, content: string): Promise<Con
     );
     
     return data.confess;
+}
+
+export async function getConfession(id: number, accessToken: string) {
+    const data = await request<Data2>(
+        `${getRoot()}/graphql`,
+        getConfessionQuery,
+        { id: id },
+        { Authorization: `Bearer ${accessToken}` }
+    );
+
+    return data.confession;
 }

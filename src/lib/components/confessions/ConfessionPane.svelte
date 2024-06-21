@@ -14,16 +14,23 @@
     hour: '2-digit',
     minute: '2-digit'
   });
+  let readMore = false;
   let truncatedContent = confession.content.slice(0, maxLength);
   if (truncatedContent.length < confession.content.length) {
-    truncatedContent += '...';
+    truncatedContent = confession.content.slice(0, maxLength - 8);
+    readMore = true;
   }
 </script>
 
 <div class="flex flex-col p-4 dark:bg-neutral-800 bg-neutral-200 rounded shadow">
   <h1 class="text-2xl font-semibold">#{confession.id}</h1>
 
-  <p class="overflow-y-auto">{truncatedContent}</p>
+  <p class="overflow-y-auto">
+    {truncatedContent}
+    {#if readMore}
+      <a href={`/confessions/${confession.id}`} class="text-blue-500">...read more</a>
+    {/if}
+  </p>
 
   <span class="flex-1"></span>
 
