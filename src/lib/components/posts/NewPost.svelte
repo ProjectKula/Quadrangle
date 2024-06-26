@@ -185,7 +185,7 @@
     <label for="attachment-input">
       <div role="button" class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><PaperclipIcon /></div>
     </label>
-    <input bind:this={fileInput} type="file" id="attachment-input" class="hidden" on:change={handleUpload} />
+    <input bind:this={fileInput} type="file" accept="image/png,image/jpeg,image/gif,image/webp" id="attachment-input" class="hidden" on:change={handleUpload} />
   </div>
 
   {#if writeMode}
