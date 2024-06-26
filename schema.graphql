@@ -28,6 +28,22 @@ type Mutation {
   unlikePost(id: String!): Int!
 }
 
+type Notification {
+  createdAt: Float
+  id: String
+  referencePost: Post
+  referenceUser: RegisteredUser
+  targetUser: RegisteredUser!
+  type: NotificationType!
+}
+
+enum NotificationType {
+  follow
+  like
+  comment
+  mention
+}
+
 type PageMetadata {
   page: Int!
   pageCount: Int!
