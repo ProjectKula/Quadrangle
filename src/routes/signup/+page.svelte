@@ -28,6 +28,9 @@
     if (id === '') {
       idError = 'Please enter your RVCE ID';
       idValid = false;
+    } else if (id.startsWith("1RV")) {
+      idError = 'Please enter your RVCE ID (not USN)';
+      idValid = false;
     } else if (id.length < 8) {
       idError = 'ID must be at least 8 characters';
       idValid = false;
