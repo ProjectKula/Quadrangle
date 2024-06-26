@@ -5,11 +5,11 @@
   import { faHeart } from '@fortawesome/free-regular-svg-icons';
   import { likePost, unlikePost } from '$lib/graphql/post/like';
   import { getAuthTokenClient } from '$lib/auth';
-  import { PUBLIC_BUCKET_URL } from '$env/static/public';
   import AttachmentCarousel from './AttachmentCarousel.svelte';
   import SvelteMarkdown from 'svelte-markdown';
+  import type { Post } from '$lib/graphql/post';
 
-  export let post: RecentPost;
+  export let post: RecentPost | Post;
   
   let likesCount = post.likesCount;
   
@@ -52,7 +52,7 @@
   }
 </script>
 
-<div class="flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2">
+<a href="/post/{post.id}" class="cursor-default flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2">
 
   <div class="flex flex-row flex-shrink justify-between font-light gap-2 text-sm">
     <a class="text-lg dark:text-blue-400 dark:hover:text-blue-500 text-blue-500 hover:text-blue-600 transition" href="/user/{post.creator.id}">{post.creator.name}</a>
@@ -68,14 +68,14 @@
   <p class="flex flex-row gap-4 pl-1">
 
     {#if selfLiked}
-      <button class="text-red" on:click={onUnlike}>
+      <button class="text-red" on:click|preventDefault|stopPropagation={onUnlike}>
         <Fa icon={faHeartSolid} color="red" />
       </button>
     {:else}
-      <button class="hover:text-red transition duration-100" on:click={onLike}>
+      <button class="hover:text-red transition duration-100" on:click|preventDefault|stopPropagation={onLike}>
         <Fa icon={faHeart} />
       </button>
     {/if}
     {likesCount} Like{likesCount === 1 ? '' : 's'}
   </p>
-</div>
+</a>
