@@ -83,7 +83,7 @@
       </button>
       <h2 class="text-xl mb-4 font-semibold">Edit Profile</h2>
       <div class="flex flex-col gap-4">
-        <div class="flex flex-row items-center gap-4">
+        <div class="flex flex-col sm:flex-row items-center gap-4">
           {#if avatarUrl}
             <button class="btn-secondary py-1 px-2 invertColors" on:click={removeAvatar} disabled={disabled}>Remove</button>
           {/if}
