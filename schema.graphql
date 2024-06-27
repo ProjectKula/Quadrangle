@@ -21,6 +21,8 @@ type Mutation {
   followUser(id: Int!): Int!
   likeConfession(id: Int!): Int!
   likePost(id: String!): Int!
+  readAllNotifications: Int!
+  readNotification(id: String!): Boolean!
   replyToPost(to: String!, content: String!, attachments: [String!]): Post!
   restorePost(id: String!): Post!
   unfollowUser(id: Int!): Int!
