@@ -101,6 +101,7 @@ type RegisteredUser {
   id: Int
   isSelf: Boolean!
   name: String!
+  notifications: [Notification!]!
   personalEmail: String
   phone: String!
   posts(page: Int!, per: Int!): PostPage!
