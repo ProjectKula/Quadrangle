@@ -1,15 +1,17 @@
 query Notifications {
-    notifications {
-        id
-        createdAt
-        type
-        referencePost {
+    self {
+        notifications {
             id
-        }
-        referenceUser {
-            id
-            name
-            avatarHash
+            createdAt
+            type
+            referencePost {
+                id
+            }
+            referenceUser {
+                id
+                name
+                avatarHash
+            }
         }
     }
 }

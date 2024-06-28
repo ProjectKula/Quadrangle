@@ -3,6 +3,7 @@
   import Fa from 'svelte-fa';
   import { page } from '$app/stores';
   import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+  import Notifications from './user/Notifications.svelte';
 
   let menuItems = [
     { text: '🏠 Home', icon: faHome, link: '/' },
@@ -56,6 +57,8 @@
   {/each}
 
   <div class="flex flex-1"></div>
+
+  <Notifications />
   
   <div class="block"><ThemeSwitcher /></div>
 </div>

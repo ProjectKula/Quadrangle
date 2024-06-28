@@ -1,11 +1,27 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import { getAuthTokenClient } from '$lib/auth';
-  import { getNotifs, Notification } from '$lib/graphql/user/notifs';
+  import { getNotifs } from '$lib/graphql/user/notifs';
   import { onMount } from 'svelte';
   import Spinner from '../util/Spinner.svelte';
   import { quintOut } from 'svelte/easing';
   import { fade, fly } from 'svelte/transition';
+
+  interface ReferencePost {
+    id: string;
+  }
+  interface ReferenceUser {
+    id: number;
+    name: string;
+    avatarHash: string;
+  }
+  interface Notification {
+    id: string;
+    createdAt: number; // seconds since epoch
+    type: 'follow' | 'like' | 'comment' | 'mention';
+    referencePost: ReferencePost;
+    referenceUser: ReferenceUser;
+  }
 
   let notifications: Notification[] = [];
   let loading = true;
@@ -37,8 +53,18 @@
 {#if !loading && display}
   <div class="fixed inset-0 z-50 flex items-center justify-center transition">
     <button transition:fade={{ duration: 150 }} on:click={() => (display = false)} class="cursor-default absolute inset-0 bg-black opacity-50"></button>
-    <div transition:fly={{ delay: 0, duration: 200, x: 0, y: 500, easing: quintOut }} class="relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md">
-      
+    <div transition:fly={{ delay: 0, duration: 200, x: 0, y: 500, easing: quintOut }} class="relative bg-white dark:bg-neutral-800 rounded-lg p-8 max-w-md max-h-96 overflow-scroll">
+      {#each notifications as notif}
+        <div class="flex flex-col">
+          {#if notif.type == 'follow'}
+            <span class="text-lg">👤 <a class="hoverBlue" href="/user/{notif.referenceUser.id}">{notif.referenceUser.name}</a> followed you</span>
+          {:else if notif.type == 'like'}
+            <span class="text-lg">❤️ <a class="hoverBlue" href="/post/{notif.referencePost.id}">{notif.referenceUser.name}</a> liked your post</span>
+          {:else if notif.type == 'comment'}
+            <span class="text-lg">💬 <a class="hoverBlue" href="/post/{notif.referencePost.id}">{notif.referenceUser.name}</a> commented on your post</span>
+          {/if}
+        </div>
+      {/each}
     </div>
   </div>
 {/if}

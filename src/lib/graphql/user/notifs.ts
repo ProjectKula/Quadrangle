@@ -2,11 +2,11 @@ import request from 'graphql-request';
 import query from './notifs.graphql?raw';
 import { getRoot } from '$lib';
 
-interface ReferencePost {
+export interface ReferencePost {
     id: string
 }
 
-interface ReferenceUser {
+export interface ReferenceUser {
     id: number
     name: string
     avatarHash: string
@@ -32,5 +32,5 @@ export async function getNotifs(accessToken: string) {
         { Authorization: `Bearer ${accessToken}` }
     );
 
-    return out.notifications;
+    return out.self.notifications;
 }
