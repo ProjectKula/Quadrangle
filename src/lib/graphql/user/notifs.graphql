@@ -1,0 +1,15 @@
+query Notifications {
+    notifications {
+        id
+        createdAt
+        type
+        referencePost {
+            id
+        }
+        referenceUser {
+            id
+            name
+            avatarHash
+        }
+    }
+}
