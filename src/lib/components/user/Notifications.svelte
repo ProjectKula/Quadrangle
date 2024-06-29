@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import { getAuthTokenClient } from '$lib/auth';
-  import { getNotifs } from '$lib/graphql/user/notifs';
+  import { deleteNotifs, getNotifs } from '$lib/graphql/user/notifs';
   import { onMount } from 'svelte';
   import Spinner from '../util/Spinner.svelte';
   import { quintOut } from 'svelte/easing';
@@ -29,6 +29,7 @@
   let notifications: Notification[] = [];
   let loading = true;
   let display = false;
+  let disabled = false;
   export let closeCallback = () => {};
 
   if (browser) {
@@ -62,6 +63,15 @@
     display = false;
     closeCallback();
   }
+
+  function onClear() {
+    disabled = true;
+    deleteNotifs(getAuthTokenClient()).then(() => {
+      notifications = [];
+      disabled = false;
+      onLink();
+    });
+  }
 </script>
 
 <button class="flex flex-row" on:click={onClick}>
@@ -83,24 +93,29 @@
       </button>
       {#if notifications.length == 0}
         <span class="text-lg">No Notifications!</span>
-      {/if}
-      <div class="flex flex-col gap-2">
-        {#each notifications as notif}
-          <div class="flex flex-col">
-            <span class="text-md flex flex-row gap-2 items-center">
-              <span class="text-xs">{formatRelativeDate(notif.createdAt)}</span>
-              <span>
-                {#if notif.type == 'follow'}
-                  <a on:click={onLink} class="hoverBlue" href="/user/{notif.referenceUser.id}">{notif.referenceUser.name}</a> followed you
-                {:else if notif.type == 'like'}
-                  <a on:click={onLink} class="hoverBlue" href="/user/{notif.referenceUser.id}">{notif.referenceUser.name}</a> liked your
-                  <a on:click={onLink} class="hoverBlue" href="/post/{notif.referencePost.id}">post</a>
-                {/if}
-              </span>
-            </span>
+      {:else}
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2 max-h-80 overflow-scroll">
+            {#each notifications as notif}
+              <div class="flex flex-col">
+                <span class="text-md flex flex-row gap-2 items-center">
+                  <span class="text-xs">{formatRelativeDate(notif.createdAt)}</span>
+                  <span>
+                    {#if notif.type == 'follow'}
+                      <a on:click={onLink} class="hoverBlue" href="/user/{notif.referenceUser.id}">{notif.referenceUser.name}</a> followed you
+                    {:else if notif.type == 'like'}
+                      <a on:click={onLink} class="hoverBlue" href="/user/{notif.referenceUser.id}">{notif.referenceUser.name}</a> liked your
+                      <a on:click={onLink} class="hoverBlue" href="/post/{notif.referencePost.id}">post</a>
+                    {/if}
+                  </span>
+                </span>
+              </div>
+            {/each}
+
+            <button disabled={disabled} class="hoverBlue" on:click={onClear}>Clear all</button>
           </div>
-        {/each}
-      </div>
+        </div>
+      {/if}
     </div>
   </div>
 {/if}
