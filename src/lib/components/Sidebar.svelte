@@ -58,7 +58,7 @@
 
   <div class="flex flex-1"></div>
 
-  <Notifications />
+  <Notifications closeCallback={() => sidebarOpen = false}/>
   
   <div class="block"><ThemeSwitcher /></div>
 </div>
