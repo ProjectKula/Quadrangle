@@ -9,6 +9,7 @@
   import SvelteMarkdown from 'svelte-markdown';
   import type { Post } from '$lib/graphql/post';
   import { formatRelativeDate } from '$lib';
+  import PostLikes from './PostLikes.svelte';
 
   export let post: RecentPost | Post;
 
@@ -16,6 +17,7 @@
 
   let selfLiked = post.selfLiked;
   let loading = false;
+  let likesVisible = false;
 
   let date = new Date(post.createdAt * 1000);
   let dateStr = date.toLocaleDateString('en-US', {
@@ -51,10 +53,9 @@
         loading = false;
       });
   }
-
 </script>
 
-<div class="cursor-auto flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2"s>
+<div class="cursor-auto flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2" s>
   <div class="flex flex-row flex-shrink font-light gap-2 text-sm">
     <a class="text-lg dark:text-blue-400 dark:hover:text-blue-500 text-blue-500 hover:text-blue-600 transition" href="/user/{post.creator.id}">{post.creator.name}</a>
     <span class="flex-1"></span>
@@ -77,6 +78,12 @@
         <Fa icon={faHeart} />
       </button>
     {/if}
-    {likesCount} Like{likesCount === 1 ? '' : 's'}
+    <button on:click={() => (likesVisible = !likesVisible)}>
+      {likesCount} Like{likesCount === 1 ? '' : 's'}
+    </button>
   </p>
 </div>
+
+{#if likesVisible}
+  <PostLikes post={post} bind:display={likesVisible} />
+{/if}
