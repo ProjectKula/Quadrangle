@@ -18,18 +18,18 @@ export function formatRelativeDate(secondsSince1970: number): string {
         return "Now";
     } else if (elapsedSeconds < SECONDS_IN_AN_HOUR) {
         const minutes = Math.floor(elapsedSeconds / SECONDS_IN_A_MINUTE);
-        return `${minutes} m ago`;
+        return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
     } else if (elapsedSeconds < 48 * SECONDS_IN_AN_HOUR) {
         const hours = Math.floor(elapsedSeconds / SECONDS_IN_AN_HOUR);
-        return `${hours} h ago`;
+        return `${hours} hour${hours > 1 ? "s" : ""} ago`;
     } else if (elapsedSeconds < 7 * SECONDS_IN_A_DAY) {
         const days = Math.floor(elapsedSeconds / SECONDS_IN_A_DAY);
-        return `${days} d ago`;
+        return `${days} day${days > 1 ? "s" : ""} ago`;
     } else if (elapsedSeconds < SECONDS_IN_A_YEAR) {
         const weeks = Math.floor(elapsedSeconds / SECONDS_IN_A_WEEK);
-        return `${weeks} w ago`;
+        return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
     } else {
         const years = Math.floor(elapsedSeconds / SECONDS_IN_A_YEAR);
-        return `${years} y ago`;
+        return `${years} year${years > 1 ? "s" : ""} ago`;
     }
 }

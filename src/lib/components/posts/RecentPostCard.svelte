@@ -8,6 +8,7 @@
   import AttachmentCarousel from './AttachmentCarousel.svelte';
   import SvelteMarkdown from 'svelte-markdown';
   import type { Post } from '$lib/graphql/post';
+  import { formatRelativeDate } from '$lib';
 
   export let post: RecentPost | Post;
 
@@ -57,7 +58,7 @@
   <div class="flex flex-row flex-shrink font-light gap-2 text-sm">
     <a class="text-lg dark:text-blue-400 dark:hover:text-blue-500 text-blue-500 hover:text-blue-600 transition" href="/user/{post.creator.id}">{post.creator.name}</a>
     <span class="flex-1"></span>
-    <a href="/post/{post.id}/" class="text-lg">{dateStr}, {timeStr}</a>
+    <a href="/post/{post.id}/" class="text-lg">{formatRelativeDate(post.createdAt)}</a>
   </div>
 
   <AttachmentCarousel attachments={post.attachments} />
