@@ -1,7 +1,5 @@
 <script lang="ts">
   import { browser } from '$app/environment';
-  import { getAuthTokenClient } from '$lib/auth';
-  import { getLikesPage } from '$lib/graphql/post/like';
   import { faMultiply } from '@fortawesome/free-solid-svg-icons';
   import { onMount } from 'svelte';
   import Fa from 'svelte-fa';
@@ -10,18 +8,10 @@
   import Spinner from '../util/Spinner.svelte';
   import PetitUserProfile from '../user/PetitUserProfile.svelte';
 
-  export let display = false;
-  export let post: {
-    id: string;
-    likesCount: number;
-  };
-  $: likesCount = post.likesCount;
-
   let likeUsers: {
     id: number;
     name: string;
     avatarHash: string;
-    isSelf: boolean;
   }[] = [];
   let fetching = false;
   let loading = true;
@@ -50,11 +40,16 @@
     });
   }
 
+  export let getPage: (page: number) => Promise<{ items: { id: number, name: string, avatarHash: string}[], metadata: { page: number, per: number, pageCount: number, total: number } }>;
+  export let totalCount: number;
+  export let heading: string;
+  export let display = false;
+
   async function addNewLikes() {
     if (fetching) return;
     if (moreLikes) {
       fetching = true;
-      const likesPage = await getLikesPage(post.id, 5, pageNumber, getAuthTokenClient());
+      const likesPage = await getPage(pageNumber);
       likeUsers = [...likeUsers, ...likesPage.items];
       moreLikes = likeUsers.length < likesPage.metadata.total;
       pageNumber++;
@@ -71,14 +66,14 @@
     </button>
 
     <div class="flex flex-col items-center justify-center gap-4">
-      <h1 class="text-left w-full text-xl mb-4 font-semibold">Likes</h1>
+      <h1 class="text-left w-full text-xl mb-4 font-semibold">{heading}</h1>
       {#if loading}
         <Spinner />
-      {:else if likesCount === 0}
-        <p class="text-center text-neutral-500 dark:text-neutral-400">No likes yet</p>
+      {:else if totalCount === 0}
+        <p class="text-center text-neutral-500 dark:text-neutral-400">None yet</p>
       {:else}
-        {#each likeUsers as likeUser}
-          <PetitUserProfile user={likeUser} />
+        {#each likeUsers as user}
+          <PetitUserProfile user={user} />
         {/each}
 
         {#if moreLikes}

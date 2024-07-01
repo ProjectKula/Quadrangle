@@ -3,13 +3,13 @@
   import Fa from 'svelte-fa';
   import { faHeart as faHeartSolid } from '@fortawesome/free-solid-svg-icons';
   import { faHeart } from '@fortawesome/free-regular-svg-icons';
-  import { likePost, unlikePost } from '$lib/graphql/post/like';
+  import { getLikesPage, likePost, unlikePost } from '$lib/graphql/post/like';
   import { getAuthTokenClient } from '$lib/auth';
   import AttachmentCarousel from './AttachmentCarousel.svelte';
   import SvelteMarkdown from 'svelte-markdown';
   import type { Post } from '$lib/graphql/post';
   import { formatRelativeDate } from '$lib';
-  import PostLikes from './PostLikes.svelte';
+  import LazyUserListModal from './LazyUserListModal.svelte';
 
   export let post: RecentPost | Post;
 
@@ -85,5 +85,5 @@
 </div>
 
 {#if likesVisible}
-  <PostLikes post={post} bind:display={likesVisible} />
+  <LazyUserListModal getPage={(num) => getLikesPage(post.id, 5, num, getAuthTokenClient())} totalCount={post.likesCount} heading="Likes" bind:display={likesVisible} />
 {/if}
