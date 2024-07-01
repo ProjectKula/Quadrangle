@@ -10,6 +10,7 @@
   import type { Post } from '$lib/graphql/post';
   import { formatRelativeDate } from '$lib';
   import LazyUserListModal from './LazyUserListModal.svelte';
+  import ShareIcon from '../icon/ShareIcon.svelte';
 
   export let post: RecentPost | Post;
 
@@ -68,19 +69,21 @@
     <SvelteMarkdown source={post.content} />
   </div>
 
-  <p class="flex flex-row gap-4 pl-1">
+  <p class="flex flex-row items-center gap-4 pl-1">
     {#if selfLiked}
-      <button class="text-red" on:click|preventDefault|stopPropagation={onUnlike}>
-        <Fa icon={faHeartSolid} color="red" />
+      <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300 text-red" on:click|preventDefault|stopPropagation={onUnlike}>
+        <Fa size="lg" icon={faHeartSolid} color="red" />
       </button>
     {:else}
-      <button class="hover:text-red transition duration-100" on:click|preventDefault|stopPropagation={onLike}>
-        <Fa icon={faHeart} />
+      <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300 hover:text-red duration-100" on:click|preventDefault|stopPropagation={onLike}>
+        <Fa size="lg" icon={faHeart} />
       </button>
     {/if}
     <button on:click={() => (likesVisible = !likesVisible)}>
       {likesCount} Like{likesCount === 1 ? '' : 's'}
     </button>
+    <span class="flex-1"></span>
+    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><ShareIcon /></button>
   </p>
 </div>
 
