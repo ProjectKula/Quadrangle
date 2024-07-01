@@ -1,0 +1,18 @@
+query GetPostLikes($postId: String!, $page: Int!, $perPage: Int!) {
+  post(id: $postId) {
+    likes(page: $page, per: $perPage) {
+      items {
+        id
+        name
+        avatarHash
+        isSelf
+      }
+      metadata {
+        page
+        pageCount
+        per
+        total
+      }
+    }
+  }
+}
