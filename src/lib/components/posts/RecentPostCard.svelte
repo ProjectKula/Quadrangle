@@ -11,6 +11,8 @@
   import { formatRelativeDate } from '$lib';
   import LazyUserListModal from './LazyUserListModal.svelte';
   import ShareIcon from '../icon/ShareIcon.svelte';
+  import SuccessBanner from '../banner/SuccessBanner.svelte';
+  import { fade } from 'svelte/transition';
 
   export let post: RecentPost | Post;
 
@@ -54,6 +56,18 @@
         loading = false;
       });
   }
+
+  function copyToClipboard() {
+    navigator.clipboard.writeText(window.location.origin + '/post/' + post.id);
+    message = 'Copied to clipboard!';
+    if (timeout) clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      message = '';
+    }, 1000);
+  }
+
+  let timeout: never;
+  let message: string = '';
 </script>
 
 <div class="cursor-auto flex flex-col flex-1 rounded-xl bg-neutral-100 dark:bg-neutral-800 p-2" s>
@@ -83,9 +97,23 @@
       {likesCount} Like{likesCount === 1 ? '' : 's'}
     </button>
     <span class="flex-1"></span>
-    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300"><ShareIcon /></button>
+    <button class="p-1 rounded-md transition hover:dark:bg-neutral-700 hover:bg-neutral-300" on:click={copyToClipboard}><ShareIcon /></button>
   </p>
 </div>
+
+{#if message}
+  <SuccessBanner
+    {message}
+    onClose={() => (message = '')}
+    onHover={() => {
+      if (timeout) clearTimeout(timeout);
+    }}
+    onUnhover={() =>
+      (timeout = setTimeout(() => {
+        message = '';
+      }, 1000))}
+  />
+{/if}
 
 {#if likesVisible}
   <LazyUserListModal getPage={(num) => getLikesPage(post.id, 5, num, getAuthTokenClient())} totalCount={post.likesCount} heading="Likes" bind:display={likesVisible} />
