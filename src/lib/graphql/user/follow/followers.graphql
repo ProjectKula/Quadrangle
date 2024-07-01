@@ -1,0 +1,18 @@
+query GetUserFollowers($userId: Int!, $page: Int!, $perPage: Int!) {
+  user(id: $userId) {
+    followers(page: $page, per: $perPage) {
+      items {
+        id
+        name
+        avatarHash
+        isSelf
+      }
+      metadata {
+        page
+        pageCount
+        per
+        total
+      }
+    }
+  }
+}

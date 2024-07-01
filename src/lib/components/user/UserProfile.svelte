@@ -4,8 +4,9 @@
   import { getBranchName } from '$lib/misc/branches';
   import RecentPostCard from '$lib/components/posts/RecentPostCard.svelte';
   import EditProfileModal from './EditProfileModal.svelte';
-  import { follow, unfollow } from '$lib/graphql/user/follow/following';
+  import { follow, getFollowers, getFollowing, unfollow } from '$lib/graphql/user/follow/following';
   import { getAuthTokenClient } from '$lib/auth';
+  import LazyUserListModal from '../posts/LazyUserListModal.svelte';
 
   export let data: User;
   let posts = data.posts.items.sort((a, b) => b.createdAt - a.createdAt);
@@ -23,6 +24,9 @@
   $: followers = data.followerCount;
   $: following = data.followingCount;
   $: followedBySelf = data.followedBySelf;
+
+  let displayFollowersModal = false;
+  let displayFollowingModal = false;
 
   let avatarUrl = data.avatarHash ? `${PUBLIC_BUCKET_URL}/${data.avatarHash}` : '/default_pfp.svg';
 
@@ -71,10 +75,9 @@
       </p>
 
       <div class="flex flex-col w-60">
-
         <div class="grid grid-cols-2 gap-x-5 gap-y-2 text-center">
-          <p>{followers} follower{followers === 1 ? '' : 's'}</p>
-          <p>{following} following</p>
+          <button on:click={() => displayFollowersModal = true}>{followers} follower{followers === 1 ? '' : 's'}</button>
+          <button on:click={() => displayFollowingModal = true}>{following} following</button>
 
           {#if data.isSelf}
             <button class="btn-success py-1 text-black" on:click={() => (showEditModal = true)}>Edit Profile</button>
@@ -106,7 +109,7 @@
   <!--	</div>-->
   <div class="flex flex-col gap-4 m-4 w-full max-w-screen-sm place-self-center">
     <h1 class="text-semibold text-xl">
-      {data.isSelf? 'Your' : 'Recent'} posts
+      {data.isSelf ? 'Your' : 'Recent'} posts
     </h1>
 
     {#each posts as post}
@@ -117,4 +120,12 @@
 
 {#if data.isSelf}
   <EditProfileModal bind:pronouns={data.pronouns} bind:bio={data.bio} bind:show={showEditModal} bind:avatarUrl />
+{/if}
+
+{#if displayFollowersModal}
+  <LazyUserListModal getPage={(num) => getFollowers(data.id, 5, num, getAuthTokenClient())} totalCount={followers} heading="Followers" bind:display={displayFollowersModal} />
+{/if}
+
+{#if displayFollowingModal}
+  <LazyUserListModal getPage={(num) => getFollowing(data.id, 5, num, getAuthTokenClient())} totalCount={following} heading="Following" bind:display={displayFollowingModal} />
 {/if}

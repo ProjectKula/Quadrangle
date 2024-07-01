@@ -6,7 +6,7 @@
   let avatarUrl = user.avatarHash ? `${PUBLIC_BUCKET_URL}/${user.avatarHash}` : '/default_pfp.svg';
 </script>
 
-<div class="flex gap-2 w-full">
+<div class="flex gap-2 w-full items-center">
   <img src={avatarUrl} alt ="Avatar" class = "w-8 h-8 rounded-full" />
 
   <a href="/user/{user.id}" class="hoverBlue">{user.name}</a>
