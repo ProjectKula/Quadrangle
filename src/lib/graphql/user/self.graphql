@@ -12,6 +12,9 @@ query Self {
         followingCount
         avatarHash
         ...UserPosts
+        badges {
+            type
+        }
     }
 }
 

@@ -12,5 +12,8 @@ query AllUsers {
         followingCount
         followedBySelf
         avatarHash
+        badges {
+            type
+        }
     }
 }

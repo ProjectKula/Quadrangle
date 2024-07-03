@@ -19,6 +19,7 @@ export interface User {
     followedBySelf: boolean;
     avatarHash: string | null;
     posts: PostPage;
+    badges: { type: string }[];
 }
 
 export interface PostPage {

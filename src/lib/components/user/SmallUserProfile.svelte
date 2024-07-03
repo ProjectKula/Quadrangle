@@ -5,6 +5,7 @@
   import type { User } from '$lib/graphql/user/user';
   import { getBranchName } from '$lib/misc/branches';
   import LazyUserListModal from '../posts/LazyUserListModal.svelte';
+  import Badge from './Badge.svelte';
 
   export let data: User;
   export let linked: boolean = false;
@@ -37,6 +38,9 @@
           {data.name}
         {/if}
       </h2>
+      {#each data.badges as badge}
+        <Badge type={badge.type} />
+      {/each}
       {#if data.pronouns}
         <p class="text-neutral-500">{data.pronouns}</p>
       {/if}
@@ -48,8 +52,8 @@
 
     <div class="flex flex-col w-60">
       <div class="grid grid-cols-2 gap-x-5 gap-y-2 text-center">
-        <button on:click={() => displayFollowersModal = true}>{followers} follower{followers === 1 ? '' : 's'}</button>
-        <button on:click={() => displayFollowingModal = true}>{following} following</button>
+        <button on:click={() => (displayFollowersModal = true)}>{followers} follower{followers === 1 ? '' : 's'}</button>
+        <button on:click={() => (displayFollowingModal = true)}>{following} following</button>
 
         <slot name="grid-extra"></slot>
       </div>
