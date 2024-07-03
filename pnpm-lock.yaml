@@ -54,6 +54,9 @@ importers:
       '@playwright/test':
         specifier: ^1.44.1
         version: 1.44.1
+      '@prgm/sveltekit-progress-bar':
+        specifier: 2.0.0
+        version: 2.0.0(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))(svelte@4.2.18)
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.2(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))
@@ -955,6 +958,13 @@ packages:
 
   '@polka/url@1.0.0-next.25':
     resolution: {integrity: sha512-j7P6Rgr3mmtdkeDGTe0E/aYyWEWVtc5yFXtHCRHs28/jptDEWfaVOc5T7cblqy1XKPPfCxJc/8DwQ5YgLOZOVQ==}
+
+  '@prgm/sveltekit-progress-bar@2.0.0':
+    resolution: {integrity: sha512-N9SlYDfpqaY9MyG85Wk38R9/BipIUdTJ4U7LVPY5cFn5cwGZrVA1lsXC3I2kmGtwz+DF6v/DvySkYOWCPmJV4A==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@sveltejs/kit': ^2.0.0
+      svelte: ^4.0.0
 
   '@repeaterjs/repeater@3.0.6':
     resolution: {integrity: sha512-Javneu5lsuhwNCryN+pXH93VPQ8g0dBX7wItHFgYiwQmzE1sVdg5tWHiOgHywzL2W21XQopa7IwIEnNbmeUJYA==}
@@ -4186,6 +4196,11 @@ snapshots:
       playwright: 1.44.1
 
   '@polka/url@1.0.0-next.25': {}
+
+  '@prgm/sveltekit-progress-bar@2.0.0(@sveltejs/kit@2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))(svelte@4.2.18)':
+    dependencies:
+      '@sveltejs/kit': 2.5.18(@sveltejs/vite-plugin-svelte@3.1.1(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6)))(svelte@4.2.18)(vite@5.3.3(@types/node@20.14.6))
+      svelte: 4.2.18
 
   '@repeaterjs/repeater@3.0.6': {}
 
