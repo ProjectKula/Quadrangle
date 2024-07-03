@@ -4,13 +4,13 @@
   import Header from '$lib/components/Header.svelte';
 </script>
 
-<div class="flex flex-row flex-1 h-screen overflow-hidden">
+<div class="flex flex-row flex-1 sm:h-screen sm:overflow-hidden">
   <div class="contents max-sm:hidden">
     <Sidebar />
   </div>
-  <div class="flex flex-col flex-1">
+  <div class="flex flex-col flex-1 max-sm:min-h-screen">
     <Header />
-    <div class="p-4 h-full overflow-scroll">
+    <div class="p-4 h-full sm:overflow-scroll">
       <slot />
     </div>
   </div>
