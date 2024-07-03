@@ -25,5 +25,5 @@ export async function POST({ request, cookies }) {
     cookies.set('refreshToken', newAuth.refreshToken, defaultCookieOpts);
     cookies.set('expiresAt', String(newAuth.expiresAt), defaultCookieOpts);
 
-    throw redirect(302, '/');
+    redirect(302, '/');
 }
