@@ -8,7 +8,7 @@
   import type { User } from '$lib/graphql/user/user';
 
   export let data: { data: [SearchResult]; query: string };
-  let searchResults: [SearchResult] = data.data;
+  $: searchResults = data.data;
 
   function asUser(result: SearchResult): User {
     return result as unknown as User;
@@ -27,7 +27,7 @@
   <title>Results for {data.query}</title>
 </svelte:head>
 
-{#key data.query}
+{#key data}
   <div class="flex flex-col gap-4 items-center">
     {#each searchResults as result}
       <div class="flex bg-neutral-200 p-4 rounded-lg dark:bg-neutral-800 w-full">

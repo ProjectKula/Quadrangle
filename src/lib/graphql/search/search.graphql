@@ -27,6 +27,7 @@ query Search($query: String!) {
                 name
                 avatarHash
             }
+            attachments
         }
         ... on Confession {
             id
