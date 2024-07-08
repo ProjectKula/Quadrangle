@@ -1,0 +1,37 @@
+query Search($query: String!) {
+    search(query: $query) {
+        __typename
+        ... on RegisteredUser {
+            id
+            name
+            dateRegistered
+            gender
+            pronouns
+            bio
+            branch
+            followerCount
+            followingCount
+            avatarHash
+            badges {
+                type
+            }
+        }
+        ... on Post {
+            id
+            content
+            createdAt
+            likesCount
+            selfLiked
+            creator {
+                id
+                name
+                avatarHash
+            }
+        }
+        ... on Confession {
+            id
+            createdAt
+            content
+        }
+    }
+}

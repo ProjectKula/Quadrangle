@@ -88,6 +88,7 @@ type Query {
   post(id: String!): Post!
   posts(creator: Int!, page: Int!, per: Int!): PostPage!
   recentPosts(count: Int!, before: Int): [Post!]!
+  search(query: String!): [SearchResult!]!
   self: RegisteredUser!
   user(id: Int!): RegisteredUser!
   users: [RegisteredUser!]!
@@ -122,6 +123,8 @@ type RegisteredUserPage {
   items: [RegisteredUser!]!
   metadata: PageMetadata!
 }
+
+union SearchResult = RegisteredUser | Post | Confession
 
 type UnregisteredUser {
   branch: String!
