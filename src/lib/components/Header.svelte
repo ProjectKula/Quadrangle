@@ -3,8 +3,7 @@
   import { faMagnifyingGlass, faBars } from '@fortawesome/free-solid-svg-icons';
   import { browser } from '$app/environment';
   import Sidebar from './Sidebar.svelte';
-  import { slide } from 'svelte/transition';
-	import { quintOut } from 'svelte/easing';
+  import { quintOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
   import { fly } from 'svelte/transition';
 
@@ -20,6 +19,8 @@
     });
   }
 
+  let searchQuery: string;
+
   let showSidebar = false;
 </script>
 
@@ -27,16 +28,22 @@
   <button class="p-3 pr-5 transition rounded-md sm:hidden" on:click={() => (showSidebar = true)}>
     <Fa icon={faBars} size="lg" />
   </button>
-  <input type="text" bind:this={searchBar} placeholder="Search..." class="bg-neutral-100 flex flex-1 w-1 min-w-0 dark:bg-black text-lg p-2 border-good-grey rounded-md mr-2" />
-  <button class="p-3 bg-neutral-500 hover:bg-neutral-600 transition rounded-md text-white">
+  <input type="text"  name="q" bind:value={searchQuery} bind:this={searchBar} placeholder="Search..." class="bg-neutral-100 flex flex-1 w-1 min-w-0 dark:bg-black text-lg p-2 border-good-grey rounded-md mr-2" />
+  <a href="/search/{searchQuery}" class="p-3 bg-neutral-500 hover:bg-neutral-600 transition rounded-md text-white">
     <Fa icon={faMagnifyingGlass} size="lg" />
-  </button>
+  </a>
 </div>
 
 <div class="contents sm-hidden">
   {#if showSidebar}
     <div class="z-10 fixed inset-0 flex flex-row">
-      <button transition:fade={{ delay: 0, duration: 50 }} on:click={() => (showSidebar = false)} class="cursor-default absolute inset-0 bg-black transition delay-75" class:opacity-50={showSidebar} class:opacity-100={!showSidebar}></button>
+      <button
+        transition:fade={{ delay: 0, duration: 50 }}
+        on:click={() => (showSidebar = false)}
+        class="cursor-default absolute inset-0 bg-black transition delay-75"
+        class:opacity-50={showSidebar}
+        class:opacity-100={!showSidebar}
+      ></button>
       <div transition:fly={{ delay: 0, duration: 300, easing: quintOut, x: -100 }} class="relative" class:sidebarVisible={showSidebar} class:sidebarHidden={!showSidebar}>
         <Sidebar closeButton={true} bind:sidebarOpen={showSidebar} />
       </div>
