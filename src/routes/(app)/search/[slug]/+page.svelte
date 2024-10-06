@@ -29,6 +29,8 @@
 
 {#key data}
   <div class="flex flex-col gap-4 items-center">
+    <a href="/" class="hoverBlue">Back to home</a>
+
     {#each searchResults as result}
       <div class="flex bg-neutral-200 rounded-lg dark:bg-neutral-800 w-full max-w-screen-sm">
         {#if result.__typename == 'Post'}

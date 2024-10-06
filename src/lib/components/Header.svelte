@@ -6,6 +6,7 @@
   import { quintOut } from 'svelte/easing';
   import { fade } from 'svelte/transition';
   import { fly } from 'svelte/transition';
+  import { onMount } from 'svelte';
 
   let searchBar: HTMLInputElement;
 
@@ -16,6 +17,13 @@
         e.preventDefault();
         searchBar.focus();
       }
+    });
+    onMount(() => {
+      searchBar.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && searchQuery) {
+          window.location.href = `/search/${searchQuery}`;
+        }
+      });
     });
   }
 
@@ -28,7 +36,14 @@
   <button class="p-3 pr-5 transition rounded-md sm:hidden" on:click={() => (showSidebar = true)}>
     <Fa icon={faBars} size="lg" />
   </button>
-  <input type="text"  name="q" bind:value={searchQuery} bind:this={searchBar} placeholder="Search..." class="bg-neutral-100 flex flex-1 w-1 min-w-0 dark:bg-black text-lg p-2 border-good-grey rounded-md mr-2" />
+  <input
+    type="text"
+    name="q"
+    bind:value={searchQuery}
+    bind:this={searchBar}
+    placeholder="Search..."
+    class="bg-neutral-100 flex flex-1 w-1 min-w-0 dark:bg-black text-lg p-2 border-good-grey rounded-md mr-2"
+  />
   <a href="/search/{searchQuery}" class="p-3 bg-neutral-500 hover:bg-neutral-600 transition rounded-md text-white">
     <Fa icon={faMagnifyingGlass} size="lg" />
   </a>
