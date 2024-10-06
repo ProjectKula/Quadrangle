@@ -30,7 +30,7 @@
 {#key data}
   <div class="flex flex-col gap-4 items-center">
     {#each searchResults as result}
-      <div class="flex bg-neutral-200 p-4 rounded-lg dark:bg-neutral-800 w-full">
+      <div class="flex bg-neutral-200 rounded-lg dark:bg-neutral-800 w-full max-w-screen-sm">
         {#if result.__typename == 'Post'}
           <RecentPostCard post={asPost(result)} />
         {:else if result.__typename == 'RegisteredUser'}
