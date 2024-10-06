@@ -4,6 +4,7 @@ const engineeringBranches: { [key: string]: string } = {
     'BT': 'Biotechnology',
     'CD': 'Computer Science (Data Science)',
     'CH': 'Chemical Engineering',
+    'CI': 'Computer Science (Artificial Intelligence)',
     'CS': 'Computer Science',
     'CV': 'Civil Engineering',
     'CY': 'Computer Science (Cybersecurity)',
